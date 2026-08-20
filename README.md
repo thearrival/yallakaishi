@@ -1,8 +1,20 @@
 # Yalla Kaishi — 亚拉凯世 · Official Website
 
-Live site for **Yalla Kaishi Consultant Co., Ltd. (广州亚拉凯世咨询有限公司)** — a Guangzhou-based compliance operations platform bridging China and the GCC.
+Professional website for **Yalla Kaishi** — a Guangzhou-based cross-border business
+services company bridging China and the GCC (Saudi Arabia, UAE and the wider Gulf).
 
 🌐 **Live:** https://yallakaishi.com/
+
+## What we do
+
+Six services, one bridge — all bilingual (中文 / EN / العربية):
+
+1. Compliance Operations
+2. Regulatory Translation (AR ↔ ZH ↔ EN)
+3. Market Entry & Licensing (MISA / SAGIA)
+4. Partner Due Diligence
+5. Technology & Tools
+6. Training & Workshops
 
 ## Tech
 
@@ -23,22 +35,8 @@ Live site for **Yalla Kaishi Consultant Co., Ltd. (广州亚拉凯世咨询有�
 
 Push to `main` — GitHub Pages serves the repo root automatically.
 
-**Custom domain:** the `CNAME` file points at `yallakaishi.com`. The domain is
-on **Hostinger DNS parking** with two A records, so traffic round-robins
-between two servers:
+**Custom domain:** the `CNAME` file points at `yallakaishi.com`. The site is served
+from GitHub Pages IP `185.199.108.153`. HTTPS is enabled automatically once GitHub
+finishes issuing the certificate for the domain.
 
-| Record | Value | Effect |
-|--------|-------|--------|
-| A | `185.199.108.153` (GitHub Pages) | ✅ serves the real site |
-| A | `2.57.91.91` (Hostinger parking) | ❌ serves a generic parked page to ~50% of visitors |
-
-**Required fix (Hostinger hPanel → Domains → DNS / Zone editor):**
-1. Delete the `A` record pointing to `2.57.91.91`
-2. Keep the `A` record pointing to `185.199.108.153` (optionally also add
-   `.154`, `.155`, `.156`)
-3. Save and wait for propagation (~1h)
-
-Once the stray record is gone, GitHub auto-issues the HTTPS certificate
-(`https://yallakaishi.com` will work) and 100% of traffic reaches the site.
-
-© 2026 Yalla Kaishi Consultant Co., Ltd. — 筹备注册中
+© 2026 Yalla Kaishi · 亚拉凯世 · Guangzhou, China
