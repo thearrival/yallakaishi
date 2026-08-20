@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#060912"/>
+      <stop offset="1" stop-color="#0d1730"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1">
+      <stop offset="0" stop-color="#e8b34b"/>
+      <stop offset="1" stop-color="#2dd4bf"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="150" cy="120" r="260" fill="#e8b34b" opacity="0.07"/>
+  <circle cx="1050" cy="520" r="300" fill="#2dd4bf" opacity="0.07"/>
+  <path d="M40 315 C 400 60, 800 570, 1160 315" fill="none" stroke="url(#gold)" stroke-width="3" stroke-dasharray="14 10" opacity="0.8"/>
+  <circle cx="40" cy="315" r="16" fill="#e8b34b"/>
+  <circle cx="1160" cy="315" r="16" fill="#2dd4bf"/>
+  <g transform="translate(60,120)">
+    <path d="M32 4 58 18v28L32 60 6 46V18Z" fill="#0a1222" stroke="#e8b34b" stroke-width="3"/>
+    <path d="M22 40 32 22l10 18M26 34h12" stroke="#2dd4bf" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="600" y="300" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="64" font-weight="700" fill="#e9eef8" letter-spacing="6">YALLA KAISHI</text>
+  <text x="600" y="360" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" fill="#93a0b8" letter-spacing="4">COMPLIANCE OPERATIONS · 合规运营</text>
+  <text x="600" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#e8b34b" letter-spacing="2">Bridging China &amp; the Gulf — 连接中国与海湾</text>
+  <text x="600" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#66718a" letter-spacing="3">GUANGZHOU ⇄ RIYADH · PDPA · NCA-ECC · MISA · SAGIA · PIPL</text>
+</svg>
