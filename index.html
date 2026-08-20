@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yalla Kaishi — 亚拉凯世 · Compliance Operations for China ⇄ GCC</title>
+<meta name="description" content="Yalla Kaishi bridges China and the Gulf through compliance operations — regulatory translation, market-entry support and technology for SMEs. 亚拉凯世 — 连接中国与海湾的合规运营平台。" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 4 58 18v28L32 60 6 46V18Z' fill='%23060912' stroke='%23e8b34b' stroke-width='3'/%3E%3Cpath d='M22 40 32 22l10 18M26 34h12' stroke='%232dd4bf' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Reem+Kufi:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ══════════ PRELOADER ══════════ -->
+<div id="preloader" aria-hidden="true">
+  <div class="pre-inner">
+    <svg class="pre-hex" viewBox="0 0 64 64" width="72" height="72">
+      <path class="pre-hex-path" d="M32 4 58 18v28L32 60 6 46V18Z" />
+      <path class="pre-hex-mark" d="M22 40 32 22l10 18M26 34h12" />
+    </svg>
+    <div class="pre-bar"><div class="pre-bar-fill" id="preBar"></div></div>
+    <p class="pre-text">YALLA KAISHI <span class="ar">يلا كايشي</span></p>
+  </div>
+</div>
+
+<!-- scroll progress -->
+<div id="progress" aria-hidden="true"><span></span></div>
+
+<!-- ══════════ NAV ══════════ -->
+<header id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="Yalla Kaishi home">
+      <svg viewBox="0 0 64 64" width="34" height="34" class="brand-hex">
+        <path d="M32 4 58 18v28L32 60 6 46V18Z" />
+        <path d="M22 40 32 22l10 18M26 34h12" />
+      </svg>
+      <span class="brand-name">YALLA&nbsp;KAISHI<em class="brand-ar">يلا كايشي</em></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#gap" data-i18n="nav.gap">The Gap</a>
+      <a href="#bridge" data-i18n="nav.bridge">The Bridge</a>
+      <a href="#services" data-i18n="nav.services">Services</a>
+      <a href="#founder" data-i18n="nav.founder">Founder</a>
+      <a href="#guangzhou" data-i18n="nav.guangzhou">Guangzhou</a>
+      <a href="#roadmap" data-i18n="nav.roadmap">Roadmap</a>
+    </nav>
+    <div class="nav-actions">
+      <button id="langToggle" class="lang-toggle" aria-label="Switch language">EN / 中文</button>
+      <a href="#contact" class="btn btn-gold btn-sm" data-i18n="nav.cta">Get Started</a>
+      <button id="burger" class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="top" class="hero">
+  <canvas id="net"></canvas>
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="hero-grid-bg" aria-hidden="true"></div>
+  <div class="hero-watermark" aria-hidden="true">يلا كايشي</div>
+
+  <div class="hero-inner">
+    <p class="hero-overline" data-i18n="hero.overline">COMPLIANCE OPERATIONS · 合规运营 · 广州 ⇄ 利雅得</p>
+    <h1 class="hero-title">
+      <span class="line" data-i18n="hero.l1">Bridging China &amp; the Gulf.</span>
+      <span class="line grad" data-i18n="hero.l2">One compliance layer at a time.</span>
+    </h1>
+    <p class="hero-sub" data-i18n="hero.sub">Yalla Kaishi helps Guangzhou SMEs enter Saudi Arabia and the GCC with confidence — and helps Middle East companies build China-market compliance groundwork. Advisory · Documents · Technology.</p>
+    <div class="hero-cta">
+      <a href="#services" class="btn btn-gold" data-i18n="hero.cta1">Explore the Platform</a>
+      <a href="#contact" class="btn btn-ghost" data-i18n="hero.cta2">Book a Free Consultation</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><b data-i18n="hero.s1">$230B+</b><span data-i18n="hero.s1l">China–GCC bilateral trade</span></div>
+      <div class="stat"><b data-i18n="hero.s2">1,200+</b><span data-i18n="hero.s2l">addressable SME clients</span></div>
+      <div class="stat"><b data-i18n="hero.s3">3</b><span data-i18n="hero.s3l">languages · 中 · EN · العربية</span></div>
+    </div>
+  </div>
+
+  <a class="scroll-hint" href="#gap" aria-label="Scroll down"><span></span></a>
+</section>
+
+<!-- ══════════ TICKER ══════════ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack">
+    <span>SAUDI PDPA</span><span>NCA-ECC 2.0</span><span>MISA</span><span>SAGIA</span><span>VISION 2030</span><span>PIPL</span><span>CSL</span><span>DSL</span><span>ICP 备案</span><span>WFOE</span><span>CANTON FAIR 广交会</span><span>中阿峰会</span><span>BELT &amp; ROAD</span><span>UAE PDPL</span><span>DSR</span><span>CIPP/E</span>
+  </div>
+</div>
+
+<!-- ══════════ THE GAP ══════════ -->
+<section id="gap" class="section">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="sec-tag" data-i18n="gap.tag">THE PROBLEM</p>
+      <h2 data-i18n="gap.h2">The Compliance Bottleneck</h2>
+      <p class="sec-sub" data-i18n="gap.sub">Chinese SMEs are sprinting into Saudi Arabia and the UAE — and every one of them hits the same wall. Four barriers, one bottleneck.</p>
+    </div>
+
+    <div class="cards-4">
+      <article class="card tilt reveal">
+        <div class="card-icon">文</div>
+        <h3 data-i18n="gap.c1t">Language Barrier</h3>
+        <p data-i18n="gap.c1d">Saudi regulation is published in Arabic with virtually no Chinese translation — and mistranslation creates real liability.</p>
+        <span class="card-code">01</span>
+      </article>
+      <article class="card tilt reveal">
+        <div class="card-icon">¥</div>
+        <h3 data-i18n="gap.c2t">Cost Barrier</h3>
+        <p data-i18n="gap.c2d">Big Four retainers run 500,000–2,000,000 RMB a year. SMEs cannot afford advice that costs more than the deal.</p>
+        <span class="card-code">02</span>
+      </article>
+      <article class="card tilt reveal">
+        <div class="card-icon">⌁</div>
+        <h3 data-i18n="gap.c3t">Fragmentation Barrier</h3>
+        <p data-i18n="gap.c3d">Chinese firms lack Arabic. Saudi firms lack Chinese. Translation agencies lack regulatory depth.</p>
+        <span class="card-code">03</span>
+      </article>
+      <article class="card tilt reveal">
+        <div class="card-icon">⚙</div>
+        <h3 data-i18n="gap.c4t">Execution Barrier</h3>
+        <p data-i18n="gap.c4d">Even with legal advice, SMEs lack the operational capacity to implement processes, documents and training.</p>
+        <span class="card-code">04</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ THE BRIDGE ══════════ -->
+<section id="bridge" class="section section-alt">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="sec-tag" data-i18n="bridge.tag">THE SOLUTION</p>
+      <h2 data-i18n="bridge.h2">Compliance Operations, Engineered</h2>
+      <p class="sec-sub" data-i18n="bridge.sub">We are the operations layer between licensed legal counsel and your business — translation, documentation, process management and technology. We never give legal advice; every deliverable is reviewed by licensed partner law firms.</p>
+    </div>
+
+    <div class="bridge-viz reveal">
+      <div class="bnode bnode-left">
+        <span class="bnode-city" data-i18n="bridge.city1">GUANGZHOU · 广州</span>
+        <span class="bnode-sub" data-i18n="bridge.city1s">China SMEs</span>
+      </div>
+      <svg class="bridge-svg" viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="bgold" x1="0" x2="1">
+            <stop offset="0" stop-color="#e8b34b"/><stop offset="1" stop-color="#2dd4bf"/>
+          </linearGradient>
+        </defs>
+        <path id="arc" d="M30 100 C 190 20, 410 180, 570 100" fill="none" stroke="url(#bgold)" stroke-width="2" stroke-dasharray="10 8" class="bridge-path"/>
+        <circle r="6" fill="#e8b34b" class="packet p1"/>
+        <circle r="6" fill="#2dd4bf" class="packet p2"/>
+        <circle cx="30" cy="100" r="10" fill="#e8b34b" class="pulse-dot"/>
+        <circle cx="570" cy="100" r="10" fill="#2dd4bf" class="pulse-dot"/>
+      </svg>
+      <div class="bnode bnode-right">
+        <span class="bnode-city" data-i18n="bridge.city2">RIYADH · 利雅得</span>
+        <span class="bnode-sub" data-i18n="bridge.city2s">Saudi &amp; GCC market</span>
+      </div>
+      <div class="bridge-core glass">
+        <span class="core-mark">⇄</span>
+        <b data-i18n="bridge.core">COMPLIANCE OPERATIONS</b>
+        <span data-i18n="bridge.core2">翻译 · 文件 · 流程 · 技术</span>
+      </div>
+    </div>
+
+    <div class="cards-3">
+      <article class="card tilt reveal">
+        <h3><span class="kicker" data-i18n="bridge.l1k">LAYER 01</span> <span data-i18n="bridge.l1t">Advisory</span></h3>
+        <p data-i18n="bridge.l1d">Arabic → Chinese regulatory translation, gap-assessment coordination, bilingual templates for DPAs, privacy notices and consent forms, plus implementation support.</p>
+      </article>
+      <article class="card tilt reveal">
+        <h3><span class="kicker" data-i18n="bridge.l2k">LAYER 02</span> <span data-i18n="bridge.l2t">Market-Entry Operations</span></h3>
+        <p data-i18n="bridge.l2d">MISA / SAGIA licensing pathway mapping, local partner vetting and cultural protocol guidance for your first Gulf deal.</p>
+      </article>
+      <article class="card tilt reveal">
+        <h3><span class="kicker" data-i18n="bridge.l3k">LAYER 03 · YEAR 2</span> <span data-i18n="bridge.l3t">Technology</span></h3>
+        <p data-i18n="bridge.l3d">A client portal for compliance tracking, an automated trilingual regulatory feed and digitized self-assessment tools.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SERVICES & PRICING ══════════ -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="sec-tag" data-i18n="svc.tag">SERVICES &amp; PRICING</p>
+      <h2 data-i18n="svc.h2">Transparent, Mid-Market Pricing</h2>
+      <p class="sec-sub" data-i18n="svc.sub">Big-consultancy rigor at a price SMEs can actually pay. Three ways to work with us.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <article class="price-card reveal tilt">
+        <div class="price-top">
+          <p class="price-name" data-i18n="svc.p1t">Monthly Compliance Retainer</p>
+          <p class="price-amt">¥8,000–15,000<span data-i18n="svc.per">/month</span></p>
+          <p class="price-who" data-i18n="svc.p1w">For companies with ongoing GCC operations</p>
+        </div>
+        <ul class="price-list">
+          <li data-i18n="svc.p1a">Continuous regulatory update monitoring</li>
+          <li data-i18n="svc.p1b">Quarterly compliance health checks</li>
+          <li data-i18n="svc.p1c">Data subject request (DSR) process documentation</li>
+          <li data-i18n="svc.p1d">Incident-response coordination templates</li>
+          <li data-i18n="svc.p1e">Liaison with licensed local counsel</li>
+        </ul>
+        <a href="#contact" class="btn btn-outline" data-i18n="svc.cta">Start a Retainer</a>
+      </article>
+
+      <article class="price-card price-featured reveal tilt">
+        <div class="price-flag" data-i18n="svc.flag">MOST CHOSEN</div>
+        <div class="price-top">
+          <p class="price-name" data-i18n="svc.p2t">GCC Market-Entry Packages</p>
+          <p class="price-amt">¥35,000–80,000<span data-i18n="svc.per2">/project</span></p>
+          <p class="price-who" data-i18n="svc.p2w">For first-time entrants to Saudi Arabia &amp; the UAE</p>
+        </div>
+        <ul class="price-list">
+          <li data-i18n="svc.p2a">Saudi PDPA readiness assessment</li>
+          <li data-i18n="svc.p2b">NCA-ECC gap analysis coordination</li>
+          <li data-i18n="svc.p2c">MISA / SAGIA licensing pathway support</li>
+          <li data-i18n="svc.p2d">Arabic ↔ Chinese regulatory document translation</li>
+          <li data-i18n="svc.p2e">Local partner due-diligence support</li>
+        </ul>
+        <a href="#contact" class="btn btn-gold" data-i18n="svc.cta2">Scope My Project</a>
+      </article>
+
+      <article class="price-card reveal tilt">
+        <div class="price-top">
+          <p class="price-name" data-i18n="svc.p3t">China Inbound Compliance</p>
+          <p class="price-amt">¥25,000–50,000<span data-i18n="svc.per3">/project</span></p>
+          <p class="price-who" data-i18n="svc.p3w">For Middle East companies entering China</p>
+        </div>
+        <ul class="price-list">
+          <li data-i18n="svc.p3a">PIPL / CSL / DSL readiness documentation</li>
+          <li data-i18n="svc.p3b">Cross-border data transfer assessment coordination</li>
+          <li data-i18n="svc.p3c">ICP 备案 filing guidance</li>
+          <li data-i18n="svc.p3d">WFOE registration pathway support</li>
+          <li data-i18n="svc.p3e">Bilingual operations templates</li>
+        </ul>
+        <a href="#contact" class="btn btn-outline" data-i18n="svc.cta3">Enter China</a>
+      </article>
+    </div>
+
+    <p class="fine reveal" data-i18n="svc.note">Yalla Kaishi provides compliance operations support — not legal advice. All regulatory interpretation is delivered in partnership with licensed Chinese and Saudi law firms.</p>
+  </div>
+</section>
+
+<!-- ══════════ REGULATORY RADAR ══════════ -->
+<section id="radar" class="section section-alt">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="sec-tag" data-i18n="radar.tag">REGULATORY INTELLIGENCE</p>
+      <h2 data-i18n="radar.h2">Every Regulation That Matters</h2>
+      <p class="sec-sub" data-i18n="radar.sub">One platform, three jurisdictions, live watch. We monitor the regulatory surface so your team doesn't have to.</p>
+    </div>
+
+    <div class="radar-grid reveal" id="radarGrid">
+      <span class="chip" style="--i:0"><b>PDPA</b><em data-i18n="radar.r1">Saudi Arabia</em></span>
+      <span class="chip" style="--i:1"><b>NCA-ECC 2.0</b><em data-i18n="radar.r2">Saudi Arabia</em></span>
+      <span class="chip" style="--i:2"><b>MISA</b><em data-i18n="radar.r3">Saudi licensing</em></span>
+      <span class="chip" style="--i:3"><b>SAGIA</b><em data-i18n="radar.r4">Saudi investment</em></span>
+      <span class="chip" style="--i:4"><b>VISION 2030</b><em data-i18n="radar.r5">Saudi macro</em></span>
+      <span class="chip" style="--i:5"><b>UAE PDPL</b><em data-i18n="radar.r6">United Arab Emirates</em></span>
+      <span class="chip" style="--i:6"><b>PIPL</b><em data-i18n="radar.r7">China</em></span>
+      <span class="chip" style="--i:7"><b>CSL</b><em data-i18n="radar.r8">China</em></span>
+      <span class="chip" style="--i:8"><b>DSL</b><em data-i18n="radar.r9">China</em></span>
+      <span class="chip" style="--i:9"><b>ICP 备案</b><em data-i18n="radar.r10">China web</em></span>
+      <span class="chip" style="--i:10"><b>SAMR</b><em data-i18n="radar.r11">China registry</em></span>
+      <span class="chip" style="--i:11"><b>DSR</b><em data-i18n="radar.r12">Data subject rights</em></span>
+      <span class="chip" style="--i:12"><b>AR↔ZH</b><em data-i18n="radar.r13">translation layer</em></span>
+      <span class="chip chip-core" style="--i:13"><b>YALLA KAISHI</b><em data-i18n="radar.r14">monitoring core</em></span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOUNDER ══════════ -->
+<section id="founder" class="section">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="sec-tag" data-i18n="founder.tag">FOUNDER</p>
+      <h2 data-i18n="founder.h2">Two Worlds, One Operator</h2>
+      <p class="sec-sub" data-i18n="founder.sub">A rare profile: native Arabic, professional Chinese, Chinese engineering and MBA degrees, and a decade on the ground in Guangzhou.</p>
+    </div>
+
+    <div class="founder-grid">
+      <article class="founder-card reveal tilt">
+        <div class="avatar">
+          <span class="avatar-ring"></span>
+          <span class="avatar-inner">IA</span>
+        </div>
+        <h3>Ismail Ahamed Hassan Awad</h3>
+        <p class="founder-name-cn">伊斯梅尔·艾哈迈德·哈桑·阿瓦德</p>
+        <p class="founder-role" data-i18n="founder.role">Founder &amp; Managing Director</p>
+        <p class="founder-bio" data-i18n="founder.bio">Born in Saudi Arabia, educated in China. Ten years of residence, two degrees from top Chinese universities, IT operations at a Fortune 500 shipping group, and a decade of informal cross-border facilitation between the Middle East and China.</p>
+        <div class="founder-chips">
+          <span>العربية native</span><span>中文流利</span><span>English</span><span>10 yrs in China</span><span>Cybersecurity</span><span>MBA · Risk</span>
+        </div>
+      </article>
+
+      <div class="timeline reveal">
+        <div class="tl-item"><span class="tl-dot"></span><p class="tl-date">2016 – 2020</p><h4>Huazhong University of Science &amp; Technology</h4><p data-i18n="founder.t1">B.Eng · Communications Engineering · Wuhan</p></div>
+        <div class="tl-item"><span class="tl-dot"></span><p class="tl-date">2020 – 2023</p><h4>University of Science &amp; Technology of China</h4><p data-i18n="founder.t2">MBA · Risk Management &amp; Information Security · Hefei / Guangzhou</p></div>
+        <div class="tl-item"><span class="tl-dot"></span><p class="tl-date">CMA CGM (China)</p><h4>Information Technology Officer</h4><p data-i18n="founder.t3">Enterprise systems, cybersecurity infrastructure &amp; digital transformation for a Fortune 500 shipping group</p></div>
+        <div class="tl-item"><span class="tl-dot"></span><p class="tl-date">Since 2016</p><h4>Cross-Border Facilitator</h4><p data-i18n="founder.t4">Independent research &amp; informal advisory connecting Middle Eastern and Chinese companies</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ WHY GUANGZHOU ══════════ -->
+<section id="guangzhou" class="section section-alt">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="sec-tag" data-i18n="gz.tag">WHY GUANGZHOU</p>
+      <h2 data-i18n="gz.h2">The Only Logical Headquarters</h2>
+      <p class="sec-sub" data-i18n="gz.sub">Not an arbitrary choice — six concrete, non-substitutable reasons. This is the physical center of the trade we facilitate.</p>
+    </div>
+
+    <div class="gz-grid">
+      <article class="gz-card reveal">
+        <span class="gz-num">01</span>
+        <h3 data-i18n="gz.c1t">Customer Proximity</h3>
+        <p data-i18n="gz.c1d">Guangdong SME exporters and the Canton Fair — our entire market, in one city.</p>
+      </article>
+      <article class="gz-card reveal">
+        <span class="gz-num">02</span>
+        <h3 data-i18n="gz.c2t">Founder Home</h3>
+        <p data-i18n="gz.c2d">Registered in Tianhe District, where the founder has lived and worked for years.</p>
+      </article>
+      <article class="gz-card reveal">
+        <span class="gz-num">03</span>
+        <h3 data-i18n="gz.c3t">Nansha FTZ &amp; BRI</h3>
+        <p data-i18n="gz.c3d">Belt &amp; Road trade facilitation policies for cross-border services and tech startups.</p>
+      </article>
+      <article class="gz-card reveal">
+        <span class="gz-num">04</span>
+        <h3 data-i18n="gz.c4t">Talent Pipeline</h3>
+        <p data-i18n="gz.c4d">Sun Yat-sen, SCUT and Guangdong University of Foreign Studies produce Arabic, English and business graduates.</p>
+      </article>
+      <article class="gz-card reveal">
+        <span class="gz-num">05</span>
+        <h3 data-i18n="gz.c5t">Infrastructure</h3>
+        <p data-i18n="gz.c5d">Direct flights to Riyadh, Dubai and Doha. The Port of Guangzhou. Baiyun Airport.</p>
+      </article>
+      <article class="gz-card reveal">
+        <span class="gz-num">06</span>
+        <h3 data-i18n="gz.c6t">Local Value</h3>
+        <p data-i18n="gz.c6d">Local hiring, local taxes, local export facilitation — a three-year commitment to Guangzhou.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ MARKET ══════════ -->
+<section id="market" class="section">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="sec-tag" data-i18n="mkt.tag">MARKET</p>
+      <h2 data-i18n="mkt.h2">The Numbers Behind the Bridge</h2>
+      <p class="sec-sub" data-i18n="mkt.sub">A real macro trend, a realistic addressable market, and unit economics that work for SMEs.</p>
+    </div>
+
+    <div class="market-grid">
+      <div class="mstat reveal"><b class="count" data-target="230" data-suffix="B+">0</b><span data-i18n="mkt.m1">China–GCC bilateral trade (USD, 2022)</span></div>
+      <div class="mstat reveal"><b class="count" data-target="12" data-suffix=",000">0</b><span data-i18n="mkt.m2">Guangdong SMEs exporting to the GCC</span></div>
+      <div class="mstat reveal"><b class="count" data-target="2400" data-prefix="~">0</b><span data-i18n="mkt.m3">Companies with active compliance needs</span></div>
+      <div class="mstat reveal"><b class="count" data-target="65" data-suffix="%">0</b><span data-i18n="mkt.m4">Retainer gross margin</span></div>
+      <div class="mstat reveal"><b class="count" data-target="22" data-suffix="×">0</b><span data-i18n="mkt.m5">LTV / CAC ratio (15–22×)</span></div>
+      <div class="mstat reveal"><b class="count" data-target="10" data-suffix="M">0</b><span data-i18n="mkt.m6">RMB export value facilitated via 5 clients</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ROADMAP ══════════ -->
+<section id="roadmap" class="section section-alt">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="sec-tag" data-i18n="road.tag">ROADMAP</p>
+      <h2 data-i18n="road.h2">The First 12 Months</h2>
+      <p class="sec-sub" data-i18n="road.sub">A conservative, service-first build-out — from WFOE registration to monthly break-even.</p>
+    </div>
+
+    <div class="road">
+      <div class="road-line"><span id="roadFill"></span></div>
+      <article class="road-phase reveal">
+        <p class="road-m" data-i18n="road.m1">MONTHS 1–3</p>
+        <h3 data-i18n="road.p1t">Foundation</h3>
+        <ul>
+          <li data-i18n="road.p1a">WFOE registered in Tianhe District, Guangzhou</li>
+          <li data-i18n="road.p1b">Service methodology &amp; template library v1.0</li>
+          <li data-i18n="road.p1c">Law-firm partnership MOU signed</li>
+          <li data-i18n="road.p1d">15 prospect meetings scheduled</li>
+        </ul>
+      </article>
+      <article class="road-phase reveal">
+        <p class="road-m" data-i18n="road.m2">MONTHS 4–6</p>
+        <h3 data-i18n="road.p2t">Validation</h3>
+        <ul>
+          <li data-i18n="road.p2a">Compliance Operations Associate hired</li>
+          <li data-i18n="road.p2b">First retainer + first project client signed</li>
+          <li data-i18n="road.p2c">Canton Fair presence &amp; WeChat channel live</li>
+          <li data-i18n="road.p2d">¥70,000 revenue · first delivery completed</li>
+        </ul>
+      </article>
+      <article class="road-phase reveal">
+        <p class="road-m" data-i18n="road.m3">MONTHS 7–9</p>
+        <h3 data-i18n="road.p3t">Expansion</h3>
+        <ul>
+          <li data-i18n="road.p3a">Business Development Associate hired</li>
+          <li data-i18n="road.p3b">3 projects completed · ¥210,000 cumulative</li>
+          <li data-i18n="road.p3c">Client portal MVP specification started</li>
+          <li data-i18n="road.p3d">Software copyright application filed</li>
+        </ul>
+      </article>
+      <article class="road-phase reveal">
+        <p class="road-m" data-i18n="road.m4">MONTHS 10–12</p>
+        <h3 data-i18n="road.p4t">Consolidation</h3>
+        <ul>
+          <li data-i18n="road.p4a">3 active retainer clients · 5 projects total</li>
+          <li data-i18n="road.p4b">¥370,000 revenue · monthly break-even</li>
+          <li data-i18n="road.p4c">Portal MVP development begins</li>
+          <li data-i18n="road.p4d">Year-2 budget &amp; hiring plan prepared</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="scenario-grid">
+      <article class="scenario reveal">
+        <p class="sc-tag" data-i18n="road.sc1">CONSERVATIVE</p>
+        <p class="sc-name" data-i18n="road.sc1n">保守情景</p>
+        <b>¥210K</b><span data-i18n="road.sc1r">Year-1 revenue</span>
+        <b>−¥95K</b><span data-i18n="road.sc1l">Net result</span>
+        <b>M14</b><span data-i18n="road.sc1b">Break-even</span>
+      </article>
+      <article class="scenario sc-base reveal">
+        <p class="sc-tag" data-i18n="road.sc2">BASE CASE</p>
+        <p class="sc-name" data-i18n="road.sc2n">基本情景</p>
+        <b>¥370K</b><span data-i18n="road.sc2r">Year-1 revenue</span>
+        <b>−¥80K</b><span data-i18n="road.sc2l">Net result</span>
+        <b>M10</b><span data-i18n="road.sc2b">Break-even</span>
+      </article>
+      <article class="scenario reveal">
+        <p class="sc-tag" data-i18n="road.sc3">GROWTH</p>
+        <p class="sc-name" data-i18n="road.sc3n">增长情景</p>
+        <b>¥520K</b><span data-i18n="road.sc3r">Year-1 revenue</span>
+        <b>+¥35K</b><span data-i18n="road.sc3l">Net result</span>
+        <b>M7</b><span data-i18n="road.sc3b">Break-even</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="contact-wrap glass reveal">
+      <div class="contact-left">
+        <p class="sec-tag" data-i18n="ct.tag">CONTACT</p>
+        <h2 data-i18n="ct.h2">Ready to go GCC-ready?</h2>
+        <p data-i18n="ct.sub">Book a free 30-minute consultation with the founder. No pitch decks, no pressure — just a candid read on your compliance position.</p>
+        <ul class="contact-list">
+          <li><span class="cl-ic">✉</span> hello@yallakaishi.com</li>
+          <li><span class="cl-ic">◈</span> <span data-i18n="ct.addr">Tianhe District, Guangzhou, China · 中国广州天河</span></li>
+          <li><span class="cl-ic">⚡</span> <span data-i18n="ct.resp">Response within 24 hours</span></li>
+        </ul>
+      </div>
+      <form id="contactForm" class="contact-form" novalidate>
+        <label><span data-i18n="ct.fname">Your name</span><input type="text" name="name" required data-i18n-ph="ct.fnameph" placeholder="Ismail / 姓名" /></label>
+        <label><span data-i18n="ct.femail">Email</span><input type="email" name="email" required placeholder="you@company.com" /></label>
+        <label><span data-i18n="ct.fcomp">Company</span><input type="text" name="company" data-i18n-ph="ct.fcompph" placeholder="Company name / 公司名称" /></label>
+        <label><span data-i18n="ct.fmsg">Your situation</span><textarea name="message" rows="4" data-i18n-ph="ct.fmsgph" placeholder="Which market are you entering — and when? / 您计划进入哪个市场？"></textarea></label>
+        <button type="submit" class="btn btn-gold btn-block" data-i18n="ct.send">Send Message</button>
+        <p class="form-note" id="formNote" hidden data-i18n="ct.ok">Thank you — we'll reply within 24 hours.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#top">
+          <svg viewBox="0 0 64 64" width="30" height="30" class="brand-hex">
+            <path d="M32 4 58 18v28L32 60 6 46V18Z" /><path d="M22 40 32 22l10 18M26 34h12" />
+          </svg>
+          <span class="brand-name">YALLA&nbsp;KAISHI</span>
+        </a>
+        <p data-i18n="foot.tagline">Compliance operations connecting China and the Gulf — 连接中国与海湾的合规运营平台.</p>
+      </div>
+      <div class="foot-col">
+        <h4 data-i18n="foot.nav">Navigate</h4>
+        <a href="#gap" data-i18n="nav.gap">The Gap</a>
+        <a href="#bridge" data-i18n="nav.bridge">The Bridge</a>
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#roadmap" data-i18n="nav.roadmap">Roadmap</a>
+      </div>
+      <div class="foot-col">
+        <h4 data-i18n="foot.legal">Legal</h4>
+        <p data-i18n="foot.disclaimer">Yalla Kaishi provides compliance operations support. We do not provide legal advice. All regulatory interpretation is delivered in partnership with licensed law firms.</p>
+      </div>
+      <div class="foot-col">
+        <h4 data-i18n="foot.hq">HQ</h4>
+        <p>Tianhe, Guangzhou, China<br />中国广东省广州市天河区</p>
+        <p>hello@yallakaishi.com</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 Yalla Kaishi Consultant Co., Ltd. · 广州亚拉凯世咨询有限公司（筹备中）</p>
+      <p class="foot-ar">يلا كايشي · إن شاء الله</p>
+    </div>
+  </div>
+</footer>
+
+<!-- cursor glow -->
+<div id="cursorGlow" aria-hidden="true"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
