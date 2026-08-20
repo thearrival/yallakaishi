@@ -2,7 +2,7 @@
 
 Live site for **Yalla Kaishi Consultant Co., Ltd. (广州亚拉凯世咨询有限公司)** — a Guangzhou-based compliance operations platform bridging China and the GCC.
 
-🌐 **Live:** https://thearrival.github.io/yallakaishi/
+🌐 **Live:** https://yallakaishi.com/
 
 ## Tech
 
@@ -23,8 +23,15 @@ Live site for **Yalla Kaishi Consultant Co., Ltd. (广州亚拉凯世咨询有�
 
 Push to `main` — GitHub Pages serves the repo root automatically.
 
-**Custom domain:** the `CNAME` file points at `yallakaishi.com`. When the domain
-is registered, set the DNS record `A → 185.199.108.153` (also .154/.155/.156)
-or `CNAME → thearrival.github.io` and the site will serve on the custom domain.
+**Custom domain:** the `CNAME` file points at `yallakaishi.com`. The domain is
+currently on Hostinger DNS parking with two A records:
+
+| Record | Value | Required? |
+|--------|-------|-----------|
+| A | `185.199.108.153` (GitHub Pages) | ✅ keep |
+| A | `2.57.91.91` (Hostinger parking) | ❌ remove — blocks HTTPS |
+
+Once the stray record is removed (add `185.199.108.154/.155/.156` too if desired),
+GitHub auto-issues the HTTPS certificate and the site becomes fully https.
 
 © 2026 Yalla Kaishi Consultant Co., Ltd. — 筹备注册中
