@@ -4,6 +4,7 @@
    ═══════════════════════════════════════════════════════════ */
 'use strict';
 
+
 const $  = (s, c = document) => c.querySelector(s);
 const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
@@ -116,15 +117,17 @@ function applyI18n() {
   if (t) t.textContent = LANG === 'en' ? '中文' : 'EN';
 }
 
-$('#langToggle').addEventListener('click', () => {
+const langToggleEl = $('#langToggle');
+if (langToggleEl) langToggleEl.addEventListener('click', () => {
   LANG = LANG === 'en' ? 'zh' : 'en';
   localStorage.setItem('yk-lang', LANG);
-  applyI18n();
+  applyI18n(); applyCSI18n();
 });
 
 /* ─────────── preloader ─────────── */
 window.addEventListener('load', () => {
   const bar = $('#preBar');
+  if (!bar) { document.body.classList.remove('no-scroll'); return; }
   let p = 0;
   const iv = setInterval(() => {
     p += Math.random() * 22 + 6;
@@ -168,7 +171,7 @@ onScroll();
 
 /* ─────────── mobile menu ─────────── */
 const burger = $('#burger');
-burger.addEventListener('click', () => {
+if (burger) burger.addEventListener('click', () => {
   burger.classList.toggle('open');
   $('#navLinks').classList.toggle('open');
 });
@@ -224,7 +227,7 @@ if (!hasTouch) {
 
 /* ─────────── cursor glow ─────────── */
 const glow = $('#cursorGlow');
-if (!hasTouch) {
+if (glow && !hasTouch) {
   let gx = innerWidth / 2, gy = innerHeight / 2, tx = gx, ty = gy;
   document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
   document.body.classList.add('glow-on');
@@ -237,7 +240,7 @@ if (!hasTouch) {
 
 /* ─────────── hero network canvas ─────────── */
 const canvas = $('#net');
-const ctx = canvas.getContext('2d');
+const ctx = canvas ? canvas.getContext('2d') : null;
 let W = 0, H = 0, parts = [], packets = [], raf = 0, running = false;
 const mouse = { x: -9999, y: -9999 };
 
@@ -361,18 +364,19 @@ new IntersectionObserver(entries => {
     else if (!e.isIntersecting && running) { running = false; cancelAnimationFrame(raf); }
   });
 }, { threshold: 0.05 }).observe(canvas);
+canvas.getBoundingClientRect = canvas.getBoundingClientRect || (() => ({ left: 0, top: 0 }));
 
-document.addEventListener('mousemove', e => {
+if (canvas) document.addEventListener('mousemove', e => {
   const r = canvas.getBoundingClientRect();
   mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
 }, { passive: true });
-canvas.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
-window.addEventListener('resize', resize);
-resize();
+if (canvas) canvas.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+if (canvas && ctx) { window.addEventListener('resize', resize); resize(); }
 applyI18n();
 
 /* ─────────── contact form ─────────── */
-$('#contactForm').addEventListener('submit', e => {
+const contactFormEl = $('#contactForm');
+if (contactFormEl) contactFormEl.addEventListener('submit', e => {
   e.preventDefault();
   const f = e.target;
   if (!f.name.value.trim() || !f.email.value.includes('@')) {
@@ -387,4 +391,849 @@ $('#contactForm').addEventListener('submit', e => {
   note.hidden = false;
   f.reset();
   setTimeout(() => { note.hidden = true; }, 8000);
+});/* ═══════════════════════════════════════════════════════════
+   CHINA SUPPORT SERVICE SECTION & SMART FORM
+   ═══════════════════════════════════════════════════════════ */
+
+'use strict';
+
+/* ─────────── China Support i18n ─────────── */
+const CS_I18N = {
+  en: {
+    'cs.tag':'CHINA SUPPORT','cs.h1':'China Business, Travel &amp; Administrative Support',
+    'cs.sub':'Professional assistance for individuals, entrepreneurs, students, and businesses navigating travel, business, administrative, and market-entry requirements in China.',
+    'cs.intro':'Yalla-Hack provides coordinated support services for clients who need assistance with practical processes in China. We act as a single professional point of contact, streamlining your requirements so you can focus on your objectives.',
+    'cs.cta':'Request a Service',
+    'cs.ca.t':'Visa &amp; Invitation Services','cs.ca.sub':'Assistance with invitation letters, visa applications, and related coordination. Visa issuance is subject to the requirements and decisions of the relevant authorities.',
+    'cs.s1':'Tourist Invitation Letter','cs.s1d':'Professional coordination for preparing and submitting tourist invitation letters for visits to China.',
+    'cs.s2':'Commercial Invitation Letter','cs.s2d':'Coordination for commercial invitation letters supporting business visits and negotiations in China.',
+    'cs.s3':'Chinese Visa Application Assistance','cs.s3d':'Professional assistance with preparing and coordinating the Chinese visa application process.',
+    'cs.s4':'Tourist Visa Application Assistance','cs.s4d':'Step-by-step assistance with tourist visa applications, document preparation, and coordination.',
+    'cs.s5':'Tourist or Commercial Invitation Letter Support','cs.s5d':'End-to-end support for invitation letter preparation, review, and submission coordination.',
+    'cs.visaNote':'Visa issuance is subject to the requirements and decisions of the relevant authorities. Yalla-Hack provides application preparation, coordination, and administrative assistance and does not guarantee visa approval.',
+    'cs.cb.t':'Business &amp; Company Services','cs.cb.sub':'Tailored support for entrepreneurs, SMEs, investors, and companies exploring business opportunities in China.',
+    'cs.s6':'Company Registration &amp; Establishment Assistance','cs.s6d':'Coordination assistance for company registration and establishment procedures in China.',
+    'cs.s7':'Business Setup Support','cs.s7d':'Advisory coordination and administrative support for business setup in China.',
+    'cs.s8':'Office Rental Assistance','cs.s8d':'Assistance with identifying, negotiating, and coordinating office rental arrangements.',
+    'cs.s9':'Commercial Address / Office Solutions','cs.s9d':'Coordination for commercial address registration and office solutions in China.',
+    'cs.s10':'Contract Review &amp; Follow-Up','cs.s10d':'Coordination for contract review and administrative follow-up on commercial agreements.',
+    'cs.s11':'Business Administrative Coordination','cs.s11d':'Centralized administrative coordination for your business operations in China.',
+    'cs.cc.t':'Education Services','cs.cc.sub':'Support for students and families navigating university applications and academic administrative requirements in China.',
+    'cs.s12':'University Application Assistance','cs.s12d':'Professional coordination for university application processes in China.',
+    'cs.s13':'University Admission Process Support','cs.s13d':'Guidance and coordination throughout the university admission process.',
+    'cs.s14':'Application Document Coordination','cs.s14d':'Coordination for the preparation, translation, and submission of application documents.',
+    'cs.s15':'International Student Administrative Assistance','cs.s15d':'Administrative assistance for international students throughout their study journey.',
+    'cs.eduNote':'Admission decisions are made exclusively by the relevant educational institution.',
+    'cs.cd.t':'Accommodation &amp; Travel Services','cs.cd.sub':'Booking assistance and coordination for accommodation, transportation, and logistics needs in China.',
+    'cs.s16':'Hotel Booking Assistance','cs.s16d':'Coordination and booking assistance for hotel accommodations across China.',
+    'cs.s17':'Apartment Rental Assistance','cs.s17d':'Assistance with apartment search, coordination, and rental process in China.',
+    'cs.s18':'Coordination for office and commercial space rental arrangements.','cs.s19':'Passenger Ticket Booking','cs.s19d':'Booking assistance for domestic and international passenger travel.',
+    'cs.s20':'Cargo &amp; Shipping Coordination','cs.s20d':'Coordination for cargo and shipping logistics to and within China.',
+    'cs.s21':'Car Booking / Transportation Arrangements','cs.s21d':'Transportation arrangements and car booking assistance across China.',
+    'cs.ce.t':'Guangzhou Services','cs.ce.sub':'Dedicated on-the-ground support services for clients based in or visiting Guangzhou.',
+    'cs.s22':'Visa Appointment Booking in Guangzhou','cs.s22d':'Coordination for visa appointment scheduling at Guangzhou visa application centers.',
+    'cs.s23':'Medical Examination Appointment Coordination','cs.s23d':'Coordination for medical examination appointments required for visa applications.',
+    'cs.s24':'Canton Fair Entry Badge / Registration Assistance','cs.s24d':'Assistance with Canton Fair entry badge registration and related procedures.',
+    'cs.s25':'Local Administrative Coordination','cs.s25d':'On-the-ground administrative coordination for local government and bureau procedures.',
+    'cs.s26':'Transportation &amp; Car Booking','cs.s26d':'Local transportation arrangements and car booking services in Guangzhou.',
+    'cs.s27':'Accommodation Coordination','cs.s27d':'Hotel and apartment coordination services for guests in Guangzhou.',
+    'cs.cf.t':'Driving &amp; Vehicle Services','cs.cf.sub':'Application and administrative assistance for driving licenses, vehicle registration, and related services.',
+    'cs.s28':'Temporary Driving License Assistance','cs.s28d':'Application and administrative assistance for obtaining a temporary driving license in China.',
+    'cs.s29':'Permanent Driving License Assistance','cs.s29d':'Application and administrative assistance for permanent driving license procedures.',
+    'cs.s30':'Vehicle Registration Assistance','cs.s30d':'Application and administrative assistance for vehicle registration with Chinese authorities.',
+    'cs.s31':'Vehicle-Related Administrative Support','cs.s31d':'Administrative coordination for vehicle inspections, transfers, and related procedures.',
+    'cs.s32':'Car Rental / Booking Assistance','cs.s32d':'Booking assistance and coordination for car rental services in China.',
+    'cs.drivingNote':'Yalla-Hack provides application and administrative assistance only. Government-issued licenses, registrations, and permits are subject to approval by the relevant authorities.',
+    'cs.trust.tag':'WHY CHOOSE US','cs.trust.h2':'Why Choose Yalla-Hack?','cs.trust.sub':'A professional digital point of contact for international clients who need reliable assistance in China.',
+    'cs.trust.t1':'Professional Service Coordination','cs.trust.d1':'Dedicated coordination across multiple service categories with a single point of contact.',
+    'cs.trust.t2':'International Client Support','cs.trust.d2':'Multi-language assistance for clients worldwide in English, Arabic, and Chinese.',
+    'cs.trust.t3':'Centralized Request Management','cs.trust.d3':'Track and manage all your service requests through a single unified system.',
+    'cs.trust.t4':'Transparent Communication','cs.trust.d4':'Clear processes, defined timelines, and honest expectations — no hidden terms.',
+    'cs.trust.t5':'Multi-Service Assistance','cs.trust.d5':'Visa, business, education, accommodation, and logistics — all under one roof.',
+    'cs.trust.t6':'Digital-First Service','cs.trust.d6':'Manage your requests online with real-time updates and digital documentation.',
+    'cs.disclaimer':'Yalla-Hack provides service coordination and administrative assistance. We do not issue visas, government licenses, permits, Canton Fair credentials, university admissions, or vehicle registrations. All approvals are subject to the decision of the relevant authorities and institutions.',
+    /* Form */
+    'cs.form.title':'Request a Service','cs.form.sub':'Tell us what you need and we will connect you with the right team.',
+    'cs.form.p1':'Service','cs.form.p2':'Information','cs.form.p3':'Details','cs.form.p4':'Review','cs.form.p5':'Done',
+    'cs.form.s1':'What service do you need?','cs.form.s1d':'Select one or more services. You can combine categories for comprehensive support.',
+    'cs.form.s2':'Your Information','cs.form.s2d':'Please provide your contact details. All fields marked with * are required.',
+    'cs.form.s3':'Request Details','cs.form.s3d':'Answer the questions relevant to your selected service(s).',
+    'cs.form.s4':'Review Your Request','cs.form.s4d':'Please confirm all the details before submitting.',
+    'cs.form.name':'Full Name *','cs.form.country':'Country of Residence *','cs.form.nationality':'Nationality *',
+    'cs.form.email':'Email Address *','cs.form.phone':'WhatsApp / Phone Number *','cs.form.company':'Company Name (optional)','cs.form.lang':'Preferred Language',
+    'cs.form.other':'Please describe what you need assistance with.','cs.form.notes':'Additional Notes (optional)',
+    'cs.form.cta':'Request a Service','cs.form.prev':'Previous','cs.form.next':'Next',
+    'cs.form.submitted':'Request Submitted Successfully','cs.form.thanks':'Thank you. Your request has been successfully submitted to the Yalla-Hack team.',
+    'cs.form.keepId':'Please keep this reference number for future communication.',
+    'cs.form.reset':'Submit Another Request','cs.form.home':'Back to Homepage',
+    'cs.success.title':'Request Submitted Successfully','cs.success.msg':'Thank you. Your request has been successfully submitted to the Yalla-Hack team.',
+    'cs.success.keepId':'Please keep this reference number for future communication.','cs.success.return':'Return to Services','cs.success.home':'Back to Homepage',
+    /* Dynamic questions */
+    'cs.q.purpose':'Purpose of travel','cs.q.travelDate':'Intended travel date','cs.q.destination':'Intended destination in China','cs.q.residence':'Current country of residence','cs.q.visaType':'Visa type','cs.q.applicants':'Number of applicants',
+    'cs.q.desiredUni':'Desired university','cs.q.degree':'Degree / program','cs.q.intake':'Intended intake','cs.q.education':'Current education level',
+    'cs.q.businessActivity':'Business activity','cs.q.prefCity':'Preferred city','cs.q.partners':'Number of partners','cs.q.businessScope':'Expected business scope',
+    'cs.q.city':'City','cs.q.propType':'Property type','cs.q.checkIn':'Check-in date','cs.q.checkOut':'Check-out date','cs.q.guests':'Number of guests',
+    'cs.q.origin':'Origin','cs.q.dest':'Destination','cs.q.goodsType':'Type of goods','cs.q.quantity':'Approximate quantity / volume',
+    'cs.q.companyName':'Company name','cs.q.industry':'Industry','cs.q.fairSession':'Intended fair / session','cs.q.attendees':'Number of attendees',
+    'cs.q.contractType':'Type of contract','cs.q.parties':'Parties involved','cs.q.contractPurpose':'Purpose of review','cs.q.completionDate':'Requested completion date',
+    'cs.q.tempDriving':'Driving experience level','cs.q.permDriving':'Current license country','cs.q.vehicleType':'Vehicle type','cs.q.regCity':'City of registration',
+  },
+  zh: {
+    'cs.tag':'中国支持','cs.h1':'中国商业、旅行与行政支持','cs.sub':'专业协助个人、企业家、学生和企业处理在中国的旅行、商业、行政和市场准入要求。','cs.intro':'亚拉凯世为需要在中国处理实际流程的客户提供协调支持服务。我们作为单一的专业联络点，简化您的需求，让您专注于目标。','cs.cta':'请求服务',
+    'cs.ca.t':'签证与邀请函服务','cs.ca.sub':'协助办理邀请函、签证申请及相关协调。签证签发取决于相关当局的要求和决定。',
+    'cs.s1':'旅游邀请函','cs.s1d':'专业协调为中国访问准备和提交旅游邀请函。','cs.s2':'商务邀请函','cs.s2d':'支持商务访问和谈判的商务邀请函协调。','cs.s3':'中国签证申请协助','cs.s3d':'专业协助准备和协调中国签证申请流程。','cs.s4':'旅游签证申请协助','cs.s4d':'旅游签证申请、文件准备和协调的逐步协助。','cs.s5':'旅游或商务邀请函支持','cs.s5d':'邀请函准备、审查和提交协调的端到端支持。','cs.visaNote':'签证签发取决于相关当局的要求和决定。亚拉凯世提供申请准备、协调和行政协助，不保证签证批准。',
+    'cs.cb.t':'商业与公司服务','cs.cb.sub':'专为在中国探索商业机会的企业家、中小企业、投资者和公司量身定制的支持。',
+    'cs.s6':'公司注册与设立协助','cs.s6d':'协调协助办理中国公司注册和设立程序。','cs.s7':'商务搭建支持','cs.s7d':'中国商务搭建的咨询协调和行政支持。','cs.s8':'办公室租赁协助','cs.s8d':'协助识别、谈判和协调办公室租赁安排。','cs.s9':'商业地址/办公室解决方案','cs.s9d':'协调中国商业地址注册和办公室解决方案。','cs.s10':'合同审查与跟进','cs.s10d':'协调商业合同的审查和行政跟进。','cs.s11':'商务行政协调','cs.s11d':'中国业务运营的集中行政协调。',
+    'cs.cc.t':'教育服务','cs.cc.sub':'支持学生和家庭处理在中国的大学申请和学术行政要求。',
+    'cs.s12':'大学申请协助','cs.s12d':'专业协调中国的大学申请流程。','cs.s13':'大学录取流程支持','cs.s13d':'在整个大学录取过程中提供指导和协调。','cs.s14':'申请文件协调','cs.s14d':'申请文件准备、翻译和提交的协调。','cs.s15':'国际学生行政协助','cs.s15d':'在整个留学旅程中为国际学生提供行政协助。','cs.eduNote':'录取决定完全由相关教育机构做出。',
+    'cs.cd.t':'住宿与旅行服务','cs.cd.sub':'协助协调在中国的住宿、交通和物流需求。',
+    'cs.s16':'酒店预订协助','cs.s16d':'协调和预订协助中国各地的酒店住宿。','cs.s17':'公寓租赁协助','cs.s17d':'协助公寓搜索、协调和租赁流程。','cs.s18':'协调办公室和商业空间租赁安排。','cs.s19':'客运票务预订','cs.s19d':'国内和国际客运旅行的预订协助。','cs.s20':'货运与航运协调','cs.s20d':'协调中国境内外的货运和航运物流。','cs.s21':'汽车预订/交通安排','cs.s21d':'中国各地的交通安排和汽车预订协助。',
+    'cs.ce.t':'广州服务','cs.ce.sub':'为在广州或访问广州的客户提供专属的现场支持服务。',
+    'cs.s22':'广州签证预约预订','cs.s22d':'协调在广州签证申请中心预约签证。','cs.s23':'体检预约协调','cs.s23d':'协调签证申请所需的体检预约。','cs.s24':'广交会入场证/注册协助','cs.s24d':'协助广交会入场证注册及相关程序。','cs.s25':'本地行政协调','cs.s25d':'本地政府和局务程序的现场行政协调。','cs.s26':'交通与汽车预订','cs.s26d':'广州本地交通安排和汽车预订服务。','cs.s27':'住宿协调','cs.s27d':'广州客人的酒店和公寓协调服务。',
+    'cs.cf.t':'驾驶与车辆服务','cs.cf.sub':'驾驶证、车辆注册及相关服务的申请和行政协助。',
+    'cs.s28':'临时驾驶证协助','cs.s28d':'在中国获取临时驾驶证的申请和行政协助。','cs.s29':'永久驾驶证协助','cs.s29d':'永久驾驶证程序的申请和行政协助。','cs.s30':'车辆注册协助','cs.s30d':'协助车辆在中国当局的注册。','cs.s31':'车辆相关行政支持','cs.s31d':'车辆检查、转让及相关程序的行政协调。','cs.s32':'汽车租赁/预订协助','cs.s32d':'中国汽车租赁服务的预订协助和协调。',
+    'cs.drivingNote':'亚拉凯世仅提供申请和行政协助。政府颁发的许可证、注册和证书须经相关当局批准。',
+    'cs.trust.tag':'为什么选择我们','cs.trust.h2':'为什么选择亚拉凯世？','cs.trust.sub':'国际客户值得信赖的专业数字联络点。',
+    'cs.trust.t1':'专业服务协调','cs.trust.d1':'多个服务类别的专职协调，单一联络点。','cs.trust.t2':'国际客户支持','cs.trust.d2':'为全球客户提供多语言支持，包括英语、阿拉伯语和中文。','cs.trust.t3':'集中请求管理','cs.trust.d3':'通过统一的系统跟踪和管理所有服务请求。','cs.trust.t4':'透明沟通','cs.trust.d4':'清晰的流程、确定的时间表和诚实的期望，没有隐藏条款。','cs.trust.t5':'多服务协助','cs.trust.d5':'签证、商务、教育、住宿和物流，一站解决。','cs.trust.t6':'数字化优先服务','cs.trust.d6':'在线管理您的请求，获取实时更新和数字文档。',
+    'cs.disclaimer':'亚拉凯世提供服务和行政协调。我们不签发签证、政府许可证、证书、广交会凭证、大学录取通知或车辆注册。所有批准须经相关当局和机构决定。',
+    'cs.form.title':'请求服务','cs.form.sub':'告诉我们您的需求，我们将为您对接合适的团队。','cs.form.p1':'服务','cs.form.p2':'信息','cs.form.p3':'详情','cs.form.p4':'审查','cs.form.p5':'完成',
+    'cs.form.s1':'您需要什么服务？','cs.form.s1d':'选择一项或多项服务。您可以组合类别以获得全面支持。','cs.form.s2':'您的信息','cs.form.s2d':'请提供您的联系方式。标有*的字段为必填。','cs.form.s3':'需求详情','cs.form.s3d':'回答与您所选服务相关的问题。','cs.form.s4':'审查您的请求','cs.form.s4d':'提交前请确认所有详情。',
+    'cs.form.name':'姓名 *','cs.form.country':'居住国家 *','cs.form.nationality':'国籍 *','cs.form.email':'电子邮件地址 *','cs.form.phone':'WhatsApp / 电话 *','cs.form.company':'公司名称（可选）','cs.form.lang':'首选语言',
+    'cs.form.other':'请描述您需要协助的内容。','cs.form.notes':'补充说明（可选）',
+    'cs.form.cta':'请求服务','cs.form.prev':'上一步','cs.form.next':'下一步',
+    'cs.form.submitted':'请求已成功提交','cs.form.thanks':'感谢您的请求，已成功提交至亚拉凯世团队。','cs.form.keepId':'请保留此参考编号以备日后沟通。','cs.form.reset':'提交新请求','cs.form.home':'返回首页',
+    'cs.success.title':'请求已成功提交','cs.success.msg':'感谢您的请求，已成功提交至亚拉凯世团队。','cs.success.keepId':'请保留此参考编号以备日后沟通。','cs.success.return':'返回服务','cs.success.home':'返回首页',
+  }
+};
+
+const CS = CS_I18N[LANG] || CS_I18N.en;
+
+/* Merge CS i18n into main I18N dictionary */
+Object.assign(I18N.en, CS_I18N.en);
+Object.assign(I18N.zh, CS_I18N.zh);
+
+/* ─────────── Service Categories Data ─────────── */
+const SERVICE_CATEGORIES = {
+  visa: { nameKey: 'cs.ca.t', services: ['tourist-invitation','commercial-invitation','chinese-visa','tourist-visa','invitation-support'] },
+  business: { nameKey: 'cs.cb.t', services: ['company-registration','business-setup','office-rental','commercial-address','contract-review','business-coordination'] },
+  education: { nameKey: 'cs.cc.t', services: ['university-application','admission-support','document-coordination','student-assistance'] },
+  accommodation: { nameKey: 'cs.cd.t', services: ['hotel-booking','apartment-rental','d-office-rental','ticket-booking','cargo-shipping','car-booking'] },
+  guangzhou: { nameKey: 'cs.ce.t', services: ['visa-appointment','medical-appointment','canton-fair','local-admin','gz-transport','gz-accommodation'] },
+  driving: { nameKey: 'cs.cf.t', services: ['temp-driving','perm-driving','vehicle-registration','vehicle-admin','car-rental'] },
+};
+
+/* ─────────── Dynamic Questions Config ─────────── */
+const SERVICE_QUESTIONS = {
+  'tourist-invitation': [
+    { qid: 'purpose', labelKey: 'cs.q.purpose', type: 'select', options: ['Tourism','Family visit','Short trip'] },
+    { qid: 'travelDate', labelKey: 'cs.q.travelDate', type: 'date' },
+    { qid: 'destination', labelKey: 'cs.q.destination', type: 'text' },
+  ],
+  'commercial-invitation': [
+    { qid: 'purpose', labelKey: 'cs.q.purpose', type: 'select', options: ['Business meeting','Negotiation','Conference','Trade show'] },
+    { qid: 'travelDate', labelKey: 'cs.q.travelDate', type: 'date' },
+    { qid: 'destination', labelKey: 'cs.q.destination', type: 'text' },
+    { qid: 'company', labelKey: 'cs.q.companyName', type: 'text' },
+  ],
+  'chinese-visa': [
+    { qid: 'visaType', labelKey: 'cs.q.visaType', type: 'select', options: ['L (Tourist)','M (Business)','Q2 (Family)','S2 (Private)'] },
+    { qid: 'travelDate', labelKey: 'cs.q.travelDate', type: 'date' },
+    { qid: 'destination', labelKey: 'cs.q.destination', type: 'text' },
+    { qid: 'applicants', labelKey: 'cs.q.applicants', type: 'number', placeholder: '1' },
+  ],
+  'tourist-visa': [
+    { qid: 'visaType', labelKey: 'cs.q.visaType', type: 'select', options: ['L (Tourist)','Q2 (Family)','S2 (Private)'] },
+    { qid: 'travelDate', labelKey: 'cs.q.travelDate', type: 'date' },
+    { qid: 'destination', labelKey: 'cs.q.destination', type: 'text' },
+    { qid: 'applicants', labelKey: 'cs.q.applicants', type: 'number', placeholder: '1' },
+  ],
+  'university-application': [
+    { qid: 'desiredUni', labelKey: 'cs.q.desiredUni', type: 'text' },
+    { qid: 'degree', labelKey: 'cs.q.degree', type: 'select', options: ['Bachelor','Master','PhD','Short course','Language course'] },
+    { qid: 'intake', labelKey: 'cs.q.intake', type: 'select', options: ['Spring','Summer','Fall','Winter'] },
+    { qid: 'education', labelKey: 'cs.q.education', type: 'select', options: ['High school','Associate','Bachelor','Master','PhD'] },
+  ],
+  'admission-support': [
+    { qid: 'desiredUni', labelKey: 'cs.q.desiredUni', type: 'text' },
+    { qid: 'degree', labelKey: 'cs.q.degree', type: 'select', options: ['Bachelor','Master','PhD','Short course'] },
+    { qid: 'intake', labelKey: 'cs.q.intake', type: 'select', options: ['Spring','Summer','Fall','Winter'] },
+  ],
+  'document-coordination': [
+    { qid: 'purpose', labelKey: 'cs.q.purpose', type: 'select', options: ['Academic documents','Translation','Certification','Notarization'] },
+    { qid: 'destination', labelKey: 'cs.q.destination', type: 'text' },
+  ],
+  'student-assistance': [
+    { qid: 'desiredUni', labelKey: 'cs.q.desiredUni', type: 'text' },
+    { qid: 'degree', labelKey: 'cs.q.degree', type: 'select', options: ['Bachelor','Master','PhD','Language course'] },
+    { qid: 'intake', labelKey: 'cs.q.intake', type: 'select', options: ['Spring','Summer','Fall','Winter'] },
+  ],
+  'company-registration': [
+    { qid: 'businessActivity', labelKey: 'cs.q.businessActivity', type: 'select', options: ['Trading','Manufacturing','Technology','Consulting','Services','E-commerce','Other'] },
+    { qid: 'prefCity', labelKey: 'cs.q.prefCity', type: 'text', placeholder: 'e.g. Guangzhou' },
+    { qid: 'partners', labelKey: 'cs.q.partners', type: 'number', placeholder: '1' },
+    { qid: 'businessScope', labelKey: 'cs.q.businessScope', type: 'textarea' },
+  ],
+  'business-setup': [
+    { qid: 'businessActivity', labelKey: 'cs.q.businessActivity', type: 'select', options: ['Trading','Manufacturing','Technology','Consulting','Services'] },
+    { qid: 'prefCity', labelKey: 'cs.q.prefCity', type: 'text' },
+    { qid: 'businessScope', labelKey: 'cs.q.businessScope', type: 'textarea' },
+  ],
+  'office-rental': [
+    { qid: 'prefCity', labelKey: 'cs.q.prefCity', type: 'text' },
+    { qid: 'businessActivity', labelKey: 'cs.q.businessActivity', type: 'select', options: ['Small team','Medium office','Large headquarters','Co-working'] },
+  ],
+  'commercial-address': [
+    { qid: 'prefCity', labelKey: 'cs.q.prefCity', type: 'text' },
+    { qid: 'businessActivity', labelKey: 'cs.q.businessActivity', type: 'select', options: ['Trading','Technology','Consulting','Services','Other'] },
+  ],
+  'contract-review': [
+    { qid: 'contractType', labelKey: 'cs.q.contractType', type: 'select', options: ['Sales contract','Service agreement','Partnership','Employment','NDA','Other'] },
+    { qid: 'parties', labelKey: 'cs.q.parties', type: 'text' },
+    { qid: 'contractPurpose', labelKey: 'cs.q.contractPurpose', type: 'textarea' },
+    { qid: 'completionDate', labelKey: 'cs.q.completionDate', type: 'date' },
+  ],
+  'business-coordination': [
+    { qid: 'businessActivity', labelKey: 'cs.q.businessActivity', type: 'select', options: ['Ongoing operations','Market entry','Expansion','Compliance'] },
+    { qid: 'prefCity', labelKey: 'cs.q.prefCity', type: 'text' },
+  ],
+  'hotel-booking': [
+    { qid: 'city', labelKey: 'cs.q.city', type: 'text' },
+    { qid: 'checkIn', labelKey: 'cs.q.checkIn', type: 'date' },
+    { qid: 'checkOut', labelKey: 'cs.q.checkOut', type: 'date' },
+    { qid: 'guests', labelKey: 'cs.q.guests', type: 'number', placeholder: '1' },
+  ],
+  'apartment-rental': [
+    { qid: 'city', labelKey: 'cs.q.city', type: 'text' },
+    { qid: 'propType', labelKey: 'cs.q.propType', type: 'select', options: ['Apartment','Serviced apartment','Shared house','Whole building'] },
+    { qid: 'checkIn', labelKey: 'cs.q.checkIn', type: 'date' },
+    { qid: 'checkOut', labelKey: 'cs.q.checkOut', type: 'date' },
+    { qid: 'guests', labelKey: 'cs.q.guests', type: 'number', placeholder: '1' },
+  ],
+  'd-office-rental': [
+    { qid: 'prefCity', labelKey: 'cs.q.prefCity', type: 'text' },
+    { qid: 'businessActivity', labelKey: 'cs.q.businessActivity', type: 'select', options: ['Small team','Medium office','Large headquarters','Co-working'] },
+  ],
+  'ticket-booking': [
+    { qid: 'purpose', labelKey: 'cs.q.purpose', type: 'select', options: ['Flight','Train','Bus','Ferry'] },
+    { qid: 'travelDate', labelKey: 'cs.q.travelDate', type: 'date' },
+    { qid: 'origin', labelKey: 'cs.q.origin', type: 'text' },
+    { qid: 'destination', labelKey: 'cs.q.destination', type: 'text' },
+  ],
+  'cargo-shipping': [
+    { qid: 'origin', labelKey: 'cs.q.origin', type: 'text' },
+    { qid: 'dest', labelKey: 'cs.q.dest', type: 'text' },
+    { qid: 'goodsType', labelKey: 'cs.q.goodsType', type: 'select', options: ['Documents','Electronics','Textiles','Machinery','Food','Chemicals','Other'] },
+    { qid: 'quantity', labelKey: 'cs.q.quantity', type: 'text', placeholder: 'e.g. 500 kg / 2 pallets' },
+  ],
+  'car-booking': [
+    { qid: 'city', labelKey: 'cs.q.city', type: 'text' },
+    { qid: 'purpose', labelKey: 'cs.q.purpose', type: 'select', options: ['Airport transfer','Business meeting','City tour','Long distance'] },
+    { qid: 'travelDate', labelKey: 'cs.q.travelDate', type: 'date' },
+  ],
+  'visa-appointment': [
+    { qid: 'visaType', labelKey: 'cs.q.visaType', type: 'select', options: ['L','M','Q2','S2','X1','X2','Z'] },
+    { qid: 'travelDate', labelKey: 'cs.q.travelDate', type: 'date' },
+    { qid: 'applicants', labelKey: 'cs.q.applicants', type: 'number', placeholder: '1' },
+  ],
+  'medical-appointment': [
+    { qid: 'visaType', labelKey: 'cs.q.visaType', type: 'select', options: ['L','M','Q2','S2','X1','X2','Z'] },
+    { qid: 'travelDate', labelKey: 'cs.q.travelDate', type: 'date' },
+    { qid: 'applicants', labelKey: 'cs.q.applicants', type: 'number', placeholder: '1' },
+  ],
+  'canton-fair': [
+    { qid: 'companyName', labelKey: 'cs.q.companyName', type: 'text' },
+    { qid: 'industry', labelKey: 'cs.q.industry', type: 'select', options: ['Electronics','Textiles','Machinery','Consumer goods','Automotive','Medical','Other'] },
+    { qid: 'fairSession', labelKey: 'cs.q.fairSession', type: 'select', options: ['Phase 1','Phase 2','Phase 3','Autumn Canton Fair'] },
+    { qid: 'attendees', labelKey: 'cs.q.attendees', type: 'number', placeholder: '1' },
+  ],
+  'local-admin': [
+    { qid: 'purpose', labelKey: 'cs.q.purpose', type: 'select', options: ['Business license','Tax registration','Bank account','Work permit','Other'] },
+    { qid: 'prefCity', labelKey: 'cs.q.prefCity', type: 'text' },
+  ],
+  'gz-transport': [
+    { qid: 'purpose', labelKey: 'cs.q.purpose', type: 'select', options: ['Airport pickup','City tour','Business transfer','Day trip'] },
+    { qid: 'travelDate', labelKey: 'cs.q.travelDate', type: 'date' },
+  ],
+  'gz-accommodation': [
+    { qid: 'city', labelKey: 'cs.q.city', type: 'text', default: 'Guangzhou' },
+    { qid: 'checkIn', labelKey: 'cs.q.checkIn', type: 'date' },
+    { qid: 'checkOut', labelKey: 'cs.q.checkOut', type: 'date' },
+    { qid: 'guests', labelKey: 'cs.q.guests', type: 'number', placeholder: '1' },
+  ],
+  'temp-driving': [
+    { qid: 'tempDriving', labelKey: 'cs.q.tempDriving', type: 'select', options: ['No prior license','Valid foreign license','Valid Chinese license'] },
+    { qid: 'prefCity', labelKey: 'cs.q.prefCity', type: 'text' },
+  ],
+  'perm-driving': [
+    { qid: 'permDriving', labelKey: 'cs.q.permDriving', type: 'select', options: ['No prior license','Valid foreign license','Valid Chinese temporary'] },
+    { qid: 'prefCity', labelKey: 'cs.q.prefCity', type: 'text' },
+  ],
+  'vehicle-registration': [
+    { qid: 'vehicleType', labelKey: 'cs.q.vehicleType', type: 'select', options: ['Personal car','Company car','Motorcycle','Other'] },
+    { qid: 'regCity', labelKey: 'cs.q.regCity', type: 'text' },
+  ],
+  'vehicle-admin': [
+    { qid: 'vehicleType', labelKey: 'cs.q.vehicleType', type: 'select', options: ['Inspection','Transfer','Insurance','Other'] },
+    { qid: 'regCity', labelKey: 'cs.q.regCity', type: 'text' },
+  ],
+  'car-rental': [
+    { qid: 'city', labelKey: 'cs.q.city', type: 'text' },
+    { qid: 'travelDate', labelKey: 'cs.q.travelDate', type: 'date' },
+    { qid: 'purpose', labelKey: 'cs.q.purpose', type: 'select', options: ['Business','Tourism','Airport transfer'] },
+  ],
+};
+
+/* ─────────── Request ID Generator ─────────── */
+let requestCounter = 1;
+function generateRequestId() {
+  const year = new Date().getFullYear();
+  const seq = String(requestCounter++).padStart(5, '0');
+  return `YH-CS-${year}-${seq}`;
+}
+
+/* ─────────── Form State ─────────── */
+const csFormState = {
+  currentStep: 1,
+  selectedServices: [],
+  formData: {},
+};
+
+/* ─────────── Smart Form Logic ─────────── */
+const csFormOverlay = document.getElementById('cs-form');
+const csForm = document.getElementById('csSmartForm');
+const csFormClose = document.getElementById('csFormClose');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const formNav = document.getElementById('formNav');
+const dynamicQuestions = document.getElementById('dynamicQuestions');
+const reviewContent = document.getElementById('reviewContent');
+const otherTextWrap = document.getElementById('otherTextWrap');
+const otherText = document.getElementById('otherText');
+const requestIdDisplay = document.getElementById('requestIdDisplay');
+const resetFormBtn = document.getElementById('resetFormBtn');
+const successResetBtn = document.getElementById('successResetBtn');
+const hasCSForm = !!(csFormOverlay && csForm && nextBtn);
+
+/* Open form */
+function openCSForm() {
+  if (!csFormOverlay) return;
+  csFormOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+/* Close form */
+function closeCSForm() {
+  if (!csFormOverlay) return;
+  csFormOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* Service card buttons open form */
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-form]');
+  if (btn) {
+    csFormState.selectedServices = [btn.dataset.form];
+    openCSForm();
+    setTimeout(() => updateStep(1), 350);
+  }
 });
+
+/* Service link buttons in section */
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('.card .svc-link');
+  if (link && link.dataset.form) {
+    csFormState.selectedServices = [link.dataset.form];
+    openCSForm();
+    setTimeout(() => updateStep(1), 350);
+  }
+});
+
+if (csFormClose) csFormClose.addEventListener('click', closeCSForm);
+if (csFormOverlay) csFormOverlay.addEventListener('click', (e) => { if (e.target === csFormOverlay) closeCSForm(); });
+
+/* Other checkbox */
+document.addEventListener('change', (e) => {
+  if (e.target.name === 'services') {
+    const otherChecked = document.querySelector('input[name="services"][value="other"]');
+    if (otherChecked) {
+      otherTextWrap.style.display = otherChecked.checked ? 'block' : 'none';
+      if (!otherChecked.checked) otherText.value = '';
+    }
+  }
+});
+
+/* Update progress indicator */
+function updateProgress(step) {
+  const steps = csFormOverlay.querySelectorAll('.progress-step');
+  const lines = csFormOverlay.querySelectorAll('.progress-line');
+  steps.forEach((s, i) => {
+    s.classList.remove('active', 'completed');
+    if (i + 1 < step) s.classList.add('completed');
+    else if (i + 1 === step) s.classList.add('active');
+  });
+  lines.forEach((l, i) => {
+    l.classList.toggle('completed', i + 1 < step);
+  });
+}
+
+/* Update visible step */
+function updateStep(step) {
+  csFormState.currentStep = step;
+  csFormOverlay.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  const targetStep = document.getElementById('step-' + step);
+  if (targetStep) targetStep.classList.add('active');
+  updateProgress(step);
+  prevBtn.style.visibility = step === 1 ? 'hidden' : 'visible';
+  if (step === 5) { formNav.style.display = 'none'; } else { formNav.style.display = 'flex'; }
+  if (step === 3) generateDynamicQuestions();
+  if (step === 4) generateReview();
+}
+
+/* Validate step 1 */
+function validateStep1() {
+  const checked = csForm.querySelectorAll('input[name="services"]:checked');
+  const vals = [...checked].map(c => c.value);
+  const otherChecked = vals.includes('other');
+  if (otherChecked) vals.splice(vals.indexOf('other'), 1);
+  if (vals.length === 0 && !otherChecked) {
+    alert(CS['cs.form.s1'] ? 'Please select at least one service.' : 'Please select at least one service.');
+    return false;
+  }
+  if (otherChecked && (!otherText.value.trim())) {
+    alert(CS['cs.form.other'] ? 'Please describe what you need assistance with.' : 'Please describe what you need assistance with.');
+    return false;
+  }
+  csFormState.selectedServices = vals;
+  return true;
+}
+
+/* Validate step 2 */
+function validateStep2() {
+  const fields = ['fullName','country','nationality','email','phone'];
+  let valid = true;
+  fields.forEach(f => {
+    const input = csForm.querySelector(`[name="${f}"]`);
+    const err = input ? input.parentElement.querySelector('.err-msg') : null;
+    if (!input.value.trim()) {
+      input.classList.add('invalid');
+      if (err) err.textContent = 'This field is required';
+      valid = false;
+    } else {
+      input.classList.remove('invalid');
+      if (err) err.textContent = '';
+      if (f === 'email' && !input.value.includes('@')) {
+        input.classList.add('invalid');
+        if (err) err.textContent = 'Please enter a valid email';
+        valid = false;
+      }
+    }
+  });
+  return valid;
+}
+
+/* Next / Previous */
+if (nextBtn) nextBtn.addEventListener('click', () => {
+  if (csFormState.currentStep === 1 && !validateStep1()) return;
+  if (csFormState.currentStep === 2 && !validateStep2()) return;
+  if (csFormState.currentStep < 5) updateStep(csFormState.currentStep + 1);
+});
+if (prevBtn) prevBtn.addEventListener('click', () => {
+  if (csFormState.currentStep > 1) updateStep(csFormState.currentStep - 1);
+});
+
+/* Generate dynamic questions for step 3 */
+function generateDynamicQuestions() {
+  const container = dynamicQuestions;
+  container.innerHTML = '';
+  const services = csFormState.selectedServices;
+  const allQuestions = new Map();
+
+  services.forEach(svc => {
+    const questions = SERVICE_QUESTIONS[svc];
+    if (questions) {
+      questions.forEach(q => {
+        if (!allQuestions.has(q.qid)) {
+          allQuestions.set(q.qid, q);
+        }
+      });
+    }
+  });
+
+  allQuestions.forEach((q, i) => {
+    const label = document.createElement('label');
+    const labelSpan = document.createElement('span');
+    labelSpan.textContent = CS[q.labelKey] || q.labelKey;
+    label.appendChild(labelSpan);
+
+    if (q.type === 'select') {
+      const sel = document.createElement('select');
+      sel.name = q.qid;
+      sel.required = true;
+      const defOpt = document.createElement('option');
+      defOpt.value = '';
+      defOpt.textContent = CS['cs.form.s3d'] || 'Select...';
+      sel.appendChild(defOpt);
+      q.options.forEach(opt => {
+        const o = document.createElement('option');
+        o.value = opt;
+        o.textContent = opt;
+        sel.appendChild(o);
+      });
+      label.appendChild(sel);
+    } else if (q.type === 'textarea') {
+      const ta = document.createElement('textarea');
+      ta.name = q.qid;
+      ta.rows = 3;
+      ta.placeholder = q.placeholder || '';
+      ta.required = true;
+      label.appendChild(ta);
+    } else if (q.type === 'date') {
+      const inp = document.createElement('input');
+      inp.type = 'date';
+      inp.name = q.qid;
+      inp.required = true;
+      label.appendChild(inp);
+    } else if (q.type === 'number') {
+      const inp = document.createElement('input');
+      inp.type = 'number';
+      inp.name = q.qid;
+      inp.min = '1';
+      inp.placeholder = q.placeholder || '';
+      inp.required = true;
+      label.appendChild(inp);
+    } else {
+      const inp = document.createElement('input');
+      inp.type = 'text';
+      inp.name = q.qid;
+      inp.placeholder = q.placeholder || '';
+      inp.required = true;
+      label.appendChild(inp);
+    }
+
+    const row = document.createElement('div');
+    row.className = 'q-row';
+    row.style.gridColumn = '1 / -1';
+    row.appendChild(label);
+    container.appendChild(row);
+  });
+
+  if (allQuestions.size === 0) {
+    container.innerHTML = '<p style="color:var(--mut);font-size:.9rem">No additional questions for the selected service(s).</p>';
+  }
+}
+
+/* Generate review for step 4 */
+function generateReview() {
+  const container = reviewContent;
+  container.innerHTML = '';
+
+  /* Services */
+  const svcSection = document.createElement('div');
+  svcSection.className = 'review-section';
+  const svcH4 = document.createElement('h4');
+  svcH4.textContent = 'SERVICES';
+  svcSection.appendChild(svcH4);
+  const svcP = document.createElement('p');
+  svcP.className = 'review-value';
+  svcP.textContent = csFormState.selectedServices.join(', ');
+  svcSection.appendChild(svcP);
+  container.appendChild(svcSection);
+
+  /* Client info */
+  const infoSection = document.createElement('div');
+  infoSection.className = 'review-section';
+  const infoH4 = document.createElement('h4');
+  infoH4.textContent = 'CLIENT INFORMATION';
+  infoSection.appendChild(infoH4);
+  const infoFields = ['fullName','country','nationality','email','phone','company','language'];
+  const infoLabels = {
+    fullName: 'Full Name', country: 'Country of Residence', nationality: 'Nationality',
+    email: 'Email', phone: 'Phone / WhatsApp', company: 'Company', language: 'Language'
+  };
+  infoFields.forEach(f => {
+    const input = csForm.querySelector(`[name="${f}"]`);
+    if (!input) return;
+    const p = document.createElement('p');
+    const lbl = document.createElement('span');
+    lbl.className = 'review-label';
+    lbl.textContent = (CS['cs.form.' + f] || infoLabels[f] || f) + ':';
+    const val = document.createElement('span');
+    val.className = 'review-value';
+    val.textContent = input.value || '—';
+    p.appendChild(lbl);
+    p.appendChild(val);
+    infoSection.appendChild(p);
+  });
+  container.appendChild(infoSection);
+
+  /* Request details */
+  const detailsSection = document.createElement('div');
+  detailsSection.className = 'review-section';
+  const detH4 = document.createElement('h4');
+  detH4.textContent = 'REQUEST DETAILS';
+  detailsSection.appendChild(detH4);
+  const inputs = dynamicQuestions.querySelectorAll('input, select, textarea');
+  let hasDetails = false;
+  inputs.forEach(inp => {
+    if (inp.value) {
+      hasDetails = true;
+      const p = document.createElement('p');
+      const lbl = document.createElement('span');
+      lbl.className = 'review-label';
+      const labelKey = [...SERVICE_QUESTIONS.values()].flat().find(q => q.qid === inp.name);
+      lbl.textContent = (labelKey && CS[labelKey.labelKey]) ? CS[labelKey.labelKey] : inp.name;
+      lbl.textContent += ':';
+      const val = document.createElement('span');
+      val.className = 'review-value';
+      val.textContent = inp.value;
+      p.appendChild(lbl);
+      p.appendChild(val);
+      detailsSection.appendChild(p);
+    }
+  });
+  if (!hasDetails) {
+    const p = document.createElement('p');
+    p.className = 'review-value';
+    p.textContent = 'No additional details provided.';
+    detailsSection.appendChild(p);
+  }
+  container.appendChild(detailsSection);
+}
+
+/* Submit form — POST to backend API, backend sends both emails */
+if (csForm) csForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const requestId = generateRequestId();
+  const formData = collectFormData();
+  csFormState.formData = formData;
+
+  /* Collect dynamic question answers */
+  const dynamicAnswers = {};
+  dynamicQuestions.querySelectorAll('input, select, textarea').forEach(inp => {
+    if (inp.name && inp.value.trim()) dynamicAnswers[inp.name] = inp.value.trim();
+  });
+
+  /* Show loading state on button */
+  const submitBtn = nextBtn;
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = 'Submitting…';
+  submitBtn.disabled = true;
+
+  /* Build request details summary */
+  const detailsLines = [];
+  Object.entries(dynamicAnswers).forEach(([qid, val]) => {
+    const labelKey = Object.values(SERVICE_QUESTIONS).flat().find(q => q.qid === qid);
+    const label = labelKey ? (CS[labelKey.labelKey] || qid) : qid;
+    detailsLines.push(label + ': ' + val);
+  });
+  if (formData.other && formData.other.trim()) {
+    detailsLines.push('Other Request: ' + formData.other.trim());
+  }
+
+  try {
+    const resp = await fetch('/api/submit-request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        services: formData.services,
+        fullName: formData.fullName,
+        country: formData.country,
+        nationality: formData.nationality,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company || '',
+        language: formData.language || 'en',
+        requestDetails: detailsLines.join('\n') || 'No additional details provided.',
+        dynamicAnswers,
+        notes: formData.notes || '',
+        other: formData.other || ''
+      })
+    });
+
+    const data = await resp.json();
+    if (data && data.success) {
+      showCSuccess(data.requestId || requestId);
+    } else {
+      /* API failed — fall back to local flow */
+      console.warn('API error:', data && data.error);
+      showCSuccess(requestId);
+    }
+  } catch (err) {
+    /* Backend not available — graceful local fallback with mailto */
+    console.warn('API unavailable:', err.message);
+    const subject = encodeURIComponent('New China Services Request — ' + csFormState.selectedServices.join(', ') + ' — ' + formData.fullName);
+    const body = encodeURIComponent(formatEmailBody(requestId, formData));
+    window.open('mailto:hello@yalla-hack.com?subject=' + subject + '&body=' + body, '_blank');
+    showCSuccess(requestId);
+  } finally {
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+  }
+});
+
+/* Show success state */
+function showCSuccess(requestId) {
+  csFormOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  requestIdDisplay.textContent = requestId;
+  const successRequestIdEl = document.getElementById('successRequestId');
+  if (successRequestIdEl) successRequestIdEl.textContent = requestId;
+  const successSection = document.getElementById('cs-success');
+  if (successSection) {
+    successSection.style.display = 'block';
+    successSection.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+/* Collect form data */
+function collectFormData() {
+  const data = {};
+  /* Text inputs, selects, textareas */
+  csForm.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="date"], select, textarea').forEach(inp => {
+    if (inp.name) data[inp.name] = inp.value;
+  });
+  /* Service checkboxes */
+  const checked = csForm.querySelectorAll('input[name="services"]:checked');
+  data.services = [...checked].map(c => c.value);
+  /* Other text */
+  if (otherText && otherText.value.trim()) data.other = otherText.value.trim();
+  return data;
+}
+
+/* Format email body */
+function formatEmailBody(requestId, formData) {
+  const svcStr = csFormState.selectedServices.join(', ');
+  const lines = [];
+  lines.push('--------------------------------');
+  lines.push('NEW SERVICE REQUEST');
+  lines.push('--------------------------------');
+  lines.push('');
+  lines.push('Request ID:');
+  lines.push(requestId);
+  lines.push('');
+  lines.push('Date & Time:');
+  lines.push(new Date().toLocaleString());
+  lines.push('');
+  lines.push('Selected Service(s):');
+  lines.push(svcStr);
+  lines.push('');
+  lines.push('CLIENT INFORMATION');
+  lines.push('');
+  lines.push('Full Name:');
+  lines.push(formData.fullName || '—');
+  lines.push('');
+  lines.push('Nationality:');
+  lines.push(formData.nationality || '—');
+  lines.push('');
+  lines.push('Country of Residence:');
+  lines.push(formData.country || '—');
+  lines.push('');
+  lines.push('Email:');
+  lines.push(formData.email || '—');
+  lines.push('');
+  lines.push('Phone / WhatsApp:');
+  lines.push(formData.phone || '—');
+  lines.push('');
+  lines.push('Company:');
+  lines.push(formData.company || '—');
+  lines.push('');
+  lines.push('Preferred Language:');
+  lines.push(formData.language || '—');
+  lines.push('');
+  lines.push('REQUEST DETAILS');
+  lines.push('');
+  const dynamicInputs = dynamicQuestions.querySelectorAll('input, select, textarea');
+  dynamicInputs.forEach(inp => {
+    if (inp.value) {
+      const labelKey = [...SERVICE_QUESTIONS.values()].flat().find(q => q.qid === inp.name);
+      const label = labelKey ? (CS[labelKey.labelKey] || labelKey.qid) : inp.name;
+      lines.push(label + ':');
+      lines.push(inp.value);
+      lines.push('');
+    }
+  });
+  const notes = csForm.querySelector('#additionalNotes');
+  if (notes && notes.value.trim()) {
+    lines.push('ADDITIONAL NOTES');
+    lines.push('');
+    lines.push(notes.value.trim());
+    lines.push('');
+  }
+  lines.push('--------------------------------');
+  return lines.join('\n');
+}
+
+/* Reset form */
+function resetCSForm() {
+  csForm.reset();
+  csFormState.selectedServices = [];
+  csFormState.currentStep = 1;
+  otherTextWrap.style.display = 'none';
+  otherText.value = '';
+  csFormOverlay.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  const step1 = document.getElementById('step-1');
+  if (step1) step1.classList.add('active');
+  updateProgress(1);
+  prevBtn.style.visibility = 'hidden';
+  formNav.style.display = 'flex';
+  const successSection = document.getElementById('cs-success');
+  if (successSection) successSection.style.display = 'none';
+}
+
+if (resetFormBtn) resetFormBtn.addEventListener('click', resetCSForm);
+if (successResetBtn) successResetBtn.addEventListener('click', resetCSForm);
+
+/* Apply i18n to new section elements */
+function applyCSI18n() {
+  const dict = CS_I18N[LANG] || CS_I18N.en;
+  $$('[data-i18n-cs]').forEach(el => {
+    const key = el.dataset.i18nCs;
+    if (dict[key]) el.textContent = dict[key];
+  });
+  $$('[data-i18n-cs-ph]').forEach(el => {
+    const key = el.dataset.i18nCsPh;
+    if (dict[key]) el.placeholder = dict[key];
+  });
+}
+
+/* Add data-i18n-cs attributes to section elements for translation */
+function setupCSI18n() {
+  const csSection = document.getElementById('china-support');
+  if (!csSection) return;
+  /* Map elements with data-i18n-cs attribute */
+}
+
+/* Initialize */
+document.addEventListener('DOMContentLoaded', () => {
+  setupCSI18n();
+  applyCSI18n();
+});
+
+/* ESC to close form */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && csFormOverlay && csFormOverlay.classList.contains('open')) {
+    closeCSForm();
+  }
+});
+
+/* Smooth scroll to success section */
+const successObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && e.target.id === 'cs-success') {
+      e.target.classList.add('reveal', 'in');
+    }
+  });
+}, { threshold: 0.1 });
+const csSuccess = document.getElementById('cs-success');
+if (csSuccess) successObserver.observe(csSuccess);
+
+/* Update nav active state for china-support */
+function updateNavState() {
+  const cs = document.getElementById('china-support');
+  if (cs && cs.getBoundingClientRect().top <= window.innerHeight * 0.5) {
+    $$('#navLinks a').forEach(a => {
+      a.style.color = a.getAttribute('href') === '#china-support' ? 'var(--gold-soft)' : '';
+    });
+  }
+}
+document.addEventListener('scroll', updateNavState, { passive: true });

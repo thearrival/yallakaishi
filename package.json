@@ -1,0 +1,29 @@
+{
+  "name": "yalla-kaishi-website",
+  "version": "1.0.0",
+  "description": "Yalla Kaishi — Cross-Border Business Services · China Business, Travel & Administrative Support",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "china",
+    "business-services",
+    "visa-assistance",
+    "guangzhou",
+    "yalla-hack"
+  ],
+  "author": "Yalla-Hack",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "express-rate-limit": "^7.2.0",
+    "express-validator": "^7.0.1",
+    "nodemailer": "^9.1.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
