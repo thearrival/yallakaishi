@@ -87,7 +87,7 @@
     </nav>
     <div class="nav-actions">
       <button id="langToggle" class="lang-toggle" aria-label="Switch language">中文</button>
-      <a href="#cs-form" class="btn btn-gold btn-sm">Request a Service</a>
+      <button type="button" class="btn btn-gold btn-sm" id="navOpenForm">Request a Service</button>
       <button id="burger" class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -106,7 +106,7 @@
     </h1>
     <p class="hero-sub">Professional assistance for individuals, entrepreneurs, students, and businesses navigating travel, business, administrative, and market-entry requirements in China — one coordinated point of contact.</p>
     <div class="hero-cta">
-      <a href="#cs-form" class="btn btn-gold">Request a Service</a>
+      <button type="button" class="btn btn-gold" id="heroOpenForm">Request a Service</button>
       <a href="#china-services" class="btn btn-ghost">Explore Services</a>
     </div>
     <div class="hero-stats">
@@ -399,17 +399,7 @@
   </div>
 </section>
 
-<!-- ══════════ SMART FORM (embedded inline) ══════════ -->
-<section id="cs-form-section" class="section section-alt">
-  <div class="container">
-    <div class="sec-head reveal">
-      <p class="sec-tag">GET STARTED</p>
-      <h2>Request a Service</h2>
-      <p class="sec-sub">Complete the smart request form below — our team will review and respond within 24 hours.</p>
-    </div>
-    <div class="form-modal-inline glass reveal" id="inlineFormWrapper"></div>
-  </div>
-</section>
+
 
 <!-- ══════════ SMART SERVICE REQUEST FORM ══════════ -->
 <div id="cs-form" class="form-overlay">
@@ -546,107 +536,6 @@
     </div>
   </div>
 </section>
-  <div class="container">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a class="brand" href="#top">
-          <svg viewBox="0 0 64 64" width="30" height="30" class="brand-hex">
-            <path d="M32 4 58 18v28L32 60 6 46V18Z" /><path d="M22 40 32 22l10 18M26 34h12" />
-          </svg>
-          <span class="brand-name">YALLA&nbsp;KAISHI</span>
-        </a>
-        <p data-i18n="foot.tagline">Cross-border business services connecting China and the Gulf — 连接中国与海湾的跨境商业服务平台.</p>
-      </div>
-      <div class="foot-col">
-        <h4 data-i18n="foot.nav">Navigate</h4>
-        <a href="#services" data-i18n="nav.services">Services</a>
-        <a href="#process" data-i18n="nav.process">Process</a>
-        <a href="#expertise" data-i18n="nav.expertise">Expertise</a>
-        <a href="#about" data-i18n="nav.about">About</a>
-      </div>
-      <div class="foot-col">
-        <h4 data-i18n="foot.legal">Legal</h4>
-        <p data-i18n="foot.disclaimer">Yalla Kaishi provides cross-border business services. We do not provide legal advice. Regulatory interpretation is delivered in partnership with licensed law firms.</p>
-      </div>
-      <div class="foot-col">
-        <h4 data-i18n="foot.hq">HQ</h4>
-        <p>Tianhe, Guangzhou, China<br />中国广东省广州市天河区</p>
-        <p>hello@yallakaishi.com</p>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <p>© 2026 Yalla Kaishi · 亚拉凯世 · Guangzhou, China</p>
-      <p class="foot-ar">يلا كايشي · إن شاء الله</p>
-    </div>
-  </div>
-</footer>
-
-<!-- cursor glow -->
-<div id="cursorGlow" aria-hidden="true"></div>
-
-<script src="js/app.js"></script>
-</body>
-</html
-<!-- ══════════ SUCCESS PAGE ══════════ -->
-<section id="cs-success" class="success-page-section">
-  <div class="container">
-    <div class="success-inner reveal">
-      <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-      <h1 data-i18n="cs.success.title">Request Submitted Successfully</h1>
-      <p data-i18n="cs.success.msg">Thank you. Your request has been successfully submitted to the Yalla-Hack team.</p>
-      <div class="request-id-box">
-        <span class="request-id-label">Request ID</span>
-        <span class="request-id-value" id="successRequestId"></span>
-      </div>
-      <p class="keep-id" data-i18n="cs.success.keepId">Please keep this reference number for future communication.</p>
-      <div class="success-actions">
-        <button class="btn btn-outline" id="successResetBtn" data-i18n="cs.success.return">Return to Services</button>
-        <a href="#top" class="btn btn-gold" data-i18n="cs.success.home">Back to Homepage</a>
-      </div>
-    </div>
-  </div>
-</section>
-  <div class="container">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a class="brand" href="#top">
-          <svg viewBox="0 0 64 64" width="30" height="30" class="brand-hex">
-            <path d="M32 4 58 18v28L32 60 6 46V18Z" /><path d="M22 40 32 22l10 18M26 34h12" />
-          </svg>
-          <span class="brand-name">YALLA&nbsp;KAISHI</span>
-        </a>
-        <p data-i18n="foot.tagline">Cross-border business services connecting China and the Gulf — 连接中国与海湾的跨境商业服务平台.</p>
-      </div>
-      <div class="foot-col">
-        <h4 data-i18n="foot.nav">Navigate</h4>
-        <a href="#services" data-i18n="nav.services">Services</a>
-        <a href="#process" data-i18n="nav.process">Process</a>
-        <a href="#expertise" data-i18n="nav.expertise">Expertise</a>
-        <a href="#about" data-i18n="nav.about">About</a>
-      </div>
-      <div class="foot-col">
-        <h4 data-i18n="foot.legal">Legal</h4>
-        <p data-i18n="foot.disclaimer">Yalla Kaishi provides cross-border business services. We do not provide legal advice. Regulatory interpretation is delivered in partnership with licensed law firms.</p>
-      </div>
-      <div class="foot-col">
-        <h4 data-i18n="foot.hq">HQ</h4>
-        <p>Tianhe, Guangzhou, China<br />中国广东省广州市天河区</p>
-        <p>hello@yallakaishi.com</p>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <p>© 2026 Yalla Kaishi · 亚拉凯世 · Guangzhou, China</p>
-      <p class="foot-ar">يلا كايشي · إن شاء الله</p>
-    </div>
-  </div>
-</footer>
-
-<!-- cursor glow -->
-<div id="cursorGlow" aria-hidden="true"></div>
-
-<script src="js/app.js"></script>
-</body>
-</html
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer class="footer">
@@ -674,7 +563,8 @@
       </div>
       <div class="foot-col">
         <h4>HQ</h4>
-        <p>Tianhe, Guangzhou, China<br />中国广东省广州市天河区</p>
+        <p>Jinhui Building, 123 Jiefang South Road,<br />Yuexiu District, Guangzhou, China<br />广东省广州市越秀区人民街道解放南路123号金汇大厦</p>
+        <p><a href="tel:+8618706787811">+86 187 0678 7811</a></p>
         <p>hello@yalla-hack.com</p>
       </div>
     </div>

@@ -233,6 +233,8 @@ app.post('/api/submit-request', submitLimiter, async (req, res) => {
       'Yalla-Hack',
       'Cybersecurity & Digital Solutions',
       ADMIN_EMAIL,
+      '+86 187 0678 7811',
+      'Jinhui Building, 123 Jiefang South Road, Yuexiu District, Guangzhou, China',
       'https://yalla-hack.ae'
     ].join('\n');
 

@@ -50,7 +50,7 @@ const I18N = {
     'gz.c6t':'Local Value','gz.c6d':'Local hiring, local taxes, local export facilitation.',
     'ct.tag':'CONTACT','ct.h2':'Where are you headed?',
     'ct.sub':'Tell us about your market-entry plans — we\'ll reply within 24 hours with a candid read on what it takes. No pitch decks, no pressure.',
-    'ct.addr':'Tianhe District, Guangzhou, China · 中国广州天河','ct.resp':'Response within 24 hours',
+    'ct.addr':'Jinhui Building, 123 Jiefang South Road, Yuexiu District, Guangzhou · 广东省广州市越秀区人民街道解放南路123号金汇大厦','ct.resp':'Response within 24 hours',
     'ct.fname':'Your name','ct.fnameph':'Your name / 姓名','ct.femail':'Email','ct.fcomp':'Company','ct.fcompph':'Company name / 公司名称','ct.fmsg':'Your situation','ct.fmsgph':'Which market are you entering — and when? / 您计划进入哪个市场？','ct.send':'Send Message','ct.ok':'Thank you — we\'ll reply within 24 hours.',
     'foot.tagline':'Cross-border business services connecting China and the Gulf — 连接中国与海湾的跨境商业服务平台.','foot.nav':'Navigate','foot.legal':'Legal','foot.disclaimer':'Yalla Kaishi provides cross-border business services. We do not provide legal advice. Regulatory interpretation is delivered in partnership with licensed law firms.','foot.hq':'HQ'
   },
@@ -94,7 +94,7 @@ const I18N = {
     'gz.c6t':'本地价值','gz.c6d':'本地招聘、本地纳税、本地出口促进。',
     'ct.tag':'联系我们','ct.h2':'您的下一站是哪里？',
     'ct.sub':'告诉我们您的市场准入计划——我们将在24小时内回复，给出务实的路径评估。没有推销话术，没有压力。',
-    'ct.addr':'中国广州天河区 · Tianhe District, Guangzhou','ct.resp':'24小时内回复',
+    'ct.addr':'广东省广州市越秀区人民街道解放南路123号金汇大厦 · Jinhui Building, 123 Jiefang South Road, Yuexiu District, Guangzhou','ct.resp':'24小时内回复',
     'ct.fname':'您的姓名','ct.fnameph':'姓名 / Your name','ct.femail':'电子邮箱','ct.fcomp':'公司','ct.fcompph':'公司名称 / Company name','ct.fmsg':'您的需求','ct.fmsgph':'您计划进入哪个市场？何时？/ Which market are you entering?','ct.send':'发送消息','ct.ok':'感谢您的来信——我们将在24小时内回复。',
     'foot.tagline':'连接中国与海湾的跨境商业服务平台 — Cross-border business services connecting China and the Gulf.','foot.nav':'导航','foot.legal':'法律声明','foot.disclaimer':'亚拉凯世提供跨境商业服务，不提供法律意见。监管解读均通过与持牌律师事务所合作完成。','foot.hq':'总部'
   }
@@ -722,6 +722,12 @@ function openCSForm() {
 }
 
 /* Close form */
+/* CTA buttons that open the form overlay directly */
+const heroOpenForm = document.getElementById('heroOpenForm');
+const navOpenForm = document.getElementById('navOpenForm');
+if (heroOpenForm) heroOpenForm.addEventListener('click', () => { csFormState.selectedServices = []; openCSForm(); });
+if (navOpenForm) navOpenForm.addEventListener('click', () => { csFormState.selectedServices = []; openCSForm(); });
+
 function closeCSForm() {
   if (!csFormOverlay) return;
   csFormOverlay.classList.remove('open');
