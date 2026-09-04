@@ -100,7 +100,7 @@ const I18N = {
   }
 };
 
-let LANG = localStorage.getItem('yk-lang') || 'en';
+let LANG = localStorage.getItem('yk-lang') || 'en'; /* languages: en, ar, zh */
 
 function applyI18n() {
   const dict = I18N[LANG] || I18N.en;
@@ -119,7 +119,7 @@ function applyI18n() {
 
 const langToggleEl = $('#langToggle');
 if (langToggleEl) langToggleEl.addEventListener('click', () => {
-  LANG = LANG === 'en' ? 'zh' : 'en';
+  LANG = LANG === 'en' ? 'ar' : LANG === 'ar' ? 'zh' : 'en';
   localStorage.setItem('yk-lang', LANG);
   applyI18n(); applyCSI18n();
 });
@@ -511,6 +511,8 @@ const CS = CS_I18N[LANG] || CS_I18N.en;
 /* Merge CS i18n into main I18N dictionary */
 Object.assign(I18N.en, CS_I18N.en);
 Object.assign(I18N.zh, CS_I18N.zh);
+// Arabic support: mirrored from English for trilingual display
+Object.assign(I18N.ar, CS_I18N.en); // Arabic mirror
 
 /* ─────────── Service Categories Data ─────────── */
 const SERVICE_CATEGORIES = {
