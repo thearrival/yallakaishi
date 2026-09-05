@@ -127,11 +127,11 @@ ul{list-style:none}
   display:flex;gap:24px;flex-wrap:justify;justify-content:center;
 }
 .stat{text-align:center}
-.stat b{display:block;font-family:var(--font-d);font-size:1.3rem;font-weight:700;margin-bottom:4px}
+.stat b{display:block;font-family:var(--font-d);font-size:1.2rem;font-weight:700;margin-bottom:4px}
 .stat span{color:var(--mut2);font-size:.8rem;letter-spacing:.04em}
 
 /* ── Sections ── */
-.section{padding:100px 0;position:relative}
+.section{padding:80px 0;position:relative}
 .section-alt{background:var(--bg2)}
 .container{max-width:1200px;margin:0 auto;padding:0 24px}
 .sec-head{max-width:720px;margin-bottom:48px}
@@ -167,7 +167,7 @@ ul{list-style:none}
   background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);
   padding:28px 24px;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s;
 }
-.card:hover{border-color:var(--line2);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.card:hover{border-color:var(--line2);box-shadow:0 4px 12px rgba(0,0,0,.05);transform:translateY(-2px)}
 .card h3{font-size:1rem;margin-bottom:8px;font-weight:600}
 .card p{color:var(--mut);font-size:.85rem;line-height:1.5}
 
