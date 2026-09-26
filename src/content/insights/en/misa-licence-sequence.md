@@ -1,6 +1,6 @@
 ---
 locale: en
-title: 'The MISA licence sequence: capital before lease, licence before hiring'
+title: 'MISA licence sequence: the order that saves rework'
 excerpt: 'Most Saudi market-entry timelines slip for one reason: the steps were run in the wrong order. The sequence below is the one we plan around.'
 date: 2026-09-10
 category: 'Market entry'

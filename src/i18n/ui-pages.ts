@@ -135,7 +135,7 @@ export const uiPages = {
   /* ══════════ SERVICES ══════════ */
   'services.meta.title': { en: 'Services', zh: '服务', ar: 'الخدمات' },
   'services.meta.desc': {
-    en: 'Six cross-border services: compliance operations, regulatory translation, market entry and licensing, partner due diligence, technology and training — for China ⇄ GCC trade.',
+    en: 'Six cross-border services: compliance operations, regulatory translation, market entry, partner due diligence, technology and training — for China ⇄ GCC trade.',
     zh: '六项跨境服务：合规运营、监管翻译、市场准入与许可、合作伙伴尽调、技术工具与培训 — 面向中国 ⇄ 海湾贸易。',
     ar: 'ست خدمات عابرة للحدود: عمليات الامتثال، الترجمة التنظيمية، دخول السوق والتراخيص، العناية الواجبة بالشركاء، التقنية والتدريب — لتجارة الصين ⇄ الخليج.',
   },
@@ -314,7 +314,7 @@ export const uiPages = {
   'about.meta.title': { en: 'About', zh: '关于我们', ar: 'من نحن' },
   'about.meta.desc': {
     en: 'A bilingual team rooted in Guangzhou, built around a decade on the China–Gulf corridor.',
-    zh: '扎根广州的双语团队，在中海湾走廊深耕十年。',
+    zh: '扎根广州的双语团队，十年深耕中国—海湾走廊：市场准入、合规运营与在地支持，固定费用、书面方案先行。',
     ar: 'فريق ثنائي اللغة مقره غوانغتشو، بُني على عقد من العمل على ممر الصين–الخليج.',
   },
   'about.eyebrow': { en: 'About us', zh: '关于我们', ar: 'من نحن' },
@@ -414,7 +414,7 @@ export const uiPages = {
   'insights.meta.title': { en: 'Insights', zh: '专业洞察', ar: 'رؤى' },
   'insights.meta.desc': {
     en: 'Practical notes on regulation, market entry and operations across China and the Gulf.',
-    zh: '关于中国与海湾地区监管、市场准入与运营的实务笔记。',
+    zh: '中国—海湾走廊的监管变化、市场准入与运营实务笔记 — 为经营者而写，不讲空话。',
     ar: 'ملاحظات عملية عن التنظيم ودخول السوق والعمليات في الصين والخليج.',
   },
   'insights.eyebrow': { en: 'Insights', zh: '洞察', ar: 'رؤى' },
@@ -514,7 +514,7 @@ export const uiPages = {
   'legal.termsTitle': { en: 'Terms of use', zh: '使用条款', ar: 'شروط الاستخدام' },
   'legal.termsDesc': {
     en: 'The rules for using this website and engaging our services.',
-    zh: '使用本网站及委托我们服务的规则。',
+    zh: '使用本网站及委托我们服务时的权利、限制与责任划分。',
     ar: 'قواعد استخدام هذا الموقع والاستفادة من خدماتنا.',
   },
   'legal.disclaimerTitle': {

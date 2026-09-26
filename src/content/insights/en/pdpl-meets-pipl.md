@@ -1,7 +1,7 @@
 ---
 locale: en
-title: 'PDPL meets PIPL: what actually changes when customer data crosses the Gulf–China line'
-excerpt: 'Both regimes look similar on paper — consent, purpose limitation, transfer rules. The differences that cost money are in the details of who must approve the transfer and what counts as a valid basis.'
+title: 'PDPL meets PIPL: what changes for cross-border data'
+excerpt: 'Both regimes look similar on paper. The costly differences are in who approves the transfer and what counts as a valid basis.'
 date: 2026-09-20
 category: 'Data & privacy'
 tags: ['PDPL', 'PIPL', 'cross-border transfer', 'e-commerce']

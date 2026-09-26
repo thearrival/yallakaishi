@@ -1,6 +1,6 @@
 ---
 locale: en
-title: 'Canton Fair booth to signed distributor: the 90-day follow-up that works'
+title: 'From Canton Fair booth to signed distributor in 90 days'
 excerpt: 'The fair gives you 300 business cards. What happens in the next 90 days decides whether any of them become revenue.'
 date: 2026-09-01
 category: 'Operations'

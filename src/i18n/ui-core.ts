@@ -17,9 +17,9 @@ export const uiCore = {
     ar: 'يلا كايشي — خدمات أعمال عابرة للحدود بين الصين والخليج',
   },
   'meta.homeDesc': {
-    en: 'Guangzhou-based cross-border business services for SMEs entering China and the GCC: market entry, compliance operations, regulatory translation, due diligence and in-country support. Fixed-fee proposals, 24-hour reply.',
+    en: 'Market entry, compliance, regulatory translation, due diligence and in-country support for SMEs entering China and the GCC. Fixed-fee proposals, 24-hour reply.',
     zh: '扎根广州的跨境商业服务，助力中小企业进入中国与海湾市场：市场准入、合规运营、监管翻译、尽职调查与在地支持。固定费用提案，24 小时回复。',
-    ar: 'خدمات أعمال عابرة للحدود مقرها غوانغتشو، تدعم الشركات الصغيرة والمتوسطة في دخول الصين والخليج: دخول السوق، عمليات الامتثال، الترجمة التنظيمية، العناية الواجبة، والدعم الميداني. عروض بأسعار ثابتة ورد خلال 24 ساعة.',
+    ar: 'دخول السوق، الامتثال، الترجمة التنظيمية، العناية الواجبة والدعم الميداني للشركات الصغيرة في الصين والخليج. عروض بأسعار ثابتة ورد خلال 24 ساعة.',
   },
 
   /* ── Navigation ────────────────────────────────────── */
