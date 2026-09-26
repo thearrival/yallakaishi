@@ -839,6 +839,17 @@ html[dir='rtl'] .svc-card::before {
   border-radius: var(--r-lg);
   background: var(--surface);
   box-shadow: var(--sh-sm);
+  transition:
+    transform var(--t-fast),
+    border-color var(--t-fast),
+    box-shadow var(--t-fast),
+    background var(--t-fast);
+}
+.industry-row:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold-line);
+  background: linear-gradient(180deg, #fffdf9 0%, var(--surface) 55%);
+  box-shadow: var(--sh-md);
 }
 .industry-main {
   display: flex;
@@ -1547,6 +1558,15 @@ html[dir='rtl'] .mini-cta:hover {
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
   background: var(--surface-2);
+  transition:
+    transform var(--t-fast),
+    border-color var(--t-fast),
+    box-shadow var(--t-fast);
+}
+.team-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--teal-line);
+  box-shadow: var(--sh-md);
 }
 .team-avatar {
   display: grid;
@@ -1600,6 +1620,16 @@ html[dir='rtl'] .mini-cta:hover {
   border-inline-start: 3px solid var(--teal);
   border-radius: var(--r);
   background: var(--surface);
+  transition:
+    transform var(--t-fast),
+    border-color var(--t-fast),
+    box-shadow var(--t-fast);
+}
+.presence-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--teal-line);
+  border-inline-start-color: var(--gold);
+  box-shadow: var(--sh-md);
 }
 .presence-card h3 {
   font-size: var(--fs-md);

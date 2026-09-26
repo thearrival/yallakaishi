@@ -8,7 +8,6 @@
 :root {
   /* ── Colour ─────────────────────────────────────────── */
   --ink: #0a1020;
-  --ink-soft: #16203a;
   --body: #3d4a63;
   --muted: #6b7a94;
   --faint: #97a3b8;
@@ -16,19 +15,16 @@
   --surface: #ffffff;
   --surface-2: #f7f9fc;
   --surface-3: #eef2f8;
-  --surface-4: #e5ebf4;
 
   --line: #e6eaf1;
   --line-strong: #d2dae7;
 
   --gold: #c08a2e;
-  --gold-strong: #a06f1d;
   --gold-ink: #7c5413; /* text-safe gold on white (7.4:1) */
   --gold-soft: #f6ecd8;
   --gold-line: #e8d5ad;
 
   --teal: #0f766e;
-  --teal-strong: #0b5c56;
   --teal-ink: #0b5c56;
   --teal-soft: #e4f2f0;
   --teal-line: #c4e2de;
@@ -44,14 +40,12 @@
   --grad-gold: linear-gradient(135deg, #d8a044 0%, #b8862f 55%, #96681f 100%);
   --grad-hero: linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
   --grad-ink: linear-gradient(160deg, #0a1020 0%, #16233f 100%);
-  --grad-teal: linear-gradient(135deg, #14958b 0%, #0f766e 55%, #0b5c56 100%);
   --grad-card: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
   --grad-rule: linear-gradient(90deg, var(--gold), var(--teal) 55%, transparent);
 
   /* ── Typography ─────────────────────────────────────── */
   --font-display: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
-  --font-body: 'Inter', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
-  --font-ar: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Noto Sans SC', sans-serif;
+  --font-body: 'Inter', 'Nototo Sans SC', system-ui, -apple-system, sans-serif;
 
   --fs-2xs: 0.6875rem;
   --fs-xs: 0.75rem;
@@ -65,7 +59,6 @@
   --fs-h3: clamp(1.15rem, 1rem + 0.7vw, 1.45rem);
   --fs-h2: clamp(1.75rem, 1.35rem + 1.8vw, 2.75rem);
   --fs-h1: clamp(2.4rem, 1.7rem + 3.4vw, 4.25rem);
-  --fs-display: clamp(2.75rem, 1.8rem + 4.6vw, 5.25rem);
 
   --lh-tight: 1.08;
   --lh-snug: 1.25;
@@ -76,27 +69,12 @@
   --tracking-wide: 0.08em;
   --tracking-wider: 0.18em;
 
-  --w-light: 300;
   --w-regular: 400;
   --w-medium: 500;
   --w-semi: 600;
   --w-bold: 700;
 
   /* ── Space ──────────────────────────────────────────── */
-  --s-0: 0;
-  --s-1: 0.25rem;
-  --s-2: 0.5rem;
-  --s-3: 0.75rem;
-  --s-4: 1rem;
-  --s-5: 1.5rem;
-  --s-6: 2rem;
-  --s-7: 2.5rem;
-  --s-8: 3rem;
-  --s-9: 4rem;
-  --s-10: 5rem;
-  --s-11: 6.5rem;
-  --s-12: 8rem;
-
   --section-y: clamp(4rem, 3rem + 5vw, 7.5rem);
   --gutter: clamp(1.25rem, 1rem + 1.6vw, 2rem);
 
@@ -114,13 +92,11 @@
   --sh-md: 0 10px 24px -12px rgba(10, 16, 32, 0.16), 0 4px 8px -4px rgba(10, 16, 32, 0.06);
   --sh-lg: 0 28px 56px -28px rgba(10, 16, 32, 0.28), 0 8px 16px -8px rgba(10, 16, 32, 0.08);
   --sh-gold: 0 18px 34px -18px rgba(160, 111, 29, 0.55);
-  --sh-teal: 0 18px 34px -18px rgba(15, 118, 110, 0.45);
   --sh-inset: inset 0 1px 0 rgba(255, 255, 255, 0.38);
   --ring: 0 0 0 3px rgba(15, 118, 110, 0.28);
 
   /* ── Layout ─────────────────────────────────────────── */
   --container: 1200px;
-  --container-wide: 1340px;
   --container-narrow: 780px;
   --nav-h: 74px;
 
@@ -129,11 +105,9 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --t-fast: 0.16s var(--ease);
   --t: 0.26s var(--ease);
-  --t-slow: 0.5s var(--ease);
 
   /* ── Layers ─────────────────────────────────────────── */
   --z-nav: 100;
-  --z-overlay: 200;
   --z-progress: 300;
 }
 
