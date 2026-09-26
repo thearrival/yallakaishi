@@ -1,0 +1,266 @@
+---
+import type { Locale } from '../i18n';
+import { localUrl, pick, type Localized } from '../i18n';
+import { t } from '../i18n/ui';
+import { site, routes } from '../data/site';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import CTABand from '../components/CTABand.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+  kind: 'privacy' | 'terms' | 'disclaimer';
+}
+const { locale, path, kind } = Astro.props;
+
+interface Block {
+  heading: Localized;
+  body: Localized[];
+}
+
+const privacy: Block[] = [
+  {
+    heading: { en: 'What we collect', zh: '我们收集什么', ar: 'ما نجمعه' },
+    body: [
+      {
+        en: 'Only what you send us through the enquiry form or by email: your name, work email, company, country, phone number, the services you select and the details of your brief. We do not buy data, scrape contact lists, or run advertising trackers on this site.',
+        zh: '仅收集您通过咨询表单或邮件主动提供的信息：姓名、工作邮箱、公司、国家、电话、所选服务与需求详情。我们不购买数据、不抓取联系人列表、不在本站运行广告追踪器。',
+        ar: 'ما ترسله فقط عبر نموذج الاستفسار أو البريد: الاسم، والبريد المهني، والشركة، والبلد، والهاتف، والخدمات المختارة، وتفاصيل طلبك. لا نشتري البيانات ولا نجمع قوائم تواصل ولا نشغّل متتبعات إعلانية.',
+      },
+      {
+        en: 'Server logs may record your IP address, browser type and the page you requested, for security and abuse prevention. They are retained for a limited period and used for no other purpose.',
+        zh: '服务器日志可能记录您的 IP 地址、浏览器类型与所请求页面，用于安全与防滥用，保留期限有限，且不作他用。',
+        ar: 'قد تسجّل سجلات الخادم عنوان IP ونوع المتصفح والصفحة المطلوبة للأمن ومنع إساءة الاستخدام، وتُحفظ مدة محدودة ولا تُستخدم لغير ذلك.',
+      },
+    ],
+  },
+  {
+    heading: { en: 'Why we hold it', zh: '我们为何保留', ar: 'لماذا نحتفظ بها' },
+    body: [
+      {
+        en: 'To answer your enquiry, prepare the proposal you asked for, deliver the engagement you instruct, and meet accounting and record-keeping duties that apply to our firm.',
+        zh: '用于回复您的咨询、准备您索要的提案、履行您委托的合作，以及满足适用于本所的会计与记录保存义务。',
+        ar: 'للرد على استفسارك، وتحضير العرض المطلوب، وتنفيذ التعاقد الموكّل، والوفاء بالالتزامات المحاسبية والسجلية المطبّقة على مكتبنا.',
+      },
+    ],
+  },
+  {
+    heading: { en: 'Who can see it', zh: '谁能看到', ar: 'من يمكنه الاطلاع' },
+    body: [
+      {
+        en: 'The named specialists working on your matter inside Yalla Kaishi, and — only where an engagement requires it — licensed partner firms in China or the Gulf under confidentiality obligations. We do not sell or rent your details.',
+        zh: '仅限亚拉凯世内部负责您事项的具名专家，以及（仅当合作需要时）受保密义务约束的中国或海湾持牌合作机构。我们不出售或出租您的信息。',
+        ar: 'الأخصائيون المسمّيون بتعاملك داخل يلا كايشي، وفقط حيث يتطلب التعاقد، المكاتب الشريكة المرخّصة في الصين أو الخليج تحت التزام سري. لا نبيع بياناتك ولا نؤجرها.',
+      },
+    ],
+  },
+  {
+    heading: { en: 'Transfers and retention', zh: '跨境传输与保留期限', ar: 'النقل ومدة الاحتفاظ' },
+    body: [
+      {
+        en: 'Because our work is inherently cross-border, your details may be processed in China, the Gulf or elsewhere where our team operates. We keep enquiry data only as long as needed for the purposes above, then delete or anonymise it — unless a longer period is required by law.',
+        zh: '由于我们的工作天然跨境，您的信息可能在中国、海湾或团队所在的其他地区处理。我们仅在实现上述目的所需期间保留咨询数据，之后删除或匿名化 — 除非法律要求更长保留期。',
+        ar: 'بما أن عملنا عابر للحدود بطبيعته، قد تعالج بياناتك في الصين أو الخليج أو أي مكان يعمل فيه فريقنا. لا نحتفظ ببيانات الاستفسار إلا للمدة اللازمة للأغراض أعلاه ثم نحذفها أو نُجهّلها — إلا إذا اقتضى القانون مدة أطول.',
+      },
+    ],
+  },
+  {
+    heading: { en: 'Your rights', zh: '您的权利', ar: 'حقوقك' },
+    body: [
+      {
+        en: 'You may ask for a copy of what we hold, request correction, or ask us to delete it where we have no overriding legal duty to keep it. Write to hello@yallakaishi.com and we will respond within a reasonable period.',
+        zh: '您可以索取我们所存信息的副本、要求更正，或在我们无法律强制保留义务时要求删除。请致信 hello@yallakaishi.com，我们将在合理期限内回复。',
+        ar: 'يمكنك طلب نسخة مما نحتفظ به، أو تصحيحه، أو حذفه حيث لا ثمة واجب قانوني ملِزم بالاحتفاظ. راسل hello@yallakaishi.com وسنرد خلال مدة معقولة.',
+      },
+    ],
+  },
+];
+
+const terms: Block[] = [
+  {
+    heading: { en: 'Using this site', zh: '网站使用', ar: 'استخدام الموقع' },
+    body: [
+      {
+        en: 'Content is provided for general information about our services. You may link to it and quote it with attribution; you may not republish it wholesale, scrape it, or present it as your own professional advice.',
+        zh: '本站内容仅为服务的一般性信息。您可以注明出处后引用与链接，但不得整体转载、抓取，或将其作为您自身的专业意见呈现。',
+        ar: 'المحتوى للاستعلام العام عن خدماتك. يمكنك الربط والإسناد مع ذكر المصدر، لكن لا يجوز إعادة النشر الكامل أو تنزيله أو تقديمه كنصيحتك المهنية.',
+      },
+    ],
+  },
+  {
+    heading: { en: 'No professional relationship', zh: '不构成委托关系', ar: 'لا علاقة مهنية' },
+    body: [
+      {
+        en: 'Browsing this site, downloading material, or sending an enquiry does not create a client relationship with Yalla Kaishi. That relationship begins only when we both sign an engagement letter.',
+        zh: '浏览本站、下载资料或发送咨询，均不构成您与亚拉凯世之间的委托关系。该关系仅在双方签署合作函后成立。',
+        ar: 'تصفح الموقع أو تنزيل المواد أو إرسال استفسار لا ينشئ علاقة عميل مع يلا كايشي. تبدأ العلاقة فقط بتوقيع الطرفين خطاب تعاقد.',
+      },
+    ],
+  },
+  {
+    heading: { en: 'External links', zh: '外部链接', ar: 'الروابط الخارجية' },
+    body: [
+      {
+        en: 'We link to authorities, institutions and partner sites for convenience. We do not control their content or availability and are not responsible for changes they make.',
+        zh: '为方便起见，我们会链接至政府机关、院校与合作网站。我们不控制其内容与可用性，亦不对其变更负责。',
+        ar: 'نربط للمواقع الجهات والمؤسسات والشركاء لتسهيل الوصول. لا نتحكم في محتواها أو توافرها ولا نتحمل مسؤولية تغييراتها.',
+      },
+    ],
+  },
+  {
+    heading: { en: 'Liability', zh: '责任限制', ar: 'المسؤولية' },
+    body: [
+      {
+        en: 'To the extent permitted by law, the site is provided as-is. General information is not a substitute for advice tailored to your circumstances. Nothing on this site excludes liability that cannot lawfully be excluded.',
+        zh: '在法律允许的范围内，本站按现状提供。一般性信息不能替代针对您具体情况的意见。本站内容不排除依法不得排除的责任。',
+        ar: 'في الحد الذي يسمح به القانون، يُقدَّم الموقع كما هو. المعلومات العامة ليست بديلاً عن مشورة مخصّصة لحالتك. ولا يستثني الموقع أي مسؤولية لا يجوز استثناؤها قانونًا.',
+      },
+    ],
+  },
+];
+
+const disclaimer: Block[] = [
+  {
+    heading: { en: 'What we are', zh: '我们是什么', ar: 'من نحن' },
+    body: [
+      {
+        en: 'Yalla Kaishi provides cross-border business services: market-entry coordination, compliance operations, regulatory translation, due diligence, training and in-country support. We are not a law firm and do not practise law.',
+        zh: '亚拉凯世提供跨境商业服务：市场准入协调、合规运营、监管翻译、尽职调查、培训与在地支持。我们不是律所，不从事法律执业。',
+        ar: 'تقيّم يلا كايشي خدمات أعمال عابرة للحدود: تنسيق دخول السوق، وعمليات الامتثال، والترجمة التنظيمية، والعناية الواجبة، والتدريب، والدعم الميداني. لسنا مكتب محاماة ولا نمارس القانون.',
+      },
+    ],
+  },
+  {
+    heading: {
+      en: 'Where licensed professionals step in',
+      zh: '持牌专业人士的接手边界',
+      ar: 'حدود المهنيين المرخّصين',
+    },
+    body: [
+      {
+        en: 'Whenever a matter requires a legal opinion, representation before an authority, or a regulated activity, we hand the work to licensed law firms in China or the Gulf and coordinate alongside them. We tell you when that handoff happens.',
+        zh: '凡事项需要法律意见、向机关代理或涉及受监管活动，我们会将工作交由中国或海湾的持牌律所处理并与之协同。交接时点我们会明确告知。',
+        ar: 'كلما احتاج الأمر رأيًا قانونيًا أو تمثيلاً أمام جهة أو نشاطًا منظَّماً، سلّمنا العمل لمكاتب محاماة مرخّصة في الصين أو الخليج ونسّق معها. ونُعلمك بموعد التحويل.',
+      },
+    ],
+  },
+  {
+    heading: { en: 'No guarantees of outcome', zh: '不保证审批结果', ar: 'لا ضمان للنتائج' },
+    body: [
+      {
+        en: 'Government and institutional decisions — visas, licences, registrations, admissions — rest with the issuing authority. We guarantee the quality and timeliness of our preparation and submission, never the decision itself.',
+        zh: '政府与机构的决定 — 签证、牌照、注册、录取 — 归签发机关所有。我们保证准备与递交的质量与时效，但绝不保证决定本身。',
+        ar: 'قرارات الجهات الحكومية والمؤسسية — التأشيرات والتراخيص والتسجيلات والقبول — للجهة المصدرة. نضمن جودة التجهيز والإقدام وتوقيتهما لا القرار نفسه.',
+      },
+    ],
+  },
+  {
+    heading: { en: 'Client responsibilities', zh: '客户责任', ar: 'مسؤوليات العميل' },
+    body: [
+      {
+        en: 'You remain responsible for the accuracy of the information and documents you provide, for decisions taken on the basis of our work, and for meeting deadlines you control. Tell us early if something changes.',
+        zh: '您始终对所提供信息与文件的准确性、基于我们工作所作的决定，以及您可控期限的达成负责。若情况有变，请尽早告知。',
+        ar: 'تبقى مسؤولًا عن دقة المعلومات والمستندات التي تقدّمها، وعن القرارات المبنية على عملنا، وعن المواعيد الخاضعة لسيطرتك. أخبرنا مبكرًا إن تغيّر شيء.',
+      },
+    ],
+  },
+];
+
+const title =
+  kind === 'privacy'
+    ? t('legal.privacyTitle', locale)
+    : kind === 'terms'
+      ? t('legal.termsTitle', locale)
+      : t('legal.disclaimerTitle', locale);
+
+const desc =
+  kind === 'privacy'
+    ? t('legal.privacyDesc', locale)
+    : kind === 'terms'
+      ? t('legal.termsDesc', locale)
+      : t('legal.disclaimerDesc', locale);
+
+const blocks = kind === 'privacy' ? privacy : kind === 'terms' ? terms : disclaimer;
+
+const toc = blocks.map((b, i) => ({
+  id: `s${i + 1}`,
+  label: pick(b.heading, locale),
+}));
+---
+
+<BaseLayout locale={locale} path={path} title={title} description={desc}>
+  <PageHero
+    locale={locale}
+    path={path}
+    eyebrow={t('legal.eyebrow', locale)}
+    title={title}
+    sub={desc}
+  >
+    <p class="hero-chip hero-chip--muted">
+      <Icon name="document" size={15} /> {t('legal.lastUpdated', locale)}
+    </p>
+  </PageHero>
+
+  <section class="section section--flush">
+    <div class="container legal-layout">
+      <nav class="legal-toc" aria-label={t('common.onThisPage', locale)}>
+        <p class="mini-label">{t('common.onThisPage', locale)}</p>
+        <ol>
+          {toc.map((i) => (
+            <li>
+              <a href={`#${i.id}`}>{i.label}</a>
+            </li>
+          ))}
+        </ol>
+        <div class="legal-switch">
+          <a
+            class:list={['lang-chip', { 'is-active': kind === 'privacy' }]}
+            href={localUrl(locale, routes.privacy)}
+            aria-current={kind === 'privacy' ? 'page' : undefined}
+          >
+            {t('foot.privacy', locale)}
+          </a>
+          <a
+            class:list={['lang-chip', { 'is-active': kind === 'terms' }]}
+            href={localUrl(locale, routes.terms)}
+            aria-current={kind === 'terms' ? 'page' : undefined}
+          >
+            {t('foot.terms', locale)}
+          </a>
+          <a
+            class:list={['lang-chip', { 'is-active': kind === 'disclaimer' }]}
+            href={localUrl(locale, routes.disclaimer)}
+            aria-current={kind === 'disclaimer' ? 'page' : undefined}
+          >
+            {t('foot.disclaimerPage', locale)}
+          </a>
+        </div>
+      </nav>
+
+      <article class="legal-body prose">
+        {blocks.map((b, i) => (
+          <section id={`s${i + 1}`}>
+            <h2>{pick(b.heading, locale)}</h2>
+            {b.body.map((p) => (
+              <p>{pick(p, locale)}</p>
+            ))}
+          </section>
+        ))}
+
+        <section id="contact-block">
+          <h2>{t('contact.directTitle', locale)}</h2>
+          <p>
+            {t('form.directBody', locale)} <a href={`mailto:${site.email}`}>{site.email}</a>
+          </p>
+        </section>
+      </article>
+    </div>
+  </section>
+
+  <ContactStrip locale={locale} compact />
+  <CTABand locale={locale} />
+</BaseLayout>

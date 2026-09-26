@@ -1,24 +1,33 @@
 {
   "name": "yallakaishi-website",
-  "version": "2.0.0",
-  "description": "Yalla-Kaishi China Business Services Website - Perfect Infrastructure",
-  "main": "server.js",
+  "version": "3.0.0",
+  "description": "Yalla Kaishi - cross-border business services website (China, GCC). Astro, trilingual (EN / ZH / AR).",
+  "type": "module",
+  "private": true,
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "build": "echo 'No build step - infrastructure complete'",
-    "test": "echo 'Tests infrastructure OK'"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "typecheck": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "prettier --check . && astro check",
+    "verify": "node scripts/verify-i18n.mjs && node scripts/verify-links.mjs",
+    "test": "vitest run",
+    "ci": "npm run format:check && npm run typecheck && npm run test && npm run build && npm run verify"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^5.2.1",
-    "express-rate-limit": "^7.2.0",
-    "express-validator": "^7.0.1",
-    "helmet": "^8.0.0",
-    "nodemailer": "^9.1.1"
+    "astro": "^7.3.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "prettier": "^3.9.9",
+    "prettier-plugin-astro": "^1.1.0",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.2"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "license": "MIT"
 }

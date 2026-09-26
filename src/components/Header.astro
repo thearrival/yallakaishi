@@ -1,0 +1,158 @@
+---
+import { localeMeta, localUrl, type Locale, locales } from '../i18n';
+import { t, type TKey } from '../i18n/ui';
+import { routes, site, type RouteKey } from '../data/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+
+const navSpec: { route: RouteKey; label: TKey }[] = [
+  { route: 'services', label: 'nav.services' },
+  { route: 'chinaSupport', label: 'nav.china' },
+  { route: 'industries', label: 'nav.industries' },
+  { route: 'engagement', label: 'nav.engagement' },
+  { route: 'insights', label: 'nav.insights' },
+  { route: 'about', label: 'nav.about' },
+];
+
+const navItems = navSpec.map(({ route, label }) => ({
+  href: localUrl(locale, routes[route]),
+  label: t(label, locale),
+  active: path === routes[route] || path.startsWith(`${routes[route]}/`),
+}));
+
+const others = locales.filter((l) => l !== locale).map((l) => ({ l, href: localUrl(l, path) }));
+const contactHref = localUrl(locale, routes.contact);
+---
+
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a class="brand" href={localUrl(locale, '/')} aria-label={site.name}>
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+          <rect
+            x="1.5"
+            y="1.5"
+            width="29"
+            height="29"
+            rx="8"
+            stroke="currentColor"
+            stroke-width="2.4"
+          ></rect>
+          <path
+            d="M9 21.5L16 8.5l7 13"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M12 17.5h8"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <strong>{site.name}</strong>
+        <small>{t('meta.tagline', locale)}</small>
+      </span>
+    </a>
+
+    <nav class="main-nav" aria-label={t('nav.services', locale)}>
+      <ul>
+        {navItems.map((item) => (
+          <li>
+            <a href={item.href} aria-current={item.active ? 'page' : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-switch" role="group" aria-label={t('nav.language', locale)}>
+        {others.map((o) => (
+          <a
+            class="lang-link"
+            href={o.href}
+            hreflang={localeMeta[o.l].code}
+            lang={localeMeta[o.l].code}
+            aria-label={t('nav.switchLanguage', locale, { lang: localeMeta[o.l].native })}
+          >
+            {localeMeta[o.l].short}
+          </a>
+        ))}
+      </div>
+
+      <a class="btn btn-primary btn-sm header-cta" href={`${contactHref}#brief`}>
+        <span>{t('nav.cta', locale)}</span>
+        <Icon name="arrow" size={16} />
+      </a>
+
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-drawer"
+        aria-label={t('nav.menu', locale)}
+        data-open-label={t('nav.menu', locale)}
+        data-close-label={t('nav.closeMenu', locale)}
+        data-nav-toggle
+      >
+        <Icon name="menu" size={22} class="icon-open" />
+        <Icon name="close" size={22} class="icon-close" />
+      </button>
+    </div>
+  </div>
+
+  <div class="drawer" id="mobile-drawer" data-drawer hidden>
+    <nav class="container drawer-inner" aria-label={t('nav.menu', locale)}>
+      <ul>
+        {navItems.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+        <li>
+          <a href={localUrl(locale, routes.process)}>{t('process.meta.title', locale)}</a>
+        </li>
+        <li>
+          <a href={localUrl(locale, routes.contact)}>{t('nav.contact', locale)}</a>
+        </li>
+      </ul>
+
+      <div class="drawer-foot">
+        <div
+          class="lang-switch lang-switch--drawer"
+          role="group"
+          aria-label={t('nav.language', locale)}
+        >
+          {locales.map((l) => (
+            <a
+              class:list={['lang-link', { 'is-active': l === locale }]}
+              href={localUrl(l, path)}
+              hreflang={localeMeta[l].code}
+              lang={localeMeta[l].code}
+              aria-current={l === locale ? 'true' : undefined}
+            >
+              {localeMeta[l].native}
+            </a>
+          ))}
+        </div>
+        <a class="btn btn-primary btn-block" href={`${contactHref}#brief`}>
+          {t('nav.cta', locale)}
+        </a>
+        <a class="btn btn-ghost btn-block" href={`mailto:${site.email}`}>
+          {site.email}
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>

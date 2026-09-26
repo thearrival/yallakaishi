@@ -1,0 +1,143 @@
+---
+import type { Locale } from '../i18n';
+import { localUrl, pick } from '../i18n';
+import { t } from '../i18n/ui';
+import { routes } from '../data/site';
+import { plans, comparisonRows } from '../data/engagement';
+import { faqs } from '../data/faq';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import PlanCard from '../components/PlanCard.astro';
+import FAQList from '../components/FAQList.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import CTABand from '../components/CTABand.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+const planNames = plans.map((p) => pick(p.name, locale));
+const engagementFaqs = faqs.filter((f) => f.group === 'engagement');
+---
+
+<BaseLayout
+  locale={locale}
+  path={path}
+  title={t('eng.meta.title', locale)}
+  description={t('eng.meta.desc', locale)}
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: t('eng.meta.title', locale),
+      provider: { '@type': 'Organization', name: 'Yalla Kaishi' },
+      areaServed: ['CN', 'SA', 'AE'],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: t('eng.compare', locale),
+        itemListElement: plans.map((p) => ({
+          '@type': 'Offer',
+          name: p.name[locale],
+          description: p.tagline[locale],
+        })),
+      },
+    },
+  ]}
+>
+  <PageHero
+    locale={locale}
+    path={path}
+    eyebrow={t('eng.eyebrow', locale)}
+    title={t('eng.title', locale)}
+    sub={t('eng.sub', locale)}
+  >
+    <ul class="hero-badges">
+      <li>
+        <Icon name="check" size={14} /> {t('eng.fixedFee', locale)}
+      </li>
+      <li>
+        <Icon name="check" size={14} /> {t('eng.capped', locale)}
+      </li>
+      <li>
+        <Icon name="check" size={14} /> {t('common.notLegalAdvice', locale)}
+      </li>
+    </ul>
+  </PageHero>
+
+  <section class="section section--flush">
+    <div class="container">
+      <div class="plan-grid">
+        {plans.map((p) => (
+          <PlanCard plan={p} locale={locale} />
+        ))}
+      </div>
+      <p class="fineprint">
+        <Icon name="sparkle" size={14} /> {t('eng.notIncludedNote', locale)}
+      </p>
+    </div>
+  </section>
+
+  <!-- Comparison -->
+  <section class="section section--tint" id="compare">
+    <div class="container">
+      <SectionHead
+        eyebrow={t('eng.eyebrow', locale)}
+        title={t('eng.compare', locale)}
+        sub={t('eng.sub', locale)}
+      />
+
+      <div class="table-wrap" data-reveal>
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th scope="col">{t('nav.engagement', locale)}</th>
+              {planNames.map((n, i) => (
+                <th scope="col">
+                  {n}
+                  {plans[i].popular && <span class="th-badge">{t('eng.mostPopular', locale)}</span>}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonRows.map((row) => (
+              <tr>
+                <th scope="row">{pick(row.label, locale)}</th>
+                {row.values.map((v) => (
+                  <td>{pick(v, locale)}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="fineprint fineprint--center">{t('eng.notIncludedNote', locale)}</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container container--narrow">
+      <SectionHead
+        eyebrow={t('faq.eyebrow', locale)}
+        title={t('eng.customTitle', locale)}
+        sub={t('eng.customBody', locale)}
+        align="center"
+      />
+      <FAQList items={engagementFaqs} locale={locale} />
+      <p class="faq-more">
+        <a class="link-arrow" href={localUrl(locale, routes.faq)}>
+          {t('faq.meta.title', locale)} <Icon name="arrow" size={15} />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <ContactStrip locale={locale} />
+  <CTABand locale={locale} />
+</BaseLayout>

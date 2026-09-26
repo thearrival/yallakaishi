@@ -1,0 +1,84 @@
+---
+import type { Locale } from '../i18n';
+import { localUrl, pick } from '../i18n';
+import { t } from '../i18n/ui';
+import { routes } from '../data/site';
+import { faqs, faqGroups } from '../data/faq';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import FAQList from '../components/FAQList.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import CTABand from '../components/CTABand.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+
+const grouped = faqGroups
+  .map((g) => ({
+    label: g.label,
+    items: faqs.filter((f) => f.group === g.key),
+  }))
+  .filter((g) => g.items.length > 0);
+---
+
+<BaseLayout
+  locale={locale}
+  path={path}
+  title={t('faq.meta.title', locale)}
+  description={t('faq.meta.desc', locale)}
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q[locale],
+        acceptedAnswer: { '@type': 'Answer', text: f.a[locale] },
+      })),
+    },
+  ]}
+>
+  <PageHero
+    locale={locale}
+    path={path}
+    eyebrow={t('faq.eyebrow', locale)}
+    title={t('faq.title', locale)}
+    sub={t('faq.sub', locale)}
+  />
+
+  <section class="section section--flush">
+    <div class="container container--narrow">
+      {grouped.map((g) => (
+        <div class="faq-group">
+          <h2 class="faq-group-title">{pick(g.label, locale)}</h2>
+          <FAQList items={g.items} locale={locale} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container container--narrow">
+      <SectionHead
+        eyebrow={t('common.contactUs', locale)}
+        title={t('faq.stillTitle', locale)}
+        sub={t('faq.stillBody', locale)}
+        align="center"
+      />
+      <div class="center-actions">
+        <a class="btn btn-primary" href={`${localUrl(locale, routes.contact)}#brief`}>
+          {t('common.sendMsg', locale)} <Icon name="arrow" size={17} />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <ContactStrip locale={locale} compact />
+  <CTABand locale={locale} />
+</BaseLayout>

@@ -1,0 +1,57 @@
+---
+import { localUrl, type Locale } from '../i18n';
+import { t } from '../i18n/ui';
+import Icon from './Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+  eyebrow?: string;
+  title: string;
+  sub?: string;
+  tone?: 'ink' | 'light';
+}
+const { locale, path, eyebrow, title, sub, tone = 'ink' } = Astro.props;
+
+const crumbs = path
+  .split('/')
+  .filter(Boolean)
+  .reduce<{ href: string; label: string }[]>((acc, seg, i, arr) => {
+    const href = localUrl(locale, '/' + arr.slice(0, i + 1).join('/') + '/');
+    const label = i === 0 ? t('common.home', locale) : seg.replace(/-/g, ' ');
+    acc.push({ href, label });
+    return acc;
+  }, []);
+---
+
+<section class:list={['page-hero', `page-hero--${tone}`]}>
+  <div class="container">
+    {crumbs.length > 0 && (
+      <nav class="breadcrumb" aria-label={t('common.home', locale)}>
+        <ol>
+          <li>
+            <a href={localUrl(locale, '/')}>{t('common.home', locale)}</a>
+          </li>
+          {crumbs.map((c, i) => (
+            <li>
+              <Icon name="arrow" size={12} />
+              {i === crumbs.length - 1 ? (
+                <span aria-current="page">{c.label}</span>
+              ) : (
+                <a href={c.href}>{c.label}</a>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
+
+    <div class="page-hero-inner">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      {sub && <p class="lede">{sub}</p>}
+      <slot />
+    </div>
+  </div>
+  <div class="page-hero-glow" aria-hidden="true"></div>
+</section>

@@ -1,0 +1,95 @@
+---
+import type { Locale } from '../i18n';
+import { t } from '../i18n/ui';
+import { site } from '../data/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  locale: Locale;
+  compact?: boolean;
+}
+const { locale, compact = false } = Astro.props;
+const langs = [
+  { code: 'en', label: 'English' },
+  { code: 'zh', label: '中文' },
+  { code: 'ar', label: 'العربية' },
+];
+---
+
+<section class="contact-strip" id="brief">
+  <div class="container">
+    <div class="strip-grid">
+      <div class="strip-copy">
+        <p class="eyebrow">{t('contact.formTitle', locale)}</p>
+        <h2>{t('home.cta.title', locale)}</h2>
+        <p class="strip-sub">{t('contact.sub', locale)}</p>
+
+        {!compact && (
+          <ol class="strip-steps">
+            <li>
+              <span>1</span>
+              <div>
+                <strong>{t('contact.step1t', locale)}</strong>
+                <p>{t('contact.step1d', locale)}</p>
+              </div>
+            </li>
+            <li>
+              <span>2</span>
+              <div>
+                <strong>{t('contact.step2t', locale)}</strong>
+                <p>{t('contact.step2d', locale)}</p>
+              </div>
+            </li>
+            <li>
+              <span>3</span>
+              <div>
+                <strong>{t('contact.step3t', locale)}</strong>
+                <p>{t('contact.step3d', locale)}</p>
+              </div>
+            </li>
+          </ol>
+        )}
+      </div>
+
+      <div class="strip-panel">
+        <ul class="direct-list">
+          <li>
+            <Icon name="mail" size={18} />
+            <div>
+              <span class="mini-label">{t('common.email', locale)}</span>
+              <a href={`mailto:${site.email}`}>{site.email}</a>
+            </div>
+          </li>
+          <li>
+            <Icon name="phone" size={18} />
+            <div>
+              <span class="mini-label">{t('common.phone', locale)}</span>
+              <a href={`tel:${site.phoneIntl}`}>{site.phoneDisplay}</a>
+            </div>
+          </li>
+          <li>
+            <Icon name="pin" size={18} />
+            <div>
+              <span class="mini-label">{t('common.address', locale)}</span>
+              <p>
+                {site.address.street}, {site.address.city}, {site.address.country}
+              </p>
+            </div>
+          </li>
+          <li>
+            <Icon name="clock" size={18} />
+            <div>
+              <span class="mini-label">{t('common.hours', locale)}</span>
+              <p>{t('common.hoursValue', locale)}</p>
+            </div>
+          </li>
+        </ul>
+        <p class="strip-response">
+          <Icon name="sparkle" size={15} />
+          {t('common.response', locale)}
+        </p>
+        <p class="strip-langs">{langs.map((l) => l.label).join(' · ')}</p>
+      </div>
+    </div>
+  </div>
+</section>

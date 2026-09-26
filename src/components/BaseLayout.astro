@@ -1,0 +1,184 @@
+---
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/components.css';
+import '../styles/sections.css';
+
+import { localeMeta, type Locale } from '../i18n';
+import { t } from '../i18n/ui';
+import SEO from './SEO.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+
+interface Props {
+  locale: Locale;
+  /** Locale-relative path without the locale prefix, always starting with `/`. */
+  path: string;
+  title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown>[];
+  branded?: boolean;
+}
+
+const { locale, path, title, description, image, type, noindex, jsonLd, branded } = Astro.props;
+const meta = localeMeta[locale];
+---
+
+<!doctype html>
+<html lang={meta.code} dir={meta.dir} data-locale={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <SEO
+      title={title}
+      description={description}
+      locale={locale}
+      path={path}
+      image={image}
+      type={type}
+      noindex={noindex}
+      jsonLd={jsonLd}
+      branded={branded}
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <slot name="head" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">
+      {t('nav.skip', locale)}
+    </a>
+    <Header locale={locale} path={path} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer locale={locale} path={path} />
+
+    <script is:inline>
+      (function () {
+        var header = document.querySelector('[data-header]');
+        var toggle = document.querySelector('[data-nav-toggle]');
+        var drawer = document.querySelector('[data-drawer]');
+
+        function onScroll() {
+          if (!header) return;
+          header.classList.toggle('is-stuck', window.scrollY > 8);
+        }
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        function setDrawer(open) {
+          if (!toggle || !drawer) return;
+          toggle.setAttribute('aria-expanded', String(open));
+          toggle.setAttribute(
+            'aria-label',
+            open
+              ? toggle.dataset.closeLabel || 'Close menu'
+              : toggle.dataset.openLabel || 'Open menu',
+          );
+          drawer.hidden = !open;
+          document.body.classList.toggle('drawer-open', open);
+        }
+        if (toggle && drawer) {
+          toggle.addEventListener('click', function () {
+            setDrawer(toggle.getAttribute('aria-expanded') !== 'true');
+          });
+          drawer.addEventListener('click', function (e) {
+            if (e.target.closest('a')) setDrawer(false);
+          });
+          document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') setDrawer(false);
+          });
+          window.addEventListener('resize', function () {
+            if (window.innerWidth > 1040) setDrawer(false);
+          });
+        }
+
+        // Scroll reveal — respects prefers-reduced-motion via CSS.
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var reveals = document.querySelectorAll('[data-reveal]');
+        if (reduce || !('IntersectionObserver' in window)) {
+          reveals.forEach(function (el) {
+            el.classList.add('is-in');
+          });
+        } else {
+          var io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('is-in');
+                  io.unobserve(entry.target);
+                }
+              });
+            },
+            { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+          );
+          reveals.forEach(function (el) {
+            io.observe(el);
+          });
+        }
+
+        // Animated counters.
+        var counters = document.querySelectorAll('[data-count]');
+        if (counters.length) {
+          var run = function (el) {
+            var target = parseFloat(el.getAttribute('data-count'));
+            var suffix = el.getAttribute('data-suffix') || '';
+            if (reduce) {
+              el.textContent = target + suffix;
+              return;
+            }
+            var start = performance.now();
+            var dur = 900;
+            function step(now) {
+              var p = Math.min(1, (now - start) / dur);
+              var eased = 1 - Math.pow(1 - p, 3);
+              var val = target * eased;
+              el.textContent = (target % 1 ? val.toFixed(1) : Math.round(val)) + suffix;
+              if (p < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+          };
+          if ('IntersectionObserver' in window) {
+            var cio = new IntersectionObserver(
+              function (entries) {
+                entries.forEach(function (en) {
+                  if (en.isIntersecting) {
+                    run(en.target);
+                    cio.unobserve(en.target);
+                  }
+                });
+              },
+              { threshold: 0.5 },
+            );
+            counters.forEach(function (el) {
+              cio.observe(el);
+            });
+          } else {
+            counters.forEach(run);
+          }
+        }
+
+        // Smooth in-page anchor scroll with header offset.
+        document.addEventListener('click', function (e) {
+          var a = e.target.closest('a[href^="#"]');
+          if (!a) return;
+          var id = a.getAttribute('href');
+          if (!id || id === '#') return;
+          var target = document.querySelector(id);
+          if (!target) return;
+          e.preventDefault();
+          var top = target.getBoundingClientRect().top + window.scrollY - 84;
+          window.scrollTo({ top: top, behavior: reduce ? 'auto' : 'smooth' });
+          if (target.hasAttribute('tabindex') === false) target.setAttribute('tabindex', '-1');
+          target.focus({ preventScroll: true });
+        });
+      })();
+    </script>
+  </body>
+</html>

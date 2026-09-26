@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import { locales, localePrefix, parseLocaleFromPath } from '../i18n';
+import { staticRoutes } from '../routes';
+
+import Home from '../views/Home.astro';
+import Services from '../views/Services.astro';
+import ChinaSupport from '../views/ChinaSupport.astro';
+import Industries from '../views/Industries.astro';
+import CaseStudies from '../views/CaseStudies.astro';
+import Engagement from '../views/Engagement.astro';
+import About from '../views/About.astro';
+import ProcessView from '../views/Process.astro';
+import Faq from '../views/Faq.astro';
+import Insights from '../views/Insights.astro';
+import InsightArticle from '../views/InsightArticle.astro';
+import Contact from '../views/Contact.astro';
+import Legal from '../views/Legal.astro';
+import NotFound from '../views/NotFound.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('insights');
+
+  // slug = file name without extension, e.g. `pdpl-meets-pipl`.
+  const slugOf = (id: string) => id.replace(/^.*[\\/]/, '').replace(/\.[^.]+$/, '');
+
+  const byLocale = new Map<string, Set<string>>();
+  for (const p of posts) {
+    const set = byLocale.get(p.data.locale) ?? new Set<string>();
+    set.add(slugOf(p.id));
+    byLocale.set(p.data.locale, set);
+  }
+
+  const paths: { params: { path?: string } }[] = [];
+
+  for (const locale of locales) {
+    const prefix = localePrefix(locale); // '' | '/zh' | '/ar'
+    const join = (rest: string) => {
+      const full = `${prefix}/${rest}`.replace(/\/{2,}/g, '/');
+      const trimmed = full.replace(/^\/+/, '').replace(/\/+$/, '');
+      return trimmed === '' ? undefined : trimmed;
+    };
+
+    for (const route of staticRoutes) paths.push({ params: { path: join(route) } });
+    for (const slug of byLocale.get(locale) ?? []) {
+      paths.push({ params: { path: join(`insights/${slug}`) } });
+    }
+  }
+
+  return paths;
+}
+
+const raw = Astro.params.path ?? '';
+const { locale, rest } = parseLocaleFromPath(`/${raw}`);
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const views: Record<string, any> = {
+  '': Home,
+  services: Services,
+  'china-support': ChinaSupport,
+  industries: Industries,
+  'case-studies': CaseStudies,
+  engagement: Engagement,
+  about: About,
+  process: ProcessView,
+  faq: Faq,
+  insights: Insights,
+  contact: Contact,
+  'legal/privacy': Legal,
+  'legal/terms': Legal,
+  'legal/disclaimer': Legal,
+};
+
+let View: any = NotFound;
+let viewProps: Record<string, unknown> = { locale, path: `/${rest}` };
+
+if (rest.startsWith('insights/')) {
+  View = InsightArticle;
+  viewProps = { locale, path: `/${rest}`, slug: rest.slice('insights/'.length) };
+} else if (rest in views) {
+  View = views[rest];
+  if (rest.startsWith('legal/'))
+    viewProps = { locale, path: `/${rest}`, kind: rest.slice('legal/'.length) };
+}
+---
+
+<View {...viewProps} />

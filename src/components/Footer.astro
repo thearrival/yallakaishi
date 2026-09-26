@@ -1,0 +1,162 @@
+---
+import { localUrl, type Locale, locales, localeMeta } from '../i18n';
+import { t, type TKey } from '../i18n/ui';
+import { routes, site, type RouteKey } from '../data/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+
+const col = (keys: { route: RouteKey; label: TKey }[]) =>
+  keys.map((k) => ({ href: localUrl(locale, routes[k.route]), label: t(k.label, locale) }));
+
+const explore = col([
+  { route: 'services', label: 'nav.services' },
+  { route: 'chinaSupport', label: 'nav.china' },
+  { route: 'industries', label: 'nav.industries' },
+  { route: 'engagement', label: 'nav.engagement' },
+  { route: 'cases', label: 'cases.eyebrow' },
+]);
+
+const company = col([
+  { route: 'about', label: 'nav.about' },
+  { route: 'process', label: 'process.meta.title' },
+  { route: 'faq', label: 'faq.meta.title' },
+  { route: 'contact', label: 'nav.contact' },
+]);
+
+const resources = col([
+  { route: 'insights', label: 'nav.insights' },
+  { route: 'privacy', label: 'foot.privacy' },
+  { route: 'terms', label: 'foot.terms' },
+  { route: 'disclaimer', label: 'foot.disclaimerPage' },
+]);
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand brand--footer" href={localUrl(locale, '/')}>
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+            <rect
+              x="1.5"
+              y="1.5"
+              width="29"
+              height="29"
+              rx="8"
+              stroke="currentColor"
+              stroke-width="2.4"
+            ></rect>
+            <path
+              d="M9 21.5L16 8.5l7 13"
+              stroke="currentColor"
+              stroke-width="2.4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+            <path
+              d="M12 17.5h8"
+              stroke="currentColor"
+              stroke-width="2.4"
+              stroke-linecap="round"
+            ></path>
+          </svg>
+        </span>
+        <strong>{site.name}</strong>
+      </a>
+      <p>{t('foot.tagline', locale)}</p>
+
+      <div class="footer-langs" role="group" aria-label={t('nav.language', locale)}>
+        {locales.map((l) => (
+          <a
+            class:list={['lang-chip', { 'is-active': l === locale }]}
+            href={localUrl(l, path)}
+            hreflang={localeMeta[l].code}
+            lang={localeMeta[l].code}
+            aria-current={l === locale ? 'true' : undefined}
+          >
+            {localeMeta[l].native}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <nav class="footer-col" aria-label={t('foot.explore', locale)}>
+      <h2>{t('foot.explore', locale)}</h2>
+      <ul>
+        {explore.map((i) => (
+          <li>
+            <a href={i.href}>{i.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-label={t('foot.company', locale)}>
+      <h2>{t('foot.company', locale)}</h2>
+      <ul>
+        {company.map((i) => (
+          <li>
+            <a href={i.href}>{i.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-label={t('foot.resources', locale)}>
+      <h2>{t('foot.resources', locale)}</h2>
+      <ul>
+        {resources.map((i) => (
+          <li>
+            <a href={i.href}>{i.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="footer-col footer-contact">
+      <h2>{t('foot.contact', locale)}</h2>
+      <ul>
+        <li>
+          <a href={`mailto:${site.email}`}>
+            <Icon name="mail" size={16} />
+            <span>{site.email}</span>
+          </a>
+        </li>
+        <li>
+          <a href={`tel:${site.phoneIntl}`}>
+            <Icon name="phone" size={16} />
+            <span>{site.phoneDisplay}</span>
+          </a>
+        </li>
+        <li>
+          <span class="footer-addr">
+            <Icon name="pin" size={16} />
+            <span>
+              {site.address.street}, {site.address.city}, {site.address.country}
+            </span>
+          </span>
+        </li>
+        <li>
+          <span class="footer-addr">
+            <Icon name="clock" size={16} />
+            <span>{t('common.hoursValue', locale)}</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer-bar">
+    <p>
+      © {year} {site.name}. {t('common.allRights', locale)}
+    </p>
+    <p class="footer-disclaimer">{t('common.notLegalAdvice', locale)}</p>
+  </div>
+</footer>

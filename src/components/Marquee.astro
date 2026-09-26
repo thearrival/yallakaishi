@@ -1,0 +1,34 @@
+---
+import type { Locale } from '../i18n';
+import { pick } from '../i18n';
+import { t } from '../i18n/ui';
+import { regulators } from '../data/site';
+
+interface Props {
+  locale: Locale;
+  label?: string;
+}
+const { locale, label } = Astro.props;
+const items = regulators.map((r) => ({ label: r.label, region: pick(r.region, locale) }));
+---
+
+<section class="reg-band" aria-label={label ?? t('reg.label', locale)}>
+  <div class="container reg-band-head">
+    <p class="eyebrow">{t('reg.label', locale)}</p>
+    <p class="reg-intro">{t('reg.intro', locale)}</p>
+  </div>
+  <div class="marquee" data-marquee>
+    <div class="marquee-track">
+      {[0, 1].map(() => (
+        <ul class="marquee-set" aria-hidden="true">
+          {items.map((i) => (
+            <li>
+              <span class="reg-code">{i.label}</span>
+              <span class="reg-region">{i.region}</span>
+            </li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  </div>
+</section>

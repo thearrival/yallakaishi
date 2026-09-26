@@ -1,0 +1,89 @@
+---
+import type { Locale } from '../i18n';
+import { localUrl } from '../i18n';
+import { t } from '../i18n/ui';
+import { routes } from '../data/site';
+import { processSteps } from '../data/process';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import SectionHead from '../components/SectionHead.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import CTABand from '../components/CTABand.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+---
+
+<BaseLayout
+  locale={locale}
+  path={path}
+  title={t('process.meta.title', locale)}
+  description={t('process.meta.desc', locale)}
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: t('process.title', locale),
+      description: t('process.sub', locale),
+      step: processSteps.map((s) => ({
+        '@type': 'HowToStep',
+        name: s.name[locale],
+        text: s.detail[locale],
+      })),
+    },
+  ]}
+>
+  <PageHero
+    locale={locale}
+    path={path}
+    eyebrow={t('process.eyebrow', locale)}
+    title={t('process.title', locale)}
+    sub={t('process.sub', locale)}
+  >
+    <div class="hero-actions">
+      <a class="btn btn-primary" href={`${localUrl(locale, routes.contact)}#brief`}>
+        {t('common.bookCall', locale)} <Icon name="arrow" size={17} />
+      </a>
+      <a class="btn btn-outline" href={localUrl(locale, routes.engagement)}>
+        {t('nav.engagement', locale)}
+      </a>
+    </div>
+  </PageHero>
+
+  <section class="section section--flush">
+    <div class="container">
+      <ProcessSteps steps={processSteps} locale={locale} />
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <SectionHead
+        eyebrow={t('nav.engagement', locale)}
+        title={t('process.timelineTitle', locale)}
+        sub={t('process.timelineNote', locale)}
+      />
+      <div class="timeline-rail" data-reveal>
+        {processSteps.map((s) => (
+          <div class="timeline-item">
+            <span class="timeline-dot">{s.index}</span>
+            <strong>{s.name[locale]}</strong>
+            <span>{s.when[locale]}</span>
+          </div>
+        ))}
+      </div>
+      <p class="fineprint">
+        <Icon name="sparkle" size={14} /> {t('process.timelineNote', locale)}
+      </p>
+    </div>
+  </section>
+
+  <ContactStrip locale={locale} />
+  <CTABand locale={locale} />
+</BaseLayout>

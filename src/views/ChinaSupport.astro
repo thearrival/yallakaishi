@@ -1,0 +1,173 @@
+---
+import type { Locale } from '../i18n';
+import { localUrl, pick } from '../i18n';
+import { t } from '../i18n/ui';
+import { routes } from '../data/site';
+import { supportCategories, supportServiceCount } from '../data/china-support';
+import { coreServices } from '../data/services';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHead from '../components/SectionHead.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import CTABand from '../components/CTABand.astro';
+import Stats from '../components/Stats.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+
+const contactHref = `${localUrl(locale, routes.contact)}#brief`;
+---
+
+<BaseLayout
+  locale={locale}
+  path={path}
+  title={t('cs.meta.title', locale)}
+  description={t('cs.meta.desc', locale)}
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'OfferCatalog',
+      name: t('cs.meta.title', locale),
+      numberOfItems: supportServiceCount,
+      itemListElement: supportCategories.map((c) => ({
+        '@type': 'OfferCatalog',
+        name: c.title[locale],
+        numberOfItems: c.services.length,
+      })),
+    },
+  ]}
+>
+  <PageHero
+    locale={locale}
+    path={path}
+    eyebrow={t('cs.eyebrow', locale)}
+    title={t('cs.title', locale)}
+    sub={t('cs.sub', locale)}
+  >
+    <div class="hero-actions">
+      <a class="btn btn-primary" href={contactHref}>
+        {t('cs.requestCta', locale)} <Icon name="arrow" size={17} />
+      </a>
+      <span class="hero-chip">
+        <Icon name="check" size={15} />
+        {supportServiceCount} {t('cs.allServices', locale)}
+      </span>
+    </div>
+  </PageHero>
+
+  <Stats locale={locale} variant="inline" />
+
+  <!-- Category navigation -->
+  <nav class="cat-nav" aria-label={t('cs.categories', locale)}>
+    <div class="container">
+      <ul>
+        {supportCategories.map((c) => (
+          <li>
+            <a href={`#${c.slug}`}>
+              {pick(c.title, locale)} <span>{c.services.length}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Catalogue -->
+  <section class="section section--flush">
+    <div class="container">
+      {supportCategories.map((cat) => (
+        <article class="cat-block" id={cat.slug}>
+          <header class="cat-head" data-reveal>
+            <span class="cat-icon">
+              <Icon name={cat.icon} size={30} />
+            </span>
+            <div>
+              <p class="cat-index">{cat.index}</p>
+              <h2>{pick(cat.title, locale)}</h2>
+              <p class="cat-blurb">{pick(cat.blurb, locale)}</p>
+            </div>
+            <span class="cat-count">{cat.services.length}</span>
+          </header>
+
+          <ul class="mini-grid">
+            {cat.services.map((s) => (
+              <li class="mini-card" data-reveal>
+                <div class="mini-top">
+                  <h3>{pick(s.title, locale)}</h3>
+                  <a
+                    class="mini-cta"
+                    href={contactHref}
+                    aria-label={`${t('cs.requestCta', locale)} — ${pick(s.title, locale)}`}
+                  >
+                    <Icon name="arrow" size={16} />
+                  </a>
+                </div>
+                <p>{pick(s.summary, locale)}</p>
+                <span class="mini-slug">{s.slug}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="cat-foot">
+            <a class="link-arrow" href={contactHref}>
+              {t('cs.allServices', locale)} · {pick(cat.title, locale)}
+              <Icon name="arrow" size={15} />
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Why + notes -->
+  <section class="section section--tint">
+    <div class="container">
+      <SectionHead
+        eyebrow={t('nav.china', locale)}
+        title={t('cs.whyTitle', locale)}
+        sub={t('cs.sub', locale)}
+      />
+
+      <div class="notice-grid">
+        <div class="notice notice--warn" data-reveal>
+          <Icon name="stamp" size={20} />
+          <div>
+            <p class="notice-title">{t('cs.visaTitle', locale)}</p>
+            <p>{t('cs.visaNote', locale)}</p>
+          </div>
+        </div>
+        <div class="notice notice--warn" data-reveal>
+          <Icon name="cap" size={20} />
+          <div>
+            <p class="notice-title">{t('cs.eduTitle', locale)}</p>
+            <p>{t('cs.eduNote', locale)}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice notice--strong" data-reveal>
+        <Icon name="shield" size={22} />
+        <div>
+          <p class="notice-title">{t('cs.disclaimerTitle', locale)}</p>
+          <p>{t('cs.disclaimer', locale)}</p>
+        </div>
+      </div>
+
+      <div class="chip-row">
+        {coreServices.map((s) => (
+          <a class="chip chip--link" href={localUrl(locale, routes.services)}>
+            {pick(s.title, locale)}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactStrip locale={locale} compact />
+  <CTABand locale={locale} />
+</BaseLayout>

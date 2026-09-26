@@ -1,0 +1,90 @@
+---
+import type { Locale } from '../i18n';
+import { localUrl } from '../i18n';
+import { t } from '../i18n/ui';
+import { routes } from '../data/site';
+import { industries } from '../data/industries';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import IndustryRow from '../components/IndustryRow.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import CTABand from '../components/CTABand.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+const contactHref = `${localUrl(locale, routes.contact)}#brief`;
+---
+
+<BaseLayout
+  locale={locale}
+  path={path}
+  title={t('industries.meta.title', locale)}
+  description={t('industries.meta.desc', locale)}
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: t('industries.title', locale),
+      itemListElement: industries.map((i, n) => ({
+        '@type': 'ListItem',
+        position: n + 1,
+        name: i.name[locale],
+        description: i.headline[locale],
+      })),
+    },
+  ]}
+>
+  <PageHero
+    locale={locale}
+    path={path}
+    eyebrow={t('industries.eyebrow', locale)}
+    title={t('industries.title', locale)}
+    sub={t('industries.sub', locale)}
+  >
+    <div class="hero-actions">
+      <a class="btn btn-primary" href={contactHref}>
+        {t('common.requestProposal', locale)} <Icon name="arrow" size={17} />
+      </a>
+    </div>
+  </PageHero>
+
+  <section class="section section--flush">
+    <div class="container">
+      <div class="industry-list">
+        {industries.map((i) => (
+          <div id={i.slug} class="industry-anchor">
+            <IndustryRow industry={i} locale={locale} href={contactHref} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container container--narrow">
+      <SectionHead
+        eyebrow={t('common.more', locale)}
+        title={t('home.engagement.title', locale)}
+        sub={t('home.engagement.sub', locale)}
+        align="center"
+      />
+      <div class="center-actions">
+        <a class="btn btn-primary" href={localUrl(locale, routes.engagement)}>
+          {t('eng.compare', locale)} <Icon name="arrow" size={17} />
+        </a>
+        <a class="btn btn-outline" href={localUrl(locale, routes.cases)}>
+          {t('cases.eyebrow', locale)}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <ContactStrip locale={locale} />
+  <CTABand locale={locale} />
+</BaseLayout>

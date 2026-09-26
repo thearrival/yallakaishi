@@ -1,0 +1,39 @@
+---
+import { localUrl, type Locale } from '../i18n';
+import { t } from '../i18n/ui';
+import { site } from '../data/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  locale: Locale;
+  title?: string;
+  body?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+}
+const {
+  locale,
+  title = t('home.cta.title', locale),
+  body = t('home.cta.body', locale),
+  primaryHref = `${localUrl(locale, '/contact/')}#brief`,
+  secondaryLabel = t('common.bookCall', locale),
+} = Astro.props;
+---
+
+<section class="cta-band">
+  <div class="container cta-band-inner" data-reveal>
+    <div class="cta-copy">
+      <h2>{title}</h2>
+      <p>{body}</p>
+    </div>
+    <div class="cta-actions">
+      <a class="btn btn-light btn-lg" href={primaryHref}>
+        {t('common.requestProposal', locale)}
+        <Icon name="arrow" size={18} />
+      </a>
+      <a class="btn btn-ghost-light btn-lg" href={`mailto:${site.email}`}>
+        {secondaryLabel}
+      </a>
+    </div>
+  </div>
+</section>

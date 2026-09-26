@@ -1,0 +1,63 @@
+---
+import type { CaseStudy } from '../data/cases';
+import { pick, type Locale } from '../i18n';
+import { t } from '../i18n/ui';
+import Icon from './Icon.astro';
+
+interface Props {
+  item: CaseStudy;
+  locale: Locale;
+  featured?: boolean;
+}
+const { item, locale, featured = false } = Astro.props;
+---
+
+<article class:list={['case-card', { 'case-card--featured': featured }]} data-reveal>
+  <header class="case-head">
+    <span class="case-icon">
+      <Icon name={item.icon} size={24} />
+    </span>
+    <div>
+      <p class="case-sector">{pick(item.sector, locale)}</p>
+      <p class="case-anon">
+        <Icon name="eye" size={13} /> {t('cases.anonymised', locale)}
+      </p>
+    </div>
+    <span class="case-index">{item.index}</span>
+  </header>
+
+  <h3>{pick(item.title, locale)}</h3>
+  <p class="case-client">{pick(item.clientLabel, locale)}</p>
+  <p class="case-context">{pick(item.context, locale)}</p>
+
+  <dl class="case-meta">
+    <div>
+      <dt>{t('cases.scope', locale)}</dt>
+      <dd>{pick(item.scope, locale)}</dd>
+    </div>
+    <div>
+      <dt>{t('cases.duration', locale)}</dt>
+      <dd>{pick(item.duration, locale)}</dd>
+    </div>
+  </dl>
+
+  <ol class="case-steps">
+    {item.steps.map((s) => (
+      <li>{pick(s, locale)}</li>
+    ))}
+  </ol>
+
+  <p class="case-outcome">
+    <span class="mini-label">{t('cases.outcome', locale)}</span>
+    {pick(item.outcome, locale)}
+  </p>
+
+  <ul class="case-proof">
+    {item.proof.map((p) => (
+      <li>
+        <strong>{pick(p.value, locale)}</strong>
+        <span>{pick(p.label, locale)}</span>
+      </li>
+    ))}
+  </ul>
+</article>

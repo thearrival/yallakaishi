@@ -1,42 +1,72 @@
 # Yalla Kaishi — 亚拉凯世 · Official Website
 
-Professional website for **Yalla Kaishi** — a Guangzhou-based cross-border business
-services company bridging China and the GCC (Saudi Arabia, UAE and the wider Gulf).
+Cross-border business services website for **Yalla Kaishi** — a Guangzhou-based
+firm bridging China and the GCC (Saudi Arabia, UAE and the wider Gulf).
 
-🌐 **Live:** https://yallakaishi.com/
+**Live:** https://yallakaishi.com/
 
-## What we do
+## Stack
 
-Six services, one bridge — all bilingual (中文 / EN / العربية):
+- **Astro 7** static site, zero runtime JS beyond small inline behaviours
+- **Trilingual**: English (`/`), 中文 (`/zh/…`), العربية (`/ar/…`, RTL)
+- TypeScript strict, `@astrojs/check` clean, Vitest unit tests
+- Design system in plain CSS (`src/styles/*.css`), system fonts only — no
+  third-party font CDN (China accessibility + privacy)
+- Content collections for insights, typed data modules for everything else
 
-1. Compliance Operations
-2. Regulatory Translation (AR ↔ ZH ↔ EN)
-3. Market Entry & Licensing (MISA / SAGIA)
-4. Partner Due Diligence
-5. Technology & Tools
-6. Training & Workshops
+## Commands
 
-## Tech
+```bash
+npm install
+npm run dev        # local dev server
+npm run build      # static build → dist/
+npm run preview    # serve dist/ locally
 
-- Vanilla HTML/CSS/JS — zero build step, zero dependencies
-- Canvas particle network (Guangzhou ⇄ Riyadh bridge) in the hero
-- Full EN / 中文 language toggle
-- Scroll reveals, animated counters, tilt cards, glassmorphism, web3-style visuals
+npm run typecheck  # astro check (0 errors / 0 warnings)
+npm test           # vitest
+npm run verify     # i18n key integrity + internal link check (needs dist/)
+npm run format     # prettier --write
+npm run ci         # format:check + typecheck + test + build + verify
+```
 
 ## Structure
 
 ```
-├── index.html      # all sections (bilingual via data-i18n)
-├── css/style.css   # design system + animations
-└── js/app.js       # canvas, i18n, reveals, counters, tilt
+src/
+├── i18n/            # locales, dictionaries (en/zh/ar), t() lookup
+├── data/            # typed content: services, industries, cases, FAQ…
+├── content/         # insights collection (9 articles × 3 locales)
+├── components/      # Icon, Header, Footer, ContactForm, SEO, cards…
+├── views/           # one view per page type
+├── pages/
+│   ├── [...path].astro   # catch-all router (locale × route)
+│   ├── sitemap.xml.ts    # hreflang-aware sitemap
+│   └── robots.txt.ts
+└── styles/          # tokens, base, components, sections
+scripts/             # verify-i18n.mjs, verify-links.mjs
+public/              # CNAME, favicon.svg, og-image.png, china-support.html
 ```
+
+## i18n rules
+
+- Every translated string is `Record<Locale, string>` — a missing translation
+  fails the build.
+- Keys live in `src/i18n/ui-core.ts` (chrome) and `ui-pages.ts` (page copy),
+  merged into `t(key, locale, vars?)`.
+- `npm run verify` fails on unknown keys, dead keys, or content problems.
+
+## Routing
+
+Locale prefix decides the language: no prefix = English, `/zh/…`, `/ar/…`.
+Trailing slashes are canonical (`trailingSlash: 'always'`, `build.format:
+'directory'`) so GitHub Pages serves directory indexes without a redirect hop.
 
 ## Deploy
 
-Push to `main` — GitHub Pages serves the repo root automatically.
+Push to `main` — `.github/workflows/deploy.yml` builds and publishes `dist/`
+to GitHub Pages.
 
-**Custom domain:** the `CNAME` file points at `yallakaishi.com`. The site is served
-from GitHub Pages IP `185.199.108.153`. HTTPS is enabled automatically once GitHub
-finishes issuing the certificate for the domain.
+**Custom domain:** `public/CNAME` → `yallakaishi.com`. HTTPS is issued by
+GitHub once the domain is verified.
 
 © 2026 Yalla Kaishi · 亚拉凯世 · Guangzhou, China

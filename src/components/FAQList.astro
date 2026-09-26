@@ -1,0 +1,46 @@
+---
+import type { FaqItem } from '../data/faq';
+import { pick, type Locale } from '../i18n';
+import Icon from './Icon.astro';
+
+interface Props {
+  items: FaqItem[];
+  locale: Locale;
+  numbered?: boolean;
+}
+const { items, locale, numbered = false } = Astro.props;
+---
+
+<div class="faq-list">
+  {items.map((f, i) => (
+    <details class="faq-item" data-reveal>
+      <summary>
+        {numbered && <span class="faq-num">{String(i + 1).padStart(2, '0')}</span>}
+        <span class="faq-q">{pick(f.q, locale)}</span>
+        <span class="faq-icon" aria-hidden="true">
+          <Icon name="plus" size={18} />
+        </span>
+      </summary>
+      <div class="faq-a">
+        <p>{pick(f.a, locale)}</p>
+      </div>
+    </details>
+  ))}
+</div>
+
+<script is:inline>
+  // Only one panel open at a time within a list — keeps long FAQ pages scannable.
+  document.querySelectorAll('.faq-list').forEach(function (list) {
+    list.addEventListener(
+      'toggle',
+      function (e) {
+        var open = e.target;
+        if (!open || open.tagName !== 'DETAILS' || !open.open) return;
+        list.querySelectorAll('details[open]').forEach(function (other) {
+          if (other !== open) other.open = false;
+        });
+      },
+      true,
+    );
+  });
+</script>

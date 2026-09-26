@@ -1,0 +1,58 @@
+---
+import type { Industry } from '../data/industries';
+import { pick, type Locale } from '../i18n';
+import { t } from '../i18n/ui';
+import Icon from './Icon.astro';
+
+interface Props {
+  industry: Industry;
+  locale: Locale;
+  href?: string;
+}
+const { industry, locale, href } = Astro.props;
+---
+
+<article class="industry-row" data-reveal>
+  <div class="industry-main">
+    <span class="industry-icon">
+      <Icon name={industry.icon} size={26} />
+    </span>
+    <div class="industry-text">
+      <p class="industry-index">{industry.index}</p>
+      <h3>{pick(industry.name, locale)}</h3>
+      <p class="industry-headline">{pick(industry.headline, locale)}</p>
+      <p class="industry-body">{pick(industry.body, locale)}</p>
+    </div>
+  </div>
+
+  <div class="industry-side">
+    <div class="industry-block">
+      <p class="mini-label">{t('nav.services', locale)}</p>
+      <ul class="tick-list">
+        {industry.entryPoints.map((e) => (
+          <li>
+            <Icon name="check" size={15} />
+            <span>{pick(e, locale)}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="industry-block industry-block--risk">
+      <p class="mini-label">{t('industries.risks', locale)}</p>
+      <ul class="risk-list">
+        {industry.risks.map((r) => (
+          <li>
+            <Icon name="sparkle" size={14} />
+            <span>{pick(r, locale)}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    {href && (
+      <a class="link-arrow" href={href}>
+        {t('common.more', locale)}
+        <Icon name="arrow" size={15} />
+      </a>
+    )}
+  </div>
+</article>

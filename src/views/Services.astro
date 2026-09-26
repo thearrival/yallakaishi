@@ -1,0 +1,77 @@
+---
+import type { Locale } from '../i18n';
+import { localUrl } from '../i18n';
+import { t } from '../i18n/ui';
+import { routes } from '../data/site';
+import { coreServices } from '../data/services';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import CTABand from '../components/CTABand.astro';
+import Marquee from '../components/Marquee.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+---
+
+<BaseLayout
+  locale={locale}
+  path={path}
+  title={t('services.meta.title', locale)}
+  description={t('services.meta.desc', locale)}
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: t('services.title', locale),
+      itemListElement: coreServices.map((s, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: s.title[locale],
+        description: s.summary[locale],
+      })),
+    },
+  ]}
+>
+  <PageHero
+    locale={locale}
+    path={path}
+    eyebrow={t('services.eyebrow', locale)}
+    title={t('services.title', locale)}
+    sub={t('services.sub', locale)}
+  >
+    <div class="hero-actions">
+      <a class="btn btn-primary" href={`${localUrl(locale, routes.contact)}#brief`}>
+        {t('common.requestProposal', locale)} <Icon name="arrow" size={17} />
+      </a>
+      <a class="btn btn-outline" href={localUrl(locale, routes.engagement)}>
+        {t('nav.engagement', locale)}
+      </a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <div class="svc-grid svc-grid--wide">
+        {coreServices.map((s) => (
+          <ServiceCard service={s} locale={locale} />
+        ))}
+      </div>
+
+      <div class="notice" data-reveal>
+        <Icon name="shield" size={20} />
+        <p>{t('services.notLegal', locale)}</p>
+      </div>
+    </div>
+  </section>
+
+  <Marquee locale={locale} />
+  <ContactStrip locale={locale} />
+  <CTABand locale={locale} />
+</BaseLayout>
