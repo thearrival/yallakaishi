@@ -53,11 +53,24 @@ const meta = localeMeta[locale];
     <a class="skip-link" href="#main">
       {t('nav.skip', locale)}
     </a>
+    <div class="scroll-progress" data-progress aria-hidden="true"></div>
     <Header locale={locale} path={path} />
     <main id="main">
       <slot />
     </main>
     <Footer locale={locale} path={path} />
+    <button class="to-top" type="button" data-to-top aria-label={t('common.backToTop', locale)}>
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <path
+          d="M12 19V5m0 0-6 6m6-6 6 6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        ></path>
+      </svg>
+    </button>
 
     <script is:inline>
       (function () {
@@ -65,12 +78,25 @@ const meta = localeMeta[locale];
         var toggle = document.querySelector('[data-nav-toggle]');
         var drawer = document.querySelector('[data-drawer]');
 
+        var progress = document.querySelector('[data-progress]');
+        var toTop = document.querySelector('[data-to-top]');
+
         function onScroll() {
-          if (!header) return;
-          header.classList.toggle('is-stuck', window.scrollY > 8);
+          if (header) header.classList.toggle('is-stuck', window.scrollY > 8);
+          if (toTop) toTop.classList.toggle('is-on', window.scrollY > 640);
+          if (progress) {
+            var max = document.documentElement.scrollHeight - window.innerHeight;
+            progress.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+          }
         }
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        if (toTop) {
+          toTop.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+          });
+        }
 
         function setDrawer(open) {
           if (!toggle || !drawer) return;

@@ -44,6 +44,9 @@
   --grad-gold: linear-gradient(135deg, #d8a044 0%, #b8862f 55%, #96681f 100%);
   --grad-hero: linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
   --grad-ink: linear-gradient(160deg, #0a1020 0%, #16233f 100%);
+  --grad-teal: linear-gradient(135deg, #14958b 0%, #0f766e 55%, #0b5c56 100%);
+  --grad-card: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+  --grad-rule: linear-gradient(90deg, var(--gold), var(--teal) 55%, transparent);
 
   /* ── Typography ─────────────────────────────────────── */
   --font-display: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
@@ -112,6 +115,7 @@
   --sh-lg: 0 28px 56px -28px rgba(10, 16, 32, 0.28), 0 8px 16px -8px rgba(10, 16, 32, 0.08);
   --sh-gold: 0 18px 34px -18px rgba(160, 111, 29, 0.55);
   --sh-teal: 0 18px 34px -18px rgba(15, 118, 110, 0.45);
+  --sh-inset: inset 0 1px 0 rgba(255, 255, 255, 0.38);
   --ring: 0 0 0 3px rgba(15, 118, 110, 0.28);
 
   /* ── Layout ─────────────────────────────────────────── */

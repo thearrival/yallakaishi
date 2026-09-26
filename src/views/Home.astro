@@ -38,6 +38,7 @@ const orgLd = {
   description: t('meta.homeDesc', locale),
   areaServed: ['CN', 'SA', 'AE', 'QA', 'KW', 'BH', 'OM'],
   knowsLanguage: ['en', 'zh', 'ar'],
+  openingHours: site.hours,
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.address.street,
@@ -89,6 +90,13 @@ const orgLd = {
             <Icon name="check" size={14} /> EN · 中文 · العربية
           </li>
         </ul>
+
+        <p class="hero-trust">
+          <Icon name="clock" size={14} />
+          <span>
+            {site.address.city} · {t('common.hoursValue', locale)}
+          </span>
+        </p>
       </div>
 
       <aside class="bridge-panel" aria-label={t('home.panel.title', locale)}>

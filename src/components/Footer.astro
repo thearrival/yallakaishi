@@ -123,11 +123,21 @@ const year = new Date().getFullYear();
     <div class="footer-col footer-contact">
       <h2>{t('foot.contact', locale)}</h2>
       <ul>
-        <li>
+        <li class="footer-copy-row">
           <a href={`mailto:${site.email}`}>
             <Icon name="mail" size={16} />
             <span>{site.email}</span>
           </a>
+          <button
+            class="copy-btn"
+            type="button"
+            data-copy={site.email}
+            data-done={t('common.copied', locale)}
+            data-label={t('common.copyEmail', locale)}
+            aria-label={t('common.copyEmail', locale)}
+          >
+            <Icon name="copy" size={14} />
+          </button>
         </li>
         <li>
           <a href={`tel:${site.phoneIntl}`}>
@@ -160,3 +170,48 @@ const year = new Date().getFullYear();
     <p class="footer-disclaimer">{t('common.notLegalAdvice', locale)}</p>
   </div>
 </footer>
+
+<script is:inline>
+  (function () {
+    var icons = {
+      copy: '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15V5h10M9 9h10v10H9z"/></svg>',
+      check:
+        '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4.5 4.5L19 7"/></svg>',
+    };
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-copy]');
+      if (!btn) return;
+      var text = btn.getAttribute('data-copy');
+      var done = btn.getAttribute('data-done') || 'Copied';
+      var restore = function () {
+        btn.classList.remove('is-done');
+        btn.innerHTML = icons.copy;
+      };
+      var flash = function () {
+        btn.classList.add('is-done');
+        btn.innerHTML = icons.check + '<span>' + done + '</span>';
+        clearTimeout(btn._t);
+        btn._t = setTimeout(restore, 2200);
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(flash, restore);
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          var legacy = /** @type {any} */ (document).execCommand;
+          if (legacy) legacy.call(document, 'copy');
+          flash();
+        } catch (err) {
+          restore();
+        }
+        document.body.removeChild(ta);
+      }
+    });
+  })();
+</script>

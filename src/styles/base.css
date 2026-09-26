@@ -342,6 +342,7 @@ hr {
   .site-header,
   .site-footer,
   .scroll-progress,
+  .to-top,
   .cta-band {
     display: none !important;
   }
