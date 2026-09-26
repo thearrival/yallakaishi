@@ -522,6 +522,21 @@ html[dir='rtl'] .btn:hover svg {
     box-shadow var(--t-fast),
     background var(--t-fast);
 }
+/* gold→teal hairline that lights up once the header sticks */
+.site-header::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: -1px;
+  height: 2px;
+  background: var(--grad-rule);
+  opacity: 0;
+  transition: opacity var(--t);
+  pointer-events: none;
+}
+.site-header.is-stuck::after {
+  opacity: 1;
+}
 .site-header.is-stuck {
   border-block-end-color: var(--line);
   box-shadow: var(--sh-sm);

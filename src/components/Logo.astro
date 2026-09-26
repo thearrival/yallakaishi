@@ -20,26 +20,30 @@ const stroke = `url(#${gradId})`;
   focusable="false"
 >
   <defs>
-    <linearGradient id={gradId} x1="4" y1="3" x2="28" y2="29" gradientUnits="userSpaceOnUse">
+    <linearGradient id={gradId} x1="4" y1="10" x2="28" y2="24" gradientUnits="userSpaceOnUse">
       <stop stop-color="#e6b45a"></stop>
-      <stop offset="0.55" stop-color="#c08a2e"></stop>
+      <stop offset="0.5" stop-color="#c08a2e"></stop>
       <stop offset="1" stop-color="#0f766e"></stop>
     </linearGradient>
   </defs>
+  <!-- bridge deck -->
   <path
-    d="M16 2.6 27.6 9.3v13.4L16 29.4 4.4 22.7V9.3z"
+    d="M4.5 21.5h23"
     stroke={stroke}
-    stroke-width="2.1"
-    stroke-linejoin="round"
-  ></path>
-  <path
-    d="M11.2 12.4 16 17.3l4.8-4.9M16 17.3V23"
-    stroke={stroke}
-    stroke-width="2.1"
+    stroke-width="2.2"
     stroke-linecap="round"
-    stroke-linejoin="round"
+    opacity="0.55"
   ></path>
-  <circle cx="11.2" cy="12.4" r="2.1" fill="#e6b45a"></circle>
-  <circle cx="20.8" cy="12.4" r="2.1" fill="#0f766e"></circle>
-  <circle cx="16" cy="23" r="2.1" fill="#c08a2e"></circle>
+  <!-- bridge arch -->
+  <path
+    d="M4.5 21.5C8 11 24 11 27.5 21.5"
+    stroke={stroke}
+    stroke-width="2.6"
+    stroke-linecap="round"
+  ></path>
+  <!-- two ends of the corridor -->
+  <circle cx="4.5" cy="21.5" r="2.9" fill="#e6b45a"></circle>
+  <circle cx="27.5" cy="21.5" r="2.9" fill="#0f766e"></circle>
+  <!-- midpoint -->
+  <circle cx="16" cy="13.6" r="1.8" fill={stroke}></circle>
 </svg>

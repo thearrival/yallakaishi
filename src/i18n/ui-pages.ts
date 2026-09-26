@@ -13,19 +13,19 @@ export const uiPages = {
     ar: 'خدمات أعمال عابرة للحدود · الصين ⇄ الخليج',
   },
   'home.hero.title1': {
-    en: 'Enter China and the Gulf',
-    zh: '进入中国与海湾市场',
-    ar: 'ادخل السوقين الصينية والخليجية',
+    en: 'Two markets. One team.',
+    zh: '两个市场，一个团队。',
+    ar: 'سوقان. فريق واحد.',
   },
   'home.hero.title2': {
-    en: 'without the guesswork.',
-    zh: '无需再靠猜测。',
-    ar: 'دون تخمين.',
+    en: 'Zero guesswork.',
+    zh: '不再靠猜。',
+    ar: 'بدون تخمين.',
   },
   'home.hero.sub': {
-    en: 'Yalla Kaishi runs your market entry, compliance and in-country operations on both ends of the corridor — one bilingual team, fixed-fee scope, and a written plan before you spend a riyal or a renminbi.',
-    zh: '亚拉凯世在走廊两端为您统筹市场准入、合规与在地运营 — 一个双语团队，固定费用范围，动工前先给出书面方案。',
-    ar: 'يتولى فريق يلا كايشي دخول السوق والامتثال والعمليات الميدانية على طرفي الممر — فريق واحد يتحدث ثلاث لغات، ونطاق برسوم ثابتة، وخطة مكتوبة قبل أن تصرف ريالًا أو يوانًا واحدًا.',
+    en: 'Market entry, compliance and in-country operations on both ends of the corridor — fixed-fee scope and a written plan before you spend a riyal or a renminbi.',
+    zh: '走廊两端的市场准入、合规与在地运营 — 固定费用，动工前先出书面方案。',
+    ar: 'دخول السوق والامتثال والعمليات الميدانية على طرفي الممر — نطاق برسوم ثابتة وخطة مكتوبة قبل أول ريال أو يوان.',
   },
   'home.hero.cta1': {
     en: 'Get a free assessment',
@@ -122,14 +122,14 @@ export const uiPages = {
   },
 
   'home.cta.title': {
-    en: 'Tell us the market. We will map the path.',
-    zh: '告诉我们要进入的市场，我们来规划路径.',
-    ar: 'أخبرنا بالسوق، ونحن نرسم الطريق.',
+    en: 'Tell us the market. We map the path.',
+    zh: '告诉我们要进的市场，我们来画路线。',
+    ar: 'أخبرنا بالسوق، ونرسم لك الطريق.',
   },
   'home.cta.body': {
-    en: 'Send a two-line brief and get a candid read on cost, timeline and risk within 24 hours — no pitch deck, no pressure.',
-    zh: '两行简述您的需求，24 小时内获得关于成本、时间与风险的坦诚评估 — 无推销、无压力。',
-    ar: 'أرسل ملخصًا من سطرين واحصل خلال 24 ساعة على تقييم صريح للتكلفة والمخاطر والمدة — بلا عرض تقديمي ولا ضغط.',
+    en: 'Two lines about your plan. Cost, timeline and risk back within 24 hours — no deck, no pressure.',
+    zh: '两行需求，24 小时内给你成本、周期与风险的实话 — 不推销，不施压。',
+    ar: 'سطران عن خطتك، وتحصل خلال 24 ساعة على التكلفة والمدة والمخاطر — بلا عرض ضاغط.',
   },
 
   /* ══════════ SERVICES ══════════ */

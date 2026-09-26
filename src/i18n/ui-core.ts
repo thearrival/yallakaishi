@@ -7,9 +7,9 @@ import type { Locale, Localized } from './index';
 export const uiCore = {
   /* ── Document metadata ─────────────────────────────── */
   'meta.tagline': {
-    en: 'One partner for China and the Gulf.',
-    zh: '连接中国与海湾，一个伙伴到底。',
-    ar: 'شريك واحد للصين والخليج.',
+    en: 'China ⇄ Gulf. Sorted.',
+    zh: '中国 ⇄ 海湾，一站搞定。',
+    ar: 'الصين ⇄ الخليج. تمّ الأمر.',
   },
   'meta.homeTitle': {
     en: 'Yalla Kaishi — China ⇄ GCC Cross-Border Business Services',
@@ -227,9 +227,9 @@ export const uiCore = {
 
   /* ── Footer ────────────────────────────────────────── */
   'foot.tagline': {
-    en: 'Cross-border business services connecting China and the Gulf — from Guangzhou to Riyadh, Dubai and Doha.',
-    zh: '连接中国与海湾的跨境商业服务 — 从广州到利雅得、迪拜与多哈。',
-    ar: 'خدمات أعمال عابرة للحدود تربط الصين بالخليج — من غوانغتشو إلى الرياض ودبي ودوحة.',
+    en: 'From Guangzhou to Riyadh, Dubai and Doha — one bilingual team, zero guesswork.',
+    zh: '从广州到利雅得、迪拜、多哈 — 一个双语团队，不再靠猜。',
+    ar: 'من غوانغتشو إلى الرياض ودبي ودوحة — فريق واحد يتحدث ثلاث لغات، بلا تخمين.',
   },
   'foot.explore': { en: 'Explore', zh: '浏览', ar: 'استكشف' },
   'foot.company': { en: 'Company', zh: '公司', ar: 'الشركة' },

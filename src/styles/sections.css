@@ -17,16 +17,17 @@
 .hero {
   position: relative;
   overflow: hidden;
-  background: var(--grad-hero);
+  background: var(--grad-ink);
+  color: rgba(255, 255, 255, 0.78);
   padding-block: clamp(3rem, 2rem + 5vw, 6rem) clamp(2rem, 1.5rem + 3vw, 3.5rem);
-  border-block-end: 1px solid var(--line);
+  border-block-end: 1px solid rgba(255, 255, 255, 0.08);
 }
 /* fine dot grid — gives the hero depth without an image */
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(10, 16, 32, 0.11) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px);
   background-size: 26px 26px;
   mask-image: radial-gradient(ellipse 90% 70% at 30% 20%, #000 25%, transparent 78%);
   -webkit-mask-image: radial-gradient(ellipse 90% 70% at 30% 20%, #000 25%, transparent 78%);
@@ -39,7 +40,7 @@
   inset-inline-start: -12%;
   width: 58vw;
   height: 58vw;
-  background: radial-gradient(circle, rgba(192, 138, 46, 0.2), transparent 62%);
+  background: radial-gradient(circle, rgba(192, 138, 46, 0.3), transparent 62%);
   filter: blur(6px);
   pointer-events: none;
   animation: heroDrift 22s var(--ease) infinite alternate;
@@ -51,7 +52,7 @@
   inset-inline-end: -30%;
   width: 44vw;
   height: 44vw;
-  background: radial-gradient(circle, rgba(15, 118, 110, 0.18), transparent 62%);
+  background: radial-gradient(circle, rgba(15, 118, 110, 0.32), transparent 62%);
   animation: heroDrift 28s var(--ease) infinite alternate-reverse;
 }
 @keyframes heroDrift {
@@ -100,11 +101,23 @@
 .hero-copy {
   max-width: 640px;
 }
+.hero h1 {
+  color: #fff;
+}
+.hero .eyebrow,
+.hero .eyebrow--gold {
+  color: var(--gold);
+}
+.hero .eyebrow::before,
+.hero .eyebrow--gold::before {
+  background: var(--gold);
+  opacity: 0.9;
+}
 .hero-line {
   display: block;
 }
 .hero-line--accent {
-  background: linear-gradient(100deg, #d8a044 0%, #b8862f 45%, #0f766e 100%);
+  background: linear-gradient(100deg, #f3c877 0%, #e0a94a 45%, #3fd0c4 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -112,6 +125,27 @@
 .hero .lede {
   margin-block-start: 1.4rem;
   max-width: 56ch;
+  color: rgba(255, 255, 255, 0.74);
+}
+.hero .btn-outline,
+.page-hero .btn-outline {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+.hero .btn-outline:hover,
+.page-hero .btn-outline:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.75);
+  color: #fff;
+  box-shadow: none;
+}
+.hero .link-arrow,
+.page-hero .link-arrow {
+  color: var(--gold);
+}
+.page-hero :where(h2, h3, h4) {
+  color: #fff;
 }
 .hero-actions {
   display: flex;
@@ -131,15 +165,14 @@
   gap: 0.45rem;
   padding: 0.42rem 0.85rem;
   font-size: var(--fs-sm);
-  color: var(--body);
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid var(--line);
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--r-pill);
-  box-shadow: var(--sh-xs);
   backdrop-filter: blur(6px);
 }
 .hero-badges svg {
-  color: var(--success);
+  color: #4ade80;
 }
 .hero-trust {
   display: inline-flex;
@@ -148,10 +181,10 @@
   margin-block-start: 0.9rem;
   font-size: var(--fs-xs);
   letter-spacing: var(--tracking-wide);
-  color: var(--faint);
+  color: rgba(255, 255, 255, 0.55);
 }
 .hero-trust svg {
-  color: var(--gold-ink);
+  color: var(--gold);
 }
 .hero-chip {
   display: inline-flex;
@@ -397,39 +430,53 @@
   position: relative;
   overflow: hidden;
   padding-block: clamp(2rem, 1.5rem + 3vw, 3.5rem) clamp(2.5rem, 2rem + 4vw, 5rem);
-  background: var(--grad-hero);
-  border-block-end: 1px solid var(--line);
+  background: var(--grad-ink);
+  color: rgba(255, 255, 255, 0.76);
+  border-block-end: 1px solid rgba(255, 255, 255, 0.08);
 }
 .page-hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(10, 16, 32, 0.11) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px);
   background-size: 26px 26px;
   mask-image: radial-gradient(ellipse 80% 90% at 75% 0%, #000 20%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse 80% 90% at 75% 0%, #000 20%, transparent 75%);
   opacity: 0.45;
   pointer-events: none;
 }
-.page-hero--ink::before {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px);
-}
-.page-hero--ink h1,
-.page-hero--ink .eyebrow {
-  animation: rise 0.6s var(--ease-out) both;
-}
-.page-hero--ink .lede {
-  animation: rise 0.6s var(--ease-out) 0.08s both;
-}
 .page-hero .container {
   position: relative;
 }
-.page-hero--ink {
-  background: var(--grad-ink);
-  color: rgba(255, 255, 255, 0.76);
-}
-.page-hero--ink h1 {
+.page-hero h1 {
   color: #fff;
+  animation: rise 0.6s var(--ease-out) both;
+}
+.page-hero .eyebrow,
+.page-hero .eyebrow--gold {
+  color: var(--gold);
+  animation: rise 0.6s var(--ease-out) both;
+}
+.page-hero .eyebrow::before,
+.page-hero .eyebrow--gold::before {
+  background: var(--gold);
+  opacity: 0.9;
+}
+.page-hero .lede {
+  color: rgba(255, 255, 255, 0.72);
+  animation: rise 0.6s var(--ease-out) 0.08s both;
+}
+.page-hero .breadcrumb ol {
+  color: rgba(255, 255, 255, 0.55);
+}
+.page-hero .breadcrumb a:hover {
+  color: var(--gold);
+}
+.page-hero .breadcrumb [aria-current='page'] {
+  color: rgba(255, 255, 255, 0.78);
+}
+.page-hero .breadcrumb--flat a {
+  color: var(--gold);
 }
 .page-hero-glow {
   position: absolute;
@@ -437,7 +484,7 @@
   inset-inline-end: -8%;
   width: 44vw;
   height: 44vw;
-  background: radial-gradient(circle, rgba(192, 138, 46, 0.16), transparent 62%);
+  background: radial-gradient(circle, rgba(192, 138, 46, 0.24), transparent 62%);
   pointer-events: none;
 }
 .page-hero .breadcrumb {
