@@ -404,12 +404,6 @@ html[dir='rtl'] .btn:hover svg {
 .faq-item summary::-webkit-details-marker {
   display: none;
 }
-.faq-num {
-  font-family: var(--font-display);
-  font-size: var(--fs-sm);
-  color: var(--gold-ink);
-  letter-spacing: var(--tracking-wide);
-}
 .faq-q {
   flex: 1;
 }

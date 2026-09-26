@@ -6,16 +6,14 @@ import Icon from './Icon.astro';
 interface Props {
   items: FaqItem[];
   locale: Locale;
-  numbered?: boolean;
 }
-const { items, locale, numbered = false } = Astro.props;
+const { items, locale } = Astro.props;
 ---
 
 <div class="faq-list">
-  {items.map((f, i) => (
+  {items.map((f) => (
     <details class="faq-item" data-reveal>
       <summary>
-        {numbered && <span class="faq-num">{String(i + 1).padStart(2, '0')}</span>}
         <span class="faq-q">{pick(f.q, locale)}</span>
         <span class="faq-icon" aria-hidden="true">
           <Icon name="plus" size={18} />
