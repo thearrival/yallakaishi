@@ -1,0 +1,622 @@
+---
+import type { Locale } from '../i18n';
+import { localeMeta, localUrl } from '../i18n';
+import { t } from '../i18n/ui';
+import { site } from '../data/site';
+import { coreServices } from '../data/services';
+import { supportCategories, supportServiceCount } from '../data/china-support';
+import Icon from './Icon.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
+const contactEmail = site.email;
+
+const serviceGroups = [
+  {
+    label: t('nav.services', locale),
+    options: coreServices.map((s) => ({
+      value: `svc:${s.slug}`,
+      label: s.title[locale],
+    })),
+  },
+  {
+    label: t('nav.china', locale),
+    options: supportCategories.map((c) => ({
+      value: `cat:${c.slug}`,
+      label: `${c.title[locale]} · ${c.services.length}`,
+    })),
+  },
+];
+
+const languageOptions = ['en', 'zh', 'ar'].map((c) => ({
+  value: c,
+  label: localeMeta[c as Locale].native,
+}));
+
+const countries = [
+  'Saudi Arabia',
+  'United Arab Emirates',
+  'Qatar',
+  'Kuwait',
+  'Bahrain',
+  'Oman',
+  'China',
+  'Hong Kong SAR',
+  'Taiwan',
+  'Singapore',
+  'Malaysia',
+  'Egypt',
+  'Jordan',
+  'United Kingdom',
+  'United States',
+  'Germany',
+  'France',
+  'India',
+  'Pakistan',
+  'Other',
+].map((c) => ({ value: c, label: c }));
+---
+
+<form
+  class="wizard"
+  data-wizard
+  data-endpoint={endpoint}
+  data-locale={locale}
+  data-msg-required={t('form.errorRequired', locale)}
+  data-msg-email={t('form.errorEmail', locale)}
+  data-msg-phone={t('form.errorPhone', locale)}
+  data-msg-services={t('form.errorServices', locale)}
+  data-msg-consent={t('form.agreeError', locale)}
+  data-msg-too-short={t('form.errorTooShort', locale)}
+  data-msg-sending={t('form.sending', locale)}
+  data-msg-generic={t('form.errorGeneric', locale)}
+  novalidate
+>
+  <ol class="wizard-steps" role="list">
+    <li class="is-active" data-step-dot="1">
+      <span>1</span>
+      <em>{t('nav.about', locale)}</em>
+    </li>
+    <li data-step-dot="2">
+      <span>2</span>
+      <em>{t('nav.services', locale)}</em>
+    </li>
+    <li data-step-dot="3">
+      <span>3</span>
+      <em>{t('common.sendMsg', locale)}</em>
+    </li>
+  </ol>
+
+  <!-- ── Step 1 ─────────────────────────────────────── -->
+  <fieldset class="wizard-panel" data-step="1">
+    <legend class="wizard-legend">
+      <span class="wizard-stepno">{t('form.stepOf', locale, { n: 1, t: 3 })}</span>
+      <strong>{t('contact.formTitle', locale)}</strong>
+    </legend>
+
+    <div class="field-grid">
+      <p class="field">
+        <label for="f-name">
+          {t('form.name', locale)} <span aria-hidden="true">*</span>
+        </label>
+        <input
+          id="f-name"
+          name="name"
+          type="text"
+          autocomplete="name"
+          required
+          placeholder={t('form.namePh', locale)}
+          aria-describedby="e-name"
+        />
+        <span class="field-error" id="e-name" role="alert"></span>
+      </p>
+
+      <p class="field">
+        <label for="f-email">
+          {t('form.email', locale)} <span aria-hidden="true">*</span>
+        </label>
+        <input
+          id="f-email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          required
+          placeholder={t('form.emailPh', locale)}
+          aria-describedby="e-email"
+        />
+        <span class="field-error" id="e-email" role="alert"></span>
+      </p>
+
+      <p class="field">
+        <label for="f-company">{t('form.company', locale)}</label>
+        <input
+          id="f-company"
+          name="company"
+          type="text"
+          autocomplete="organization"
+          placeholder={t('form.companyPh', locale)}
+        />
+      </p>
+
+      <p class="field">
+        <label for="f-phone">{t('form.phone', locale)}</label>
+        <input
+          id="f-phone"
+          name="phone"
+          type="tel"
+          autocomplete="tel"
+          placeholder={t('form.phonePh', locale)}
+          aria-describedby="e-phone"
+        />
+        <span class="field-error" id="e-phone" role="alert"></span>
+      </p>
+
+      <p class="field">
+        <label for="f-country">
+          {t('form.country', locale)} <span aria-hidden="true">*</span>
+        </label>
+        <select id="f-country" name="country" required aria-describedby="e-country">
+          <option value="">—</option>
+          {countries.map((c) => (
+            <option value={c.value}>{c.label}</option>
+          ))}
+        </select>
+        <span class="field-error" id="e-country" role="alert"></span>
+      </p>
+
+      <p class="field">
+        <label for="f-lang">{t('form.language', locale)}</label>
+        <select id="f-lang" name="language">
+          {languageOptions.map((l) => (
+            <option value={l.value} selected={l.value === locale}>
+              {l.label}
+            </option>
+          ))}
+        </select>
+      </p>
+    </div>
+
+    <div class="wizard-actions">
+      <span></span>
+      <button class="btn btn-primary" type="button" data-next>
+        {t('common.next', locale)} <Icon name="arrow" size={17} />
+      </button>
+    </div>
+  </fieldset>
+
+  <!-- ── Step 2 ─────────────────────────────────────── -->
+  <fieldset class="wizard-panel" data-step="2" hidden>
+    <legend class="wizard-legend">
+      <span class="wizard-stepno">{t('form.stepOf', locale, { n: 2, t: 3 })}</span>
+      <strong>{t('form.services', locale)}</strong>
+    </legend>
+
+    <p class="field-error" id="e-services" role="alert"></p>
+    <div class="service-groups">
+      {serviceGroups.map((g) => (
+        <div class="service-group">
+          <p class="mini-label">{g.label}</p>
+          <div class="chip-grid">
+            {g.options.map((o, i) => (
+              <label class="chip">
+                <input
+                  type="checkbox"
+                  name="services"
+                  value={o.value}
+                  data-first={i === 0 ? '1' : undefined}
+                />
+                <span>{o.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <p class="wizard-note">
+      <Icon name="sparkle" size={14} />
+      {t('cs.combineNote', locale)}
+      <span class="wizard-count" data-service-count>
+        0 / {supportServiceCount + coreServices.length}
+      </span>
+    </p>
+
+    <p class="field field--full">
+      <label for="f-msg">
+        {t('form.message', locale)} <span aria-hidden="true">*</span>
+      </label>
+      <textarea
+        id="f-msg"
+        name="message"
+        rows="5"
+        required
+        placeholder={t('form.messagePh', locale)}
+        aria-describedby="e-msg"
+      ></textarea>
+      <span class="field-error" id="e-msg" role="alert"></span>
+    </p>
+
+    <div class="wizard-actions">
+      <button class="btn btn-outline" type="button" data-prev>
+        <Icon name="arrowLeft" size={17} /> {t('common.prev', locale)}
+      </button>
+      <button class="btn btn-primary" type="button" data-next>
+        {t('common.next', locale)} <Icon name="arrow" size={17} />
+      </button>
+    </div>
+  </fieldset>
+
+  <!-- ── Step 3 ─────────────────────────────────────── -->
+  <fieldset class="wizard-panel" data-step="3" hidden>
+    <legend class="wizard-legend">
+      <span class="wizard-stepno">{t('form.stepOf', locale, { n: 3, t: 3 })}</span>
+      <strong>{t('common.submit', locale)}</strong>
+    </legend>
+
+    <dl class="review" data-review>
+      <div>
+        <dt>{t('form.name', locale)}</dt>
+        <dd data-review="name">—</dd>
+      </div>
+      <div>
+        <dt>{t('form.email', locale)}</dt>
+        <dd data-review="email">—</dd>
+      </div>
+      <div>
+        <dt>{t('form.company', locale)}</dt>
+        <dd data-review="company">—</dd>
+      </div>
+      <div>
+        <dt>{t('form.country', locale)}</dt>
+        <dd data-review="country">—</dd>
+      </div>
+      <div class="review-wide">
+        <dt>{t('form.services', locale)}</dt>
+        <dd data-review="services">—</dd>
+      </div>
+      <div class="review-wide">
+        <dt>{t('form.message', locale)}</dt>
+        <dd data-review="message">—</dd>
+      </div>
+    </dl>
+
+    <p class="field field--check">
+      <label>
+        <input type="checkbox" name="consent" required aria-describedby="e-consent" />
+        <span>{t('form.agree', locale)}</span>
+      </label>
+      <span class="field-error" id="e-consent" role="alert"></span>
+    </p>
+
+    <p class="wizard-spam">{t('form.spamNote', locale)}</p>
+
+    <div class="wizard-actions">
+      <button class="btn btn-outline" type="button" data-prev>
+        <Icon name="arrowLeft" size={17} /> {t('common.prev', locale)}
+      </button>
+      <button class="btn btn-primary btn-lg" type="submit" data-submit>
+        <span data-submit-label>{t('common.submit', locale)}</span>
+        <Icon name="arrow" size={18} />
+      </button>
+    </div>
+
+    <p class="form-status" data-status role="status" aria-live="polite"></p>
+
+    <div class="form-direct">
+      <p class="mini-label">{t('form.directTitle', locale)}</p>
+      <p>{t('form.directBody', locale)}</p>
+      <a class="link-arrow" href={`mailto:${site.email}`}>
+        {site.email} <Icon name="arrow" size={15} />
+      </a>
+    </div>
+  </fieldset>
+
+  <!-- ── Success ────────────────────────────────────── -->
+  <div class="wizard-success" data-success hidden>
+    <span class="success-icon">
+      <Icon name="check" size={34} />
+    </span>
+    <h3>{t('form.successTitle', locale)}</h3>
+    <p>{t('form.successBody', locale)}</p>
+    <p class="success-ref">
+      <span class="mini-label">{t('form.refLabel', locale)}</span>
+      <strong data-ref>—</strong>
+    </p>
+    <a class="btn btn-outline" href={localUrl(locale, '/')} data-reset hidden>
+      {t('form.again', locale)}
+    </a>
+  </div>
+</form>
+
+<script is:inline define:vars={{ locale, endpoint, contactEmail }}>
+  (function () {
+    var form = document.querySelector('[data-wizard]');
+    if (!form) return;
+
+    var strings = {
+      required: form.dataset.msgRequired,
+      email: form.dataset.msgEmail,
+      phone: form.dataset.msgPhone,
+      services: form.dataset.msgServices,
+      consent: form.dataset.msgConsent,
+      tooShort: form.dataset.msgTooShort,
+      sending: form.dataset.msgSending,
+      generic: form.dataset.msgGeneric,
+    };
+
+    var step = 1;
+    var panels = form.querySelectorAll('[data-step]');
+    var dots = form.querySelectorAll('[data-step-dot]');
+    var success = form.querySelector('[data-success]');
+    var status = form.querySelector('[data-status]');
+    var submitBtn = form.querySelector('[data-submit]');
+    var submitLabel = form.querySelector('[data-submit-label]');
+
+    function panel(n) {
+      return form.querySelector('[data-step="' + n + '"]');
+    }
+
+    function show(n) {
+      step = n;
+      panels.forEach(function (p) {
+        p.hidden = Number(p.dataset.step) !== n;
+      });
+      dots.forEach(function (d) {
+        var i = Number(d.dataset.stepDot);
+        d.classList.toggle('is-active', i === n);
+        d.classList.toggle('is-done', i < n);
+      });
+      var p = panel(n);
+      if (p) {
+        var first = p.querySelector('input, select, textarea, button');
+        if (first) first.focus({ preventScroll: true });
+        var top = p.getBoundingClientRect().top + window.scrollY - 100;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+      if (n === 3) buildReview();
+    }
+
+    function setError(input, message) {
+      if (!input) return;
+      var described = input.getAttribute('aria-describedby');
+      var box = described ? document.getElementById(described) : null;
+      if (message) {
+        input.setAttribute('aria-invalid', 'true');
+        if (box) box.textContent = message;
+        input.closest('.field') && input.closest('.field').classList.add('has-error');
+      } else {
+        input.removeAttribute('aria-invalid');
+        if (box) box.textContent = '';
+        input.closest('.field') && input.closest('.field').classList.remove('has-error');
+      }
+    }
+
+    function validate(n) {
+      var ok = true;
+      var p = panel(n);
+      if (!p) return true;
+
+      p.querySelectorAll('input[required], select[required], textarea[required]').forEach(
+        function (input) {
+          if (input.type === 'checkbox') return;
+          var v = (input.value || '').trim();
+          var msg = '';
+          if (!v) msg = strings.required;
+          else if (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v))
+            msg = strings.email;
+          else if (input.type === 'tel' && v && !/^[+()\d\s-]{6,20}$/.test(v)) msg = strings.phone;
+          setError(input, msg);
+          if (msg) ok = false;
+        },
+      );
+
+      if (n === 2) {
+        var checked = p.querySelectorAll('input[name="services"]:checked');
+        var svcBox = document.getElementById('e-services');
+        if (!checked.length) {
+          if (svcBox) svcBox.textContent = strings.services;
+          ok = false;
+        } else if (svcBox) svcBox.textContent = '';
+
+        var msgArea = p.querySelector('#f-msg');
+        if (msgArea && msgArea.value.trim().length < 20) {
+          setError(msgArea, strings.tooShort.replace('{n}', '20'));
+          ok = false;
+        } else if (msgArea) setError(msgArea, '');
+      }
+
+      if (n === 3) {
+        var consent = p.querySelector('input[name="consent"]');
+        var cBox = document.getElementById('e-consent');
+        if (!consent.checked) {
+          if (cBox) cBox.textContent = strings.consent;
+          ok = false;
+        } else if (cBox) cBox.textContent = '';
+      }
+
+      if (!ok) {
+        var firstBad = p.querySelector('[aria-invalid="true"], .field-error:not(:empty)');
+        if (firstBad) {
+          var target = firstBad.matches('input, select, textarea')
+            ? firstBad
+            : firstBad.closest('.field') &&
+              firstBad.closest('.field').querySelector('input, select, textarea');
+          if (target) target.focus({ preventScroll: false });
+          else firstBad.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }
+      }
+      return ok;
+    }
+
+    function value(name) {
+      var el = form.querySelector('[name="' + name + '"]');
+      return el ? el.value.trim() : '';
+    }
+
+    function selectedServices() {
+      return Array.prototype.map.call(
+        form.querySelectorAll('input[name="services"]:checked'),
+        function (c) {
+          return c.parentElement ? c.parentElement.textContent.trim() : c.value;
+        },
+      );
+    }
+
+    function buildReview() {
+      ['name', 'email', 'company', 'country', 'message'].forEach(function (k) {
+        var el = form.querySelector('[data-review="' + k + '"]');
+        if (el) el.textContent = value(k) || '—';
+      });
+      var el = form.querySelector('[data-review="services"]');
+      var sel = selectedServices();
+      if (el) el.textContent = sel.length ? sel.join(' · ') : '—';
+    }
+
+    form.querySelectorAll('[data-next]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (validate(step)) show(step + 1);
+      });
+    });
+    form.querySelectorAll('[data-prev]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        show(step - 1);
+      });
+    });
+
+    var counter = form.querySelector('[data-service-count]');
+    form.querySelectorAll('input[name="services"]').forEach(function (c) {
+      c.addEventListener('change', function () {
+        if (counter)
+          counter.textContent =
+            form.querySelectorAll('input[name="services"]:checked').length +
+            ' ' +
+            counter.textContent.split(' ')[1];
+      });
+    });
+
+    function makeRef() {
+      var d = new Date();
+      var ymd =
+        d.getFullYear() +
+        String(d.getMonth() + 1).padStart(2, '0') +
+        String(d.getDate()).padStart(2, '0');
+      var rand = Math.random().toString(36).slice(2, 6).toUpperCase();
+      return 'YK-' + ymd + '-' + rand;
+    }
+
+    function payload() {
+      return {
+        ref: makeRef(),
+        locale: form.dataset.locale,
+        name: value('name'),
+        email: value('email'),
+        company: value('company'),
+        phone: value('phone'),
+        country: value('country'),
+        language: value('language'),
+        services: selectedServices(),
+        message: value('message'),
+        consent: true,
+        source: location.href,
+      };
+    }
+
+    function mailtoFallback(data) {
+      var subject = '[' + data.ref + '] ' + data.name + ' · ' + (data.company || data.country);
+      var body = [
+        'Ref: ' + data.ref,
+        'Name: ' + data.name,
+        'Email: ' + data.email,
+        'Company: ' + data.company,
+        'Country: ' + data.country,
+        'Phone: ' + data.phone,
+        'Language: ' + data.language,
+        'Services: ' + data.services.join(', '),
+        '',
+        data.message,
+      ].join('\n');
+      return (
+        'mailto:' +
+        contactEmail +
+        '?subject=' +
+        encodeURIComponent(subject) +
+        '&body=' +
+        encodeURIComponent(body)
+      );
+    }
+
+    function done(data) {
+      form.querySelectorAll('fieldset[data-step]').forEach(function (p) {
+        p.hidden = true;
+      });
+      var dotsEl = form.querySelector('.wizard-steps');
+      if (dotsEl) dotsEl.hidden = true;
+      var ref = form.querySelector('[data-ref]');
+      if (ref) ref.textContent = data.ref;
+      if (success) {
+        success.hidden = false;
+        success.setAttribute('tabindex', '-1');
+        success.focus({ preventScroll: false });
+        success.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }
+    }
+
+    function restore() {
+      if (submitBtn) submitBtn.disabled = false;
+      if (submitLabel && submitLabel.dataset.original)
+        submitLabel.textContent = submitLabel.dataset.original;
+    }
+
+    var labelEl = form.querySelector('[data-submit-label]');
+    if (labelEl) labelEl.dataset.original = labelEl.textContent;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!validate(3)) return;
+
+      var data = payload();
+
+      // No endpoint configured at build time → hand the brief to the visitor's
+      // own mail client rather than silently dropping the submission.
+      if (!endpoint) {
+        if (status) {
+          status.classList.remove('is-error');
+          status.textContent = strings.generic;
+        }
+        window.location.href = mailtoFallback(data);
+        done(data);
+        return;
+      }
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (submitLabel) submitLabel.textContent = strings.sending;
+      if (status) {
+        status.classList.remove('is-error');
+        status.textContent = strings.sending;
+      }
+
+      fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+        .then(function (r) {
+          if (!r.ok) throw new Error('bad status');
+          done(data);
+        })
+        .catch(function () {
+          if (status) {
+            status.classList.add('is-error');
+            status.textContent = strings.generic;
+          }
+        })
+        .finally(restore);
+    });
+
+    show(1);
+  })();
+</script>

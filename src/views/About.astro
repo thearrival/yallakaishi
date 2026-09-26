@@ -1,0 +1,171 @@
+---
+import type { Locale } from '../i18n';
+import { pick } from '../i18n';
+import { t } from '../i18n/ui';
+import { site } from '../data/site';
+import { values, founder, team, presence, credentials } from '../data/about';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Stats from '../components/Stats.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import CTABand from '../components/CTABand.astro';
+import Marquee from '../components/Marquee.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+---
+
+<BaseLayout
+  locale={locale}
+  path={path}
+  title={t('about.meta.title', locale)}
+  description={t('about.meta.desc', locale)}
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      name: t('about.meta.title', locale),
+      mainEntity: {
+        '@type': 'Organization',
+        name: site.name,
+        foundingDate: String(site.founded),
+        email: site.email,
+        telephone: site.phoneIntl,
+      },
+    },
+  ]}
+>
+  <PageHero
+    locale={locale}
+    path={path}
+    eyebrow={t('about.eyebrow', locale)}
+    title={t('about.title', locale)}
+    sub={t('about.sub', locale)}
+  />
+
+  <Stats locale={locale} variant="inline" />
+
+  <!-- Founder -->
+  <section class="section">
+    <div class="container">
+      <div class="founder" data-reveal>
+        <div class="founder-portrait" aria-hidden="true">
+          <span>
+            {pick(founder.name, locale)
+              .split(' ')
+              .map((w) => w[0])
+              .join('')}
+          </span>
+        </div>
+        <div class="founder-body">
+          <p class="eyebrow">{t('about.storyTitle', locale)}</p>
+          <blockquote class="founder-quote">
+            <Icon name="quote" size={26} />
+            <p>{pick(founder.quote, locale)}</p>
+          </blockquote>
+          <div class="founder-meta">
+            <strong>{pick(founder.name, locale)}</strong>
+            <span>{pick(founder.role, locale)}</span>
+            <span>{pick(founder.languages, locale)}</span>
+          </div>
+          <p class="founder-bio">{pick(founder.bio, locale)}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section section--tint">
+    <div class="container">
+      <SectionHead
+        eyebrow={t('about.eyebrow', locale)}
+        title={t('about.valuesTitle', locale)}
+        sub={t('about.sub', locale)}
+      />
+      <div class="value-grid">
+        {values.map((v) => (
+          <article class="value-card" data-reveal>
+            <span class="value-icon">
+              <Icon name={v.icon} size={24} />
+            </span>
+            <h3>{pick(v.title, locale)}</h3>
+            <p>{pick(v.body, locale)}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section">
+    <div class="container">
+      <SectionHead
+        eyebrow={t('about.teamTitle', locale)}
+        title={t('about.teamTitle', locale)}
+        sub={t('about.teamNote', locale)}
+      />
+      <div class="team-grid">
+        {team.map((m) => (
+          <article class="team-card" data-reveal>
+            <span class="team-avatar" aria-hidden="true">
+              {pick(m.name, locale)
+                .split(' ')
+                .map((w) => w[0])
+                .join('')
+                .slice(0, 2)}
+            </span>
+            <h3>{pick(m.name, locale)}</h3>
+            <p class="team-role">{pick(m.role, locale)}</p>
+            <p class="team-focus">{pick(m.focus, locale)}</p>
+            <p class="team-langs">
+              <Icon name="translate" size={14} /> {pick(m.languages, locale)}
+            </p>
+          </article>
+        ))}
+      </div>
+      <p class="fineprint">{t('about.teamNote', locale)}</p>
+    </div>
+  </section>
+
+  <!-- Presence + credentials -->
+  <section class="section section--tint">
+    <div class="container">
+      <SectionHead
+        eyebrow={t('about.presenceTitle', locale)}
+        title={t('about.presenceTitle', locale)}
+        sub={t('foot.builtNote', locale)}
+      />
+      <div class="presence-grid">
+        {presence.map((p) => (
+          <article class="presence-card" data-reveal>
+            <h3>{pick(p.city, locale)}</h3>
+            <p class="presence-role">{pick(p.role, locale)}</p>
+            <p>{pick(p.note, locale)}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="creds" data-reveal>
+        <p class="mini-label">{t('about.credsTitle', locale)}</p>
+        <ul class="tick-list tick-list--two">
+          {credentials.map((c) => (
+            <li>
+              <Icon name="check" size={15} />
+              <span>{pick(c, locale)}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Marquee locale={locale} />
+  <ContactStrip locale={locale} />
+  <CTABand locale={locale} />
+</BaseLayout>

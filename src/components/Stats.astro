@@ -1,0 +1,35 @@
+---
+import type { Locale } from '../i18n';
+import { t, type TKey } from '../i18n/ui';
+
+interface Stat {
+  valueKey: TKey;
+  count?: number;
+  suffix?: string;
+  labelKey: TKey;
+}
+interface Props {
+  locale: Locale;
+  variant?: 'cards' | 'inline';
+  items?: Stat[];
+}
+const { locale, variant = 'cards' } = Astro.props;
+
+const stats: Stat[] = [
+  { valueKey: 'proof.yearsNum', count: 10, suffix: '+', labelKey: 'proof.yearsLabel' },
+  { valueKey: 'proof.langsNum', count: 3, labelKey: 'proof.langsLabel' },
+  { valueKey: 'proof.replyNum', labelKey: 'proof.replyLabel' },
+  { valueKey: 'proof.feeNum', labelKey: 'proof.feeLabel' },
+];
+---
+
+<ul class:list={['stats', `stats--${variant}`]}>
+  {stats.map((s) => (
+    <li class="stat" data-reveal>
+      <span class="stat-value" data-count={s.count} data-suffix={s.suffix}>
+        {s.count === undefined ? t(s.valueKey, locale) : '0'}
+      </span>
+      <span class="stat-label">{t(s.labelKey, locale)}</span>
+    </li>
+  ))}
+</ul>

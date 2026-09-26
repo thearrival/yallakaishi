@@ -1,0 +1,169 @@
+---
+import type { Locale } from '../i18n';
+import { pick } from '../i18n';
+import { t } from '../i18n/ui';
+import { site, regulators } from '../data/site';
+import { presence } from '../data/about';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactForm from '../components/ContactForm.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+
+const contactLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: t('contact.meta.title', locale),
+  mainEntity: {
+    '@type': 'Organization',
+    name: site.name,
+    email: site.email,
+    telephone: site.phoneIntl,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: site.address.street,
+      addressLocality: site.address.city,
+      addressCountry: 'CN',
+    },
+    openingHours: site.hours,
+  },
+};
+---
+
+<BaseLayout
+  locale={locale}
+  path={path}
+  title={t('contact.meta.title', locale)}
+  description={t('contact.meta.desc', locale)}
+  jsonLd={[contactLd]}
+>
+  <PageHero
+    locale={locale}
+    path={path}
+    eyebrow={t('contact.eyebrow', locale)}
+    title={t('contact.title', locale)}
+    sub={t('contact.sub', locale)}
+  >
+    <div class="hero-badges">
+      <span class="hero-chip">
+        <Icon name="clock" size={15} /> {t('common.response', locale)}
+      </span>
+      <span class="hero-chip">
+        <Icon name="translate" size={15} /> EN · 中文 · العربية
+      </span>
+    </div>
+  </PageHero>
+
+  <section class="section section--flush" id="brief">
+    <div class="container">
+      <div class="contact-layout">
+        <div class="contact-main">
+          <p class="mini-label">{t('contact.formTitle', locale)}</p>
+          <ContactForm locale={locale} />
+        </div>
+
+        <aside class="contact-side">
+          <div class="side-card" data-reveal>
+            <p class="mini-label">{t('contact.nextSteps', locale)}</p>
+            <ol class="side-steps">
+              <li>
+                <span>1</span>
+                <div>
+                  <strong>{t('contact.step1t', locale)}</strong>
+                  <p>{t('contact.step1d', locale)}</p>
+                </div>
+              </li>
+              <li>
+                <span>2</span>
+                <div>
+                  <strong>{t('contact.step2t', locale)}</strong>
+                  <p>{t('contact.step2d', locale)}</p>
+                </div>
+              </li>
+              <li>
+                <span>3</span>
+                <div>
+                  <strong>{t('contact.step3t', locale)}</strong>
+                  <p>{t('contact.step3d', locale)}</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="side-card" data-reveal>
+            <p class="mini-label">{t('contact.directTitle', locale)}</p>
+            <ul class="direct-list">
+              <li>
+                <Icon name="mail" size={18} />
+                <div>
+                  <span class="mini-label">{t('common.email', locale)}</span>
+                  <a href={`mailto:${site.email}`}>{site.email}</a>
+                </div>
+              </li>
+              <li>
+                <Icon name="phone" size={18} />
+                <div>
+                  <span class="mini-label">{t('common.phone', locale)}</span>
+                  <a href={`tel:${site.phoneIntl}`}>{site.phoneDisplay}</a>
+                </div>
+              </li>
+              <li>
+                <Icon name="pin" size={18} />
+                <div>
+                  <span class="mini-label">{t('common.address', locale)}</span>
+                  <p>
+                    {locale === 'zh'
+                      ? site.address.streetZh
+                      : locale === 'ar'
+                        ? site.address.streetAr
+                        : `${site.address.street}, ${site.address.district}, ${site.address.city}`}
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="side-card" data-reveal>
+            <p class="mini-label">{t('contact.offices', locale)}</p>
+            <ul class="presence-mini">
+              {presence.map((p) => (
+                <li>
+                  <strong>{pick(p.city, locale)}</strong>
+                  <span>{pick(p.role, locale)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <SectionHead
+        eyebrow={t('reg.label', locale)}
+        title={t('reg.intro', locale)}
+        sub={t('reg.label', locale)}
+      />
+      <ul class="reg-grid">
+        {regulators.map((r) => (
+          <li data-reveal>
+            <strong>{r.label}</strong>
+            <span>{pick(r.region, locale)}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <ContactStrip locale={locale} compact />
+</BaseLayout>

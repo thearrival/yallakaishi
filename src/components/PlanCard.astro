@@ -1,0 +1,56 @@
+---
+import type { Plan } from '../data/engagement';
+import { localUrl, pick, type Locale } from '../i18n';
+import { t } from '../i18n/ui';
+import Icon from './Icon.astro';
+
+interface Props {
+  plan: Plan;
+  locale: Locale;
+}
+const { plan, locale } = Astro.props;
+---
+
+<article class:list={['plan-card', { 'is-popular': plan.popular }]} data-reveal>
+  {plan.popular && <span class="plan-badge">{t('eng.mostPopular', locale)}</span>}
+  <header class="plan-head">
+    <span class="plan-index">{plan.index}</span>
+    <h3>{pick(plan.name, locale)}</h3>
+    <p class="plan-tagline">{pick(plan.tagline, locale)}</p>
+  </header>
+
+  <p class="plan-price">
+    <span class="plan-amount">{pick(plan.price, locale)}</span>
+    <span class="plan-note">{pick(plan.priceNote, locale)}</span>
+  </p>
+
+  <p class="plan-best">
+    <span class="mini-label">{t('eng.includes', locale)}</span>
+    {pick(plan.bestFor, locale)}
+  </p>
+
+  <ul class="plan-list">
+    {plan.includes.map((i) => (
+      <li>
+        <Icon name="check" size={16} />
+        <span>{pick(i, locale)}</span>
+      </li>
+    ))}
+  </ul>
+
+  <div class="plan-not">
+    <p class="mini-label">{t('eng.notIncluded', locale)}</p>
+    <ul>
+      {plan.notIncluded.map((i) => (
+        <li>{pick(i, locale)}</li>
+      ))}
+    </ul>
+  </div>
+
+  <a
+    class:list={['btn', 'btn-block', plan.popular ? 'btn-primary' : 'btn-outline']}
+    href={`${localUrl(locale, '/contact/')}#brief`}
+  >
+    {t('common.requestProposal', locale)}
+  </a>
+</article>

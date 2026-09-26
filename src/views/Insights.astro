@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import type { Locale } from '../i18n';
+import { localUrl } from '../i18n';
+import { t } from '../i18n/ui';
+import { routes } from '../data/site';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import PostCard from '../components/PostCard.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import CTABand from '../components/CTABand.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+
+const slugOf = (id: string) => id.replace(/^.*[\\/]/, '').replace(/\.[^.]+$/, '');
+
+const posts = (await getCollection('insights', (e) => e.data.locale === locale)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const listHref = localUrl(locale, routes.insights);
+---
+
+<BaseLayout
+  locale={locale}
+  path={path}
+  title={t('insights.meta.title', locale)}
+  description={t('insights.meta.desc', locale)}
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Blog',
+      name: t('insights.meta.title', locale),
+      blogPost: posts.map((p) => ({
+        '@type': 'BlogPosting',
+        headline: p.data.title,
+        datePublished: p.data.date.toISOString(),
+      })),
+    },
+  ]}
+>
+  <PageHero
+    locale={locale}
+    path={path}
+    eyebrow={t('insights.eyebrow', locale)}
+    title={t('insights.title', locale)}
+    sub={t('insights.sub', locale)}
+  />
+
+  <section class="section section--flush">
+    <div class="container">
+      {posts.length > 0 ? (
+        <div class="post-grid">
+          {posts.map((p) => (
+            <PostCard
+              entry={p}
+              locale={locale}
+              href={`${listHref.replace(/\/$/, '')}/${slugOf(p.id)}/`}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state" data-reveal>
+          <Icon name="document" size={30} />
+          <p>{t('insights.empty', locale)}</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <ContactStrip locale={locale} />
+  <CTABand locale={locale} />
+</BaseLayout>

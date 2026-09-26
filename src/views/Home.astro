@@ -1,0 +1,265 @@
+---
+import type { Locale } from '../i18n';
+import { localUrl, pick } from '../i18n';
+import { t } from '../i18n/ui';
+import { routes, site } from '../data/site';
+import { coreServices } from '../data/services';
+import { industries } from '../data/industries';
+import { processSteps } from '../data/process';
+import { faqs } from '../data/faq';
+import { plans } from '../data/engagement';
+import { caseStudies } from '../data/cases';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Marquee from '../components/Marquee.astro';
+import Stats from '../components/Stats.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import PlanCard from '../components/PlanCard.astro';
+import FAQList from '../components/FAQList.astro';
+import CTABand from '../components/CTABand.astro';
+import CaseCard from '../components/CaseCard.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: site.name,
+  url: `${site.url}/`,
+  email: site.email,
+  telephone: site.phoneIntl,
+  description: t('meta.homeDesc', locale),
+  areaServed: ['CN', 'SA', 'AE', 'QA', 'KW', 'BH', 'OM'],
+  knowsLanguage: ['en', 'zh', 'ar'],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address.street,
+    addressLocality: site.address.city,
+    addressRegion: site.address.province,
+    addressCountry: 'CN',
+  },
+};
+---
+
+<BaseLayout
+  locale={locale}
+  path={path}
+  title={t('meta.homeTitle', locale)}
+  description={t('meta.homeDesc', locale)}
+  branded={false}
+  jsonLd={[orgLd]}
+>
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow eyebrow--gold">{t('home.hero.eyebrow', locale)}</p>
+        <h1>
+          <span class="hero-line">{t('home.hero.title1', locale)}</span>
+          <span class="hero-line hero-line--accent">{t('home.hero.title2', locale)}</span>
+        </h1>
+        <p class="lede">{t('home.hero.sub', locale)}</p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href={`${localUrl(locale, routes.contact)}#brief`}>
+            {t('home.hero.cta1', locale)}
+            <Icon name="arrow" size={18} />
+          </a>
+          <a class="btn btn-outline btn-lg" href={localUrl(locale, routes.services)}>
+            {t('home.hero.cta2', locale)}
+          </a>
+        </div>
+
+        <ul class="hero-badges">
+          <li>
+            <Icon name="check" size={14} /> {t('common.response', locale)}
+          </li>
+          <li>
+            <Icon name="check" size={14} /> {t('eng.fixedFee', locale)}
+          </li>
+          <li>
+            <Icon name="check" size={14} /> EN · 中文 · العربية
+          </li>
+        </ul>
+      </div>
+
+      <aside class="bridge-panel" aria-label={t('home.panel.title', locale)}>
+        <header class="bridge-head">
+          <span class="bridge-dot" aria-hidden="true"></span>
+          <p class="bridge-title">{t('home.panel.title', locale)}</p>
+          <span class="bridge-live">{t('home.panel.live', locale)}</span>
+        </header>
+
+        <div class="bridge-legs">
+          <div class="bridge-leg">
+            <p class="bridge-leg-t">{t('home.panel.leg1t', locale)}</p>
+            <p class="bridge-leg-d">{t('home.panel.leg1d', locale)}</p>
+          </div>
+
+          <div class="bridge-spine" aria-hidden="true">
+            <span></span>
+            <Icon name="swap" size={20} />
+            <span></span>
+          </div>
+
+          <div class="bridge-leg bridge-leg--gulf">
+            <p class="bridge-leg-t">{t('home.panel.leg2t', locale)}</p>
+            <p class="bridge-leg-d">{t('home.panel.leg2d', locale)}</p>
+          </div>
+        </div>
+
+        <footer class="bridge-foot">
+          <span class="bridge-foot-label">{t('home.panel.foot', locale)}</span>
+          <span class="bridge-foot-value">
+            {site.name} · {t('common.response', locale)}
+          </span>
+        </footer>
+      </aside>
+    </div>
+
+    <div class="container hero-stats">
+      <Stats locale={locale} />
+    </div>
+  </section>
+
+  <!-- ══════════ REGULATORS ══════════ -->
+  <Marquee locale={locale} />
+
+  <!-- ══════════ SERVICES ══════════ -->
+  <section class="section" id="services">
+    <div class="container">
+      <SectionHead
+        eyebrow={t('home.services.eyebrow', locale)}
+        title={t('home.services.title', locale)}
+        sub={t('home.services.sub', locale)}
+      >
+        <a class="link-arrow" href={localUrl(locale, routes.services)}>
+          {t('home.services.all', locale)} <Icon name="arrow" size={16} />
+        </a>
+      </SectionHead>
+
+      <div class="svc-grid">
+        {coreServices.map((s) => (
+          <ServiceCard service={s} locale={locale} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROCESS ══════════ -->
+  <section class="section section--tint" id="process">
+    <div class="container">
+      <SectionHead
+        eyebrow={t('home.process.eyebrow', locale)}
+        title={t('home.process.title', locale)}
+        sub={t('home.process.sub', locale)}
+      >
+        <a class="link-arrow" href={localUrl(locale, routes.process)}>
+          {t('common.more', locale)} <Icon name="arrow" size={16} />
+        </a>
+      </SectionHead>
+      <ProcessSteps steps={processSteps} locale={locale} showDetail={false} />
+    </div>
+  </section>
+
+  <!-- ══════════ INDUSTRIES ══════════ -->
+  <section class="section" id="industries">
+    <div class="container">
+      <SectionHead
+        eyebrow={t('home.industries.eyebrow', locale)}
+        title={t('home.industries.title', locale)}
+        sub={t('home.industries.sub', locale)}
+      >
+        <a class="link-arrow" href={localUrl(locale, routes.industries)}>
+          {t('common.viewAll', locale)} <Icon name="arrow" size={16} />
+        </a>
+      </SectionHead>
+
+      <div class="industry-grid">
+        {industries.map((i) => (
+          <a
+            class="industry-card"
+            href={`${localUrl(locale, routes.industries)}/#${i.slug}`}
+            data-reveal
+          >
+            <span class="industry-icon">
+              <Icon name={i.icon} size={24} />
+            </span>
+            <span class="industry-index">{i.index}</span>
+            <h3>{pick(i.name, locale)}</h3>
+            <p>{pick(i.headline, locale)}</p>
+            <span class="link-arrow">
+              {t('common.more', locale)} <Icon name="arrow" size={15} />
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CASE ══════════ -->
+  <section class="section section--tint" id="cases">
+    <div class="container">
+      <SectionHead
+        eyebrow={t('cases.eyebrow', locale)}
+        title={t('cases.title', locale)}
+        sub={t('cases.sub', locale)}
+      >
+        <a class="link-arrow" href={localUrl(locale, routes.cases)}>
+          {t('common.viewAll', locale)} <Icon name="arrow" size={16} />
+        </a>
+      </SectionHead>
+      <div class="case-grid case-grid--one">
+        <CaseCard item={caseStudies[0]} locale={locale} featured />
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ ENGAGEMENT ══════════ -->
+  <section class="section" id="engagement">
+    <div class="container">
+      <SectionHead
+        eyebrow={t('home.engagement.eyebrow', locale)}
+        title={t('home.engagement.title', locale)}
+        sub={t('home.engagement.sub', locale)}
+      >
+        <a class="link-arrow" href={localUrl(locale, routes.engagement)}>
+          {t('eng.compare', locale)} <Icon name="arrow" size={16} />
+        </a>
+      </SectionHead>
+      <div class="plan-grid">
+        {plans.map((p) => (
+          <PlanCard plan={p} locale={locale} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FAQ ══════════ -->
+  <section class="section section--tint" id="faq">
+    <div class="container container--narrow">
+      <SectionHead
+        eyebrow={t('home.faq.eyebrow', locale)}
+        title={t('home.faq.title', locale)}
+        align="center"
+      />
+      <FAQList items={faqs.slice(0, 6)} locale={locale} />
+      <p class="faq-more">
+        <a class="link-arrow" href={localUrl(locale, routes.faq)}>
+          {t('faq.meta.title', locale)} · {t('common.viewAll', locale)}{' '}
+          <Icon name="arrow" size={15} />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <CTABand locale={locale} />
+</BaseLayout>

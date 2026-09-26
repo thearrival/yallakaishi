@@ -1,0 +1,140 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { Locale } from '../i18n';
+import { localUrl, localeMeta } from '../i18n';
+import { t } from '../i18n/ui';
+import { routes } from '../data/site';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import CTABand from '../components/CTABand.astro';
+import NotFound from './NotFound.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+  slug: string;
+}
+const { locale, path, slug } = Astro.props;
+
+const slugOf = (id: string) => id.replace(/^.*[\\/]/, '').replace(/\.[^.]+$/, '');
+
+const match = await getCollection(
+  'insights',
+  (e) => e.data.locale === locale && slugOf(e.id) === slug,
+);
+const entry = match[0];
+
+let Content: any = null;
+let d: any = null;
+let fmt: Intl.DateTimeFormat | null = null;
+let others: Awaited<ReturnType<typeof getCollection>> = [];
+
+if (entry) {
+  d = entry.data;
+  ({ Content } = await render(entry));
+  fmt = new Intl.DateTimeFormat(localeMeta[locale].code, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+  others = (
+    await getCollection('insights', (e) => e.data.locale === locale && slugOf(e.id) !== slug)
+  ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+}
+
+const listHref = localUrl(locale, routes.insights);
+const listBase = listHref.replace(/\/$/, '');
+---
+
+{entry && Content && fmt ? (
+  <BaseLayout
+    locale={locale}
+    path={path}
+    title={d.title}
+    description={d.excerpt}
+    type="article"
+    jsonLd={[
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: d.title,
+        description: d.excerpt,
+        datePublished: d.date.toISOString(),
+        inLanguage: localeMeta[locale].code,
+        author: { '@type': 'Organization', name: 'Yalla Kaishi' },
+        publisher: { '@type': 'Organization', name: 'Yalla Kaishi' },
+      },
+    ]}
+  >
+    <article class="article">
+      <header class="article-head">
+        <div class="container container--reading">
+          <nav class="breadcrumb breadcrumb--flat" aria-label={t('insights.back', locale)}>
+            <a href={listHref}>
+              <Icon name="arrowLeft" size={14} /> {t('insights.back', locale)}
+            </a>
+          </nav>
+          <div class="post-meta">
+            <span class="post-cat">{d.category}</span>
+            <time datetime={d.date.toISOString().slice(0, 10)}>{fmt.format(d.date)}</time>
+            <span class="post-read">
+              <Icon name="clock" size={14} /> {d.minutes} {t('common.readTime', locale)}
+            </span>
+          </div>
+          <h1>{d.title}</h1>
+          <p class="lede">{d.excerpt}</p>
+          {d.tags.length > 0 && (
+            <ul class="tag-row">
+              {d.tags.map((tag: string) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </header>
+
+      <div class="container container--reading article-body prose">
+        <Content />
+      </div>
+
+      <footer class="container container--reading article-foot">
+        <div class="notice">
+          <Icon name="shield" size={20} />
+          <p>{t('common.notLegalAdvice', locale)}</p>
+        </div>
+        <p class="article-cta">
+          {t('insights.contactAuthor', locale)}
+          <a class="link-arrow" href={`${localUrl(locale, routes.contact)}#brief`}>
+            {t('common.contactUs', locale)} <Icon name="arrow" size={15} />
+          </a>
+        </p>
+      </footer>
+    </article>
+
+    {others.length > 0 && (
+      <section class="section section--tint">
+        <div class="container">
+          <header class="sec-head sec-head--start">
+            <div class="sec-head-main">
+              <p class="eyebrow">{t('insights.related', locale)}</p>
+              <h2>{t('insights.back', locale)}</h2>
+            </div>
+          </header>
+          <div class="post-grid">
+            {others.slice(0, 3).map((p) => (
+              <PostCard entry={p} locale={locale} href={`${listBase}/${slugOf(p.id)}/`} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <ContactStrip locale={locale} compact />
+    <CTABand locale={locale} />
+  </BaseLayout>
+) : (
+  <NotFound locale={locale} path={path} />
+)}

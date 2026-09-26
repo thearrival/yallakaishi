@@ -1,0 +1,21 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  sub?: string;
+  align?: 'start' | 'center';
+  id?: string;
+}
+const { eyebrow, title, sub, align = 'start', id } = Astro.props;
+---
+
+<header class:list={['sec-head', `sec-head--${align}`]} data-reveal>
+  <div class="sec-head-main">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h2 id={id}>{title}</h2>
+    {sub && <p class="sec-sub">{sub}</p>}
+  </div>
+  <div class="sec-head-side">
+    <slot />
+  </div>
+</header>

@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { localeMeta, type Locale } from '../i18n';
+import { t } from '../i18n/ui';
+import Icon from './Icon.astro';
+
+interface Props {
+  entry: CollectionEntry<'insights'>;
+  locale: Locale;
+  href: string;
+}
+const { entry, locale, href } = Astro.props;
+const d = entry.data;
+
+const fmt = new Intl.DateTimeFormat(localeMeta[locale].code, {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+const iso = d.date.toISOString().slice(0, 10);
+---
+
+<article class="post-card" data-reveal>
+  <a class="post-link" href={href} aria-label={d.title}>
+    <div class="post-meta">
+      <span class="post-cat">{d.category}</span>
+      <time datetime={iso}>{fmt.format(d.date)}</time>
+    </div>
+    <h3>{d.title}</h3>
+    <p>{d.excerpt}</p>
+    <footer class="post-foot">
+      <span class="post-read">
+        <Icon name="clock" size={14} /> {d.minutes} {t('common.readTime', locale)}
+      </span>
+      <span class="link-arrow" aria-hidden="true">
+        {t('common.more', locale)}
+        <Icon name="arrow" size={15} />
+      </span>
+    </footer>
+  </a>
+</article>

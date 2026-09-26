@@ -1,0 +1,84 @@
+---
+import type { Locale } from '../i18n';
+import { localUrl } from '../i18n';
+import { t } from '../i18n/ui';
+import { routes } from '../data/site';
+import { caseStudies } from '../data/cases';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CaseCard from '../components/CaseCard.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import CTABand from '../components/CTABand.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+---
+
+<BaseLayout
+  locale={locale}
+  path={path}
+  title={t('cases.meta.title', locale)}
+  description={t('cases.meta.desc', locale)}
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: t('cases.meta.title', locale),
+      hasPart: caseStudies.map((c) => ({
+        '@type': 'CreativeWork',
+        name: c.title[locale],
+        about: c.sector[locale],
+      })),
+    },
+  ]}
+>
+  <PageHero
+    locale={locale}
+    path={path}
+    eyebrow={t('cases.eyebrow', locale)}
+    title={t('cases.title', locale)}
+    sub={t('cases.sub', locale)}
+  >
+    <p class="hero-chip hero-chip--muted">
+      <Icon name="eye" size={15} /> {t('cases.placeholderNote', locale)}
+    </p>
+  </PageHero>
+
+  <section class="section section--flush">
+    <div class="container">
+      <div class="case-grid">
+        {caseStudies.map((c) => (
+          <CaseCard item={c} locale={locale} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container container--narrow">
+      <div class="notice notice--strong" data-reveal>
+        <Icon name="shield" size={22} />
+        <div>
+          <p class="notice-title">{t('cases.anonymised', locale)}</p>
+          <p>{t('cases.placeholderNote', locale)}</p>
+        </div>
+      </div>
+      <div class="center-actions">
+        <a class="btn btn-primary" href={`${localUrl(locale, routes.contact)}#brief`}>
+          {t('common.requestProposal', locale)} <Icon name="arrow" size={17} />
+        </a>
+        <a class="btn btn-outline" href={localUrl(locale, routes.services)}>
+          {t('nav.services', locale)}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <ContactStrip locale={locale} />
+  <CTABand locale={locale} />
+</BaseLayout>
