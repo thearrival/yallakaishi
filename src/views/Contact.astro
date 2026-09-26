@@ -2,14 +2,13 @@
 import type { Locale } from '../i18n';
 import { pick } from '../i18n';
 import { t } from '../i18n/ui';
-import { site, regulators } from '../data/site';
+import { site } from '../data/site';
 import { presence } from '../data/about';
 
 import BaseLayout from '../components/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ContactForm from '../components/ContactForm.astro';
 import ContactStrip from '../components/ContactStrip.astro';
-import SectionHead from '../components/SectionHead.astro';
 import Icon from '../components/Icon.astro';
 
 interface Props {
@@ -144,24 +143,6 @@ const contactLd = {
           </div>
         </aside>
       </div>
-    </div>
-  </section>
-
-  <section class="section section--tint">
-    <div class="container">
-      <SectionHead
-        eyebrow={t('reg.label', locale)}
-        title={t('reg.intro', locale)}
-        sub={t('reg.label', locale)}
-      />
-      <ul class="reg-grid">
-        {regulators.map((r) => (
-          <li data-reveal>
-            <strong>{r.label}</strong>
-            <span>{pick(r.region, locale)}</span>
-          </li>
-        ))}
-      </ul>
     </div>
   </section>
 

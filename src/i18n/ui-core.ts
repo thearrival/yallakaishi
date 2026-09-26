@@ -109,44 +109,6 @@ export const uiCore = {
     ar: 'يلا كايشي تقدّم خدمات أعمال عابرة للحدود وليست استشارة قانونية.',
   },
 
-  /* ── Trust / proof strips ──────────────────────────── */
-  'proof.yearsNum': { en: '10+', zh: '10+', ar: '+10' },
-  'proof.yearsLabel': {
-    en: 'years on the China–Gulf corridor',
-    zh: '年深耕中海湾走廊',
-    ar: 'عامًا على ممر الصين–الخليج',
-  },
-  'proof.langsNum': { en: '3', zh: '3', ar: '3' },
-  'proof.langsLabel': {
-    en: 'working languages · EN · 中文 · العربية',
-    zh: '种工作语言 · EN · 中文 · العربية',
-    ar: 'لغات عمل · EN · 中文 · العربية',
-  },
-  'proof.replyNum': { en: '24h', zh: '24小时', ar: '24س' },
-  'proof.replyLabel': {
-    en: 'to your first enquiry',
-    zh: '首次咨询回复',
-    ar: 'لأول استفسار لديك',
-  },
-  'proof.feeNum': { en: '100%', zh: '100%', ar: '100%' },
-  'proof.feeLabel': {
-    en: 'fixed-fee scope before we start',
-    zh: '开工前确定固定费用范围',
-    ar: 'نطاق برسوم ثابتة قبل البدء',
-  },
-
-  /* ── Regulatory band ───────────────────────────────── */
-  'reg.label': {
-    en: 'Regulatory surface we monitor',
-    zh: '我们持续监控的监管领域',
-    ar: 'المنظومة التنظيمية التي نراقبها',
-  },
-  'reg.intro': {
-    en: 'Compliance never sleeps — neither do we.',
-    zh: '合规永不停歇，我们亦然。',
-    ar: 'الامتثال لا ينام — ونحن كذلك.',
-  },
-
   /* ── Forms ─────────────────────────────────────────── */
   'form.name': { en: 'Full name', zh: '姓名', ar: 'الاسم الكامل' },
   'form.namePh': { en: 'Your name', zh: '您的姓名', ar: 'اسمك' },

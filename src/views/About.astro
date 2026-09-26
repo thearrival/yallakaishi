@@ -8,10 +8,8 @@ import { values, founder, team, presence, credentials } from '../data/about';
 import BaseLayout from '../components/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHead from '../components/SectionHead.astro';
-import Stats from '../components/Stats.astro';
 import ContactStrip from '../components/ContactStrip.astro';
 import CTABand from '../components/CTABand.astro';
-import Marquee from '../components/Marquee.astro';
 import Icon from '../components/Icon.astro';
 
 interface Props {
@@ -48,8 +46,6 @@ const { locale, path } = Astro.props;
     title={t('about.title', locale)}
     sub={t('about.sub', locale)}
   />
-
-  <Stats locale={locale} variant="inline" />
 
   <!-- Founder -->
   <section class="section">
@@ -165,7 +161,6 @@ const { locale, path } = Astro.props;
     </div>
   </section>
 
-  <Marquee locale={locale} />
   <ContactStrip locale={locale} />
   <CTABand locale={locale} />
 </BaseLayout>

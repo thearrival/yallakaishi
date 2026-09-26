@@ -10,7 +10,6 @@ import PageHero from '../components/PageHero.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import ContactStrip from '../components/ContactStrip.astro';
 import CTABand from '../components/CTABand.astro';
-import Marquee from '../components/Marquee.astro';
 import Icon from '../components/Icon.astro';
 
 interface Props {
@@ -71,7 +70,6 @@ const { locale, path } = Astro.props;
     </div>
   </section>
 
-  <Marquee locale={locale} />
   <ContactStrip locale={locale} />
   <CTABand locale={locale} />
 </BaseLayout>

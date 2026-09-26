@@ -12,8 +12,6 @@ import { caseStudies } from '../data/cases';
 
 import BaseLayout from '../components/BaseLayout.astro';
 import SectionHead from '../components/SectionHead.astro';
-import Marquee from '../components/Marquee.astro';
-import Stats from '../components/Stats.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
 import PlanCard from '../components/PlanCard.astro';
@@ -132,14 +130,7 @@ const orgLd = {
         </footer>
       </aside>
     </div>
-
-    <div class="container hero-stats">
-      <Stats locale={locale} />
-    </div>
   </section>
-
-  <!-- ══════════ REGULATORS ══════════ -->
-  <Marquee locale={locale} />
 
   <!-- ══════════ SERVICES ══════════ -->
   <section class="section" id="services">

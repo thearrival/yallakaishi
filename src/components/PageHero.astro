@@ -9,9 +9,8 @@ interface Props {
   eyebrow?: string;
   title: string;
   sub?: string;
-  tone?: 'ink' | 'light';
 }
-const { locale, path, eyebrow, title, sub, tone = 'ink' } = Astro.props;
+const { locale, path, eyebrow, title, sub } = Astro.props;
 
 const crumbs = path
   .split('/')
@@ -24,7 +23,7 @@ const crumbs = path
   }, []);
 ---
 
-<section class:list={['page-hero', `page-hero--${tone}`]}>
+<section class="page-hero page-hero--ink">
   <div class="container">
     {crumbs.length > 0 && (
       <nav class="breadcrumb" aria-label={t('common.home', locale)}>

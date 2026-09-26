@@ -173,11 +173,6 @@
   box-shadow: none;
   color: var(--muted);
 }
-.hero-stats {
-  position: relative;
-  margin-block-start: clamp(2.5rem, 2rem + 3vw, 4rem);
-}
-
 /* ══════════ BRIDGE PANEL ══════════ */
 .bridge-panel {
   position: relative;
@@ -435,9 +430,6 @@
 }
 .page-hero--ink h1 {
   color: #fff;
-}
-.page-hero--light {
-  background: var(--surface);
 }
 .page-hero-glow {
   position: absolute;
@@ -899,15 +891,6 @@ html[dir='rtl'] .svc-card::before {
   }
   .process-line {
     display: none;
-  }
-  .stats--cards,
-  .stats--inline,
-  .reg-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .stats--inline .stat {
-    border-inline-end: 0;
-    border-block-end: 1px solid var(--line);
   }
 }
 
