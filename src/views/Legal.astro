@@ -6,7 +6,6 @@ import { site, routes } from '../data/site';
 
 import BaseLayout from '../components/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import ContactStrip from '../components/ContactStrip.astro';
 import CTABand from '../components/CTABand.astro';
 import Icon from '../components/Icon.astro';
 
@@ -261,6 +260,5 @@ const toc = blocks.map((b, i) => ({
     </div>
   </section>
 
-  <ContactStrip locale={locale} compact />
   <CTABand locale={locale} />
 </BaseLayout>

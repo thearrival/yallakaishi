@@ -8,7 +8,6 @@ import { routes } from '../data/site';
 import BaseLayout from '../components/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import PostCard from '../components/PostCard.astro';
-import ContactStrip from '../components/ContactStrip.astro';
 import CTABand from '../components/CTABand.astro';
 import Icon from '../components/Icon.astro';
 
@@ -74,6 +73,5 @@ const listHref = localUrl(locale, routes.insights);
     </div>
   </section>
 
-  <ContactStrip locale={locale} />
   <CTABand locale={locale} />
 </BaseLayout>

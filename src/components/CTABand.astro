@@ -16,8 +16,9 @@ const {
   title = t('home.cta.title', locale),
   body = t('home.cta.body', locale),
   primaryHref = `${localUrl(locale, '/contact/')}#brief`,
-  secondaryLabel = t('common.bookCall', locale),
+  secondaryLabel = t('common.whatsapp', locale),
 } = Astro.props;
+const whatsappHref = `https://wa.me/${site.whatsappIntl}`;
 ---
 
 <section class="cta-band">
@@ -25,13 +26,25 @@ const {
     <div class="cta-copy">
       <h2>{title}</h2>
       <p>{body}</p>
+      <p class="cta-meta">
+        <Icon name="clock" size={14} />
+        <span>{t('common.response', locale)}</span>
+        <span class="cta-meta-dot" aria-hidden="true"></span>
+        <span>EN · 中文 · العربية</span>
+      </p>
     </div>
     <div class="cta-actions">
       <a class="btn btn-light btn-lg" href={primaryHref}>
         {t('common.requestProposal', locale)}
         <Icon name="arrow" size={18} />
       </a>
-      <a class="btn btn-ghost-light btn-lg" href={`mailto:${site.email}`}>
+      <a
+        class="btn btn-ghost-light btn-lg"
+        href={whatsappHref}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name="chat" size={17} />
         {secondaryLabel}
       </a>
     </div>

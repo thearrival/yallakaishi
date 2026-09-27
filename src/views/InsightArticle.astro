@@ -7,7 +7,6 @@ import { routes } from '../data/site';
 
 import BaseLayout from '../components/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
-import ContactStrip from '../components/ContactStrip.astro';
 import CTABand from '../components/CTABand.astro';
 import NotFound from './NotFound.astro';
 import Icon from '../components/Icon.astro';
@@ -132,7 +131,6 @@ const listBase = listHref.replace(/\/$/, '');
       </section>
     )}
 
-    <ContactStrip locale={locale} compact />
     <CTABand locale={locale} />
   </BaseLayout>
 ) : (

@@ -9,7 +9,6 @@ import BaseLayout from '../components/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
 import SectionHead from '../components/SectionHead.astro';
-import ContactStrip from '../components/ContactStrip.astro';
 import CTABand from '../components/CTABand.astro';
 import Icon from '../components/Icon.astro';
 
@@ -84,6 +83,5 @@ const { locale, path } = Astro.props;
     </div>
   </section>
 
-  <ContactStrip locale={locale} />
   <CTABand locale={locale} />
 </BaseLayout>

@@ -9,7 +9,6 @@ import { coreServices } from '../data/services';
 import BaseLayout from '../components/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHead from '../components/SectionHead.astro';
-import ContactStrip from '../components/ContactStrip.astro';
 import CTABand from '../components/CTABand.astro';
 import Icon from '../components/Icon.astro';
 
@@ -165,6 +164,5 @@ const contactHref = `${localUrl(locale, routes.contact)}#brief`;
     </div>
   </section>
 
-  <ContactStrip locale={locale} compact />
   <CTABand locale={locale} />
 </BaseLayout>

@@ -8,7 +8,6 @@ import { faqs, faqGroups } from '../data/faq';
 import BaseLayout from '../components/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import FAQList from '../components/FAQList.astro';
-import ContactStrip from '../components/ContactStrip.astro';
 import CTABand from '../components/CTABand.astro';
 import SectionHead from '../components/SectionHead.astro';
 import Icon from '../components/Icon.astro';
@@ -79,6 +78,5 @@ const grouped = faqGroups
     </div>
   </section>
 
-  <ContactStrip locale={locale} compact />
   <CTABand locale={locale} />
 </BaseLayout>
