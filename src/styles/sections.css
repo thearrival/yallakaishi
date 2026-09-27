@@ -902,6 +902,36 @@ html[dir='rtl'] .svc-card::before {
   border-radius: var(--r);
   background: var(--surface-2);
 }
+.industry-intro {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+  padding: clamp(1.3rem, 1.1rem + 1.2vw, 1.8rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--sh-sm);
+}
+.industry-intro p {
+  font-size: var(--fs-lg);
+  line-height: 1.7;
+  color: var(--body);
+  margin: 0;
+}
+.industry-blocks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-block-start: 1.25rem;
+}
+.industry-blocks .industry-block {
+  padding: clamp(1.2rem, 1rem + 1vw, 1.6rem);
+}
+@media (max-width: 800px) {
+  .industry-blocks {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 .industry-block--risk {
   background: var(--gold-soft);
   border-color: var(--gold-line);

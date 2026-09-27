@@ -58,7 +58,11 @@ const contactHref = `${localUrl(locale, routes.contact)}#brief`;
       <div class="industry-list">
         {industries.map((i) => (
           <div id={i.slug} class="industry-anchor">
-            <IndustryRow industry={i} locale={locale} href={contactHref} />
+            <IndustryRow
+              industry={i}
+              locale={locale}
+              href={`${localUrl(locale, routes.industries)}${i.slug}/`}
+            />
           </div>
         ))}
       </div>

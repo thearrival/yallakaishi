@@ -190,7 +190,7 @@ const orgLd = {
         {industries.map((i) => (
           <a
             class="industry-card"
-            href={`${localUrl(locale, routes.industries)}/#${i.slug}`}
+            href={`${localUrl(locale, routes.industries)}${i.slug}/`}
             data-reveal
           >
             <span class="industry-icon">

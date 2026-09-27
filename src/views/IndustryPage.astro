@@ -1,0 +1,97 @@
+---
+import type { Locale } from '../i18n';
+import { localUrl, localeMeta, pick } from '../i18n';
+import { t } from '../i18n/ui';
+import { routes, site } from '../data/site';
+import { industries } from '../data/industries';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTABand from '../components/CTABand.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+  slug: string;
+}
+const { locale, path, slug } = Astro.props;
+const industry = industries.find((i) => i.slug === slug);
+
+const contactHref = `${localUrl(locale, routes.contact)}#brief`;
+const name = industry ? pick(industry.name, locale) : '';
+const desc = industry ? pick(industry.body, locale).split(/(?<=[.。])\s/)[0] : '';
+---
+
+{industry && (
+  <BaseLayout
+    locale={locale}
+    path={path}
+    title={name}
+    description={desc}
+    jsonLd={[
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: name,
+        description: desc,
+        inLanguage: localeMeta[locale].code,
+        author: { '@type': 'Organization', name: site.name },
+        publisher: { '@type': 'Organization', name: site.name },
+      },
+    ]}
+  >
+    <PageHero
+      locale={locale}
+      path={path}
+      eyebrow={t('industries.eyebrow', locale)}
+      title={name}
+      sub={pick(industry.headline, locale)}
+    >
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={contactHref}>
+          {t('common.requestProposal', locale)} <Icon name="arrow" size={17} />
+        </a>
+      </div>
+    </PageHero>
+
+    <section class="section section--flush">
+      <div class="container container--reading">
+        <div class="industry-intro" data-reveal>
+          <span class="industry-icon">
+            <Icon name={industry.icon} size={26} />
+          </span>
+          <p>{pick(industry.body, locale)}</p>
+        </div>
+
+        <div class="industry-blocks">
+          <div class="industry-block" data-reveal>
+            <p class="mini-label">{t('industries.entryTitle', locale)}</p>
+            <ul class="tick-list tick-list--two">
+              {industry.entryPoints.map((e) => (
+                <li>
+                  <Icon name="check" size={15} />
+                  <span>{pick(e, locale)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="industry-block industry-block--risk" data-reveal>
+            <p class="mini-label">{t('industries.risks', locale)}</p>
+            <ul class="risk-list">
+              {industry.risks.map((r) => (
+                <li>
+                  <Icon name="sparkle" size={14} />
+                  <span>{pick(r, locale)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <CTABand locale={locale} />
+  </BaseLayout>
+)}

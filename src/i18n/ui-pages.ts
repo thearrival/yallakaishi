@@ -228,6 +228,11 @@ export const uiPages = {
     ar: 'تختلف الأوراق والجهات الرقابية وملف المخاطر باختلاف القطاع. إليك كيف نكيّف الممر لكل قطاع.',
   },
   'industries.risks': { en: 'Watch-outs', zh: '重点风险', ar: 'نقاط الانتباه' },
+  'industries.entryTitle': {
+    en: 'Where we come in',
+    zh: '我们的切入点',
+    ar: 'أين نتدخل',
+  },
 
   /* ══════════ CASE STUDIES ══════════ */
   'cases.meta.title': { en: 'Case studies', zh: '案例研究', ar: 'دراسات الحالة' },
