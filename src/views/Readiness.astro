@@ -1,0 +1,140 @@
+---
+import type { Locale } from '../i18n';
+import { localUrl } from '../i18n';
+import { t } from '../i18n/ui';
+import { routes } from '../data/site';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTABand from '../components/CTABand.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+const contactHref = `${localUrl(locale, routes.contact)}#brief`;
+const groups = [
+  {
+    title: t('readiness.group1', locale),
+    items: [
+      t('readiness.item1a', locale),
+      t('readiness.item1b', locale),
+      t('readiness.item1c', locale),
+    ],
+  },
+  {
+    title: t('readiness.group2', locale),
+    items: [
+      t('readiness.item2a', locale),
+      t('readiness.item2b', locale),
+      t('readiness.item2c', locale),
+    ],
+  },
+  {
+    title: t('readiness.group3', locale),
+    items: [
+      t('readiness.item3a', locale),
+      t('readiness.item3b', locale),
+      t('readiness.item3c', locale),
+    ],
+  },
+  {
+    title: t('readiness.group4', locale),
+    items: [
+      t('readiness.item4a', locale),
+      t('readiness.item4b', locale),
+      t('readiness.item4c', locale),
+    ],
+  },
+];
+---
+
+<BaseLayout
+  locale={locale}
+  path={path}
+  title={t('readiness.title', locale)}
+  description={t('readiness.sub', locale)}
+>
+  <PageHero
+    locale={locale}
+    path={path}
+    eyebrow={t('readiness.eyebrow', locale)}
+    title={t('readiness.title', locale)}
+    sub={t('readiness.sub', locale)}
+  />
+
+  <section class="section">
+    <div class="container container--reading">
+      <form
+        class="checklist"
+        data-checklist
+        data-total={groups.length * 3}
+        data-tier-low={t('readiness.tierLow', locale)}
+        data-tier-mid={t('readiness.tierMid', locale)}
+        data-tier-high={t('readiness.tierHigh', locale)}
+      >
+        {groups.map((g) => (
+          <fieldset class="check-group">
+            <legend>{g.title}</legend>
+            <div class="chip-grid">
+              {g.items.map((item) => (
+                <label class="chip">
+                  <input type="checkbox" />
+                  <span>{item}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        ))}
+
+        <div class="check-result" data-result aria-live="polite">
+          <p class="check-score">
+            <strong data-score>0</strong>
+            <span> / {groups.length * 3}</span>
+          </p>
+          <p class="check-tier" data-tier></p>
+          <a class="btn btn-primary" href={contactHref} data-cta hidden>
+            {t('readiness.resultCta', locale)} <Icon name="arrow" size={17} />
+          </a>
+        </div>
+
+        <p class="check-private">
+          <Icon name="shield" size={14} />
+          {t('readiness.private', locale)}
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <CTABand locale={locale} />
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    var form = document.querySelector('[data-checklist]');
+    if (!form) return;
+    var boxes = Array.prototype.slice.call(form.querySelectorAll('input[type="checkbox"]'));
+    var scoreEl = form.querySelector('[data-score]');
+    var tierEl = form.querySelector('[data-tier]');
+    var cta = form.querySelector('[data-cta]');
+
+    function update() {
+      var n = boxes.filter(function (b) {
+        return b.checked;
+      }).length;
+      if (scoreEl) scoreEl.textContent = String(n);
+      var tier = n <= 4 ? 'low' : n <= 8 ? 'mid' : 'high';
+      if (tierEl)
+        tierEl.textContent =
+          form.dataset['tier' + tier.charAt(0).toUpperCase() + tier.slice(1)] || '';
+      if (cta) cta.hidden = n === 0;
+    }
+
+    boxes.forEach(function (b) {
+      b.addEventListener('change', update);
+    });
+    update();
+  })();
+</script>

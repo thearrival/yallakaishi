@@ -132,7 +132,132 @@ export const uiPages = {
     ar: 'سطران عن خطتك، وتحصل خلال 24 ساعة على التكلفة والمدة والمخاطر — بلا عرض ضاغط.',
   },
 
-  /* ══════════ SERVICES ══════════ */
+  /* ══════════ READINESS ══════════ */
+  'readiness.eyebrow': {
+    en: 'Free interactive tool',
+    zh: '免费互动工具',
+    ar: 'أداة تفاعلية مجانية',
+  },
+  'readiness.title': {
+    en: 'Corridor readiness checker',
+    zh: '走廊就绪度自测',
+    ar: 'فحص جاهزية الممر',
+  },
+  'readiness.sub': {
+    en: 'Twelve questions. One honest picture of where you stand — before you spend a riyal or a renminbi.',
+    zh: '十二个问题，看清你当下的准备度 — 在花掉第一笔里亚尔或人民币之前。',
+    ar: 'اثنا عشر سؤالًا. صورة صادقة لوضعك الحالي — قبل أول ريال أو يوان.',
+  },
+  'readiness.private': {
+    en: 'No sign-up. Your answers never leave this browser.',
+    zh: '无需注册 — 你的答案不会离开当前浏览器。',
+    ar: 'دون تسجيل — إجاباتك لا تغادر متصفحك.',
+  },
+  'readiness.group1': {
+    en: 'Licensing & entity',
+    zh: '牌照与主体',
+    ar: 'التراخيص والكيانات',
+  },
+  'readiness.item1a': {
+    en: 'Trading licence or registration secured',
+    zh: '贸易牌照或登记已落实',
+    ar: 'الترخيص التجاري أو التسجيل مؤمَّن',
+  },
+  'readiness.item1b': {
+    en: 'Entity structure decided',
+    zh: '主体架构已确定',
+    ar: 'هيكل الكيان محدد',
+  },
+  'readiness.item1c': {
+    en: 'Local partner vetted',
+    zh: '本地伙伴已完成尽调',
+    ar: 'الشريك المحلي تم التحقق منه',
+  },
+  'readiness.group2': {
+    en: 'Compliance operations',
+    zh: '合规运营',
+    ar: 'عمليات الامتثال',
+  },
+  'readiness.item2a': {
+    en: 'Regulatory register in place',
+    zh: '监管清单已建立',
+    ar: 'السجل التنظيمي جاهز',
+  },
+  'readiness.item2b': {
+    en: 'An owner assigned for every obligation',
+    zh: '每项义务都有责任人',
+    ar: 'مسؤول معيّن لكل التزام',
+  },
+  'readiness.item2c': {
+    en: 'Quarterly compliance review scheduled',
+    zh: '季度合规审查已排期',
+    ar: 'المراجعة الدورية مجدولة',
+  },
+  'readiness.group3': {
+    en: 'Documents & language',
+    zh: '文件与语言',
+    ar: 'المستندات واللغة',
+  },
+  'readiness.item3a': {
+    en: 'Contracts bilingual and legally reviewed',
+    zh: '合同双语且经法律审阅',
+    ar: 'العقود ثنائية اللغة ومُراجعة قانونيًا',
+  },
+  'readiness.item3b': {
+    en: 'Filings translated by specialists',
+    zh: '申报文件由专业译员翻译',
+    ar: 'الملفات مترجمة بأخصائيين',
+  },
+  'readiness.item3c': {
+    en: 'Terminology glossary maintained',
+    zh: '术语表持续维护',
+    ar: 'مسرد المصطلحات محدث',
+  },
+  'readiness.group4': {
+    en: 'Data & ongoing',
+    zh: '数据与持续运营',
+    ar: 'البيانات والاستمرارية',
+  },
+  'readiness.item4a': {
+    en: 'Cross-border transfer mechanism in place',
+    zh: '数据跨境传输机制已就位',
+    ar: 'آلية نقل البيانات جاهزة',
+  },
+  'readiness.item4b': {
+    en: 'Consent and privacy notices updated',
+    zh: '同意与隐私声明已更新',
+    ar: 'الموافقات وإشعارات الخصوصية محدثة',
+  },
+  'readiness.item4c': {
+    en: 'Regulatory change alerts monitored',
+    zh: '监管变更预警已纳入监控',
+    ar: 'تنبيهات التغيير التنظيمي مراقبة',
+  },
+  'readiness.resultCta': {
+    en: 'Get your free assessment',
+    zh: '获取免费评估',
+    ar: 'احصل على تقييم مجاني',
+  },
+  'readiness.tierLow': {
+    en: 'Early stage — most of the entry path is still ahead of you. Get a written roadmap before you spend.',
+    zh: '起步阶段 — 入场路径大多还在前方。先拿到书面路线图，再花钱。',
+    ar: 'مرحلة مبكرة — معظم مسار الدخول أمامك. احصل على خارطة طريق مكتوبة قبل الإنفاق.',
+  },
+  'readiness.tierMid': {
+    en: 'Getting there — the bones are in place, but execution gaps remain. Close them before launch.',
+    zh: '接近就绪 — 骨架已成，但执行仍有缺口。上线前先补齐。',
+    ar: 'اقتربت — الهيكل مبني لكن ثغرات التنفيذ باقية. سدّها قبل الإطلاق.',
+  },
+  'readiness.tierHigh': {
+    en: 'Ready to move — your setup is solid. Time to execute with fixed-fee clarity.',
+    zh: '准备就绪 — 基础扎实。以固定费用推进执行。',
+    ar: 'جاهز للانطلاق — تأسيسك متين. آن وقت التنفيذ برسوم ثابتة.',
+  },
+  'engagement.checkLink': {
+    en: 'Take the 1-minute readiness check',
+    zh: '花一分钟做就绪度自测',
+    ar: 'خذ فحص الجاهزية في دقيقة',
+  },
   'services.meta.title': { en: 'Services', zh: '服务', ar: 'الخدمات' },
   'services.meta.desc': {
     en: 'Six cross-border services: compliance operations, regulatory translation, market entry, partner due diligence, technology and training — for China ⇄ GCC trade.',

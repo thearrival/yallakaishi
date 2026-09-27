@@ -1313,6 +1313,65 @@ body.drawer-open {
   }
 }
 
+/* ── Readiness checklist ────────────────────────────── */
+.checklist {
+  margin-block-start: 1.5rem;
+}
+.check-group {
+  margin: 0 0 1.6rem;
+  padding: 0;
+  border: 0;
+}
+.check-group legend {
+  padding: 0;
+  margin-block-end: 0.75rem;
+  font-weight: var(--w-semi);
+  color: var(--ink);
+  font-size: var(--fs-md);
+}
+.check-result {
+  margin-block-start: 2rem;
+  padding: clamp(1.2rem, 1rem + 1vw, 1.6rem);
+  border: 1px solid var(--teal-line);
+  border-radius: var(--r-lg);
+  background: var(--teal-soft);
+}
+.check-score {
+  margin: 0;
+  font-family: var(--font-display);
+  color: var(--teal-ink);
+}
+.check-score strong {
+  font-size: var(--fs-xl);
+}
+.check-score span {
+  color: var(--teal-ink);
+  opacity: 0.75;
+  font-size: var(--fs-md);
+}
+.check-tier {
+  min-height: 1.7em;
+  margin: 0.6rem 0 1rem;
+  font-weight: var(--w-semi);
+  color: var(--ink);
+}
+.check-private {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 1.4rem 0 0;
+  font-size: var(--fs-xs);
+  color: var(--faint);
+}
+.check-private svg {
+  color: var(--teal);
+}
+
+.check-more {
+  margin-block-start: 1.75rem;
+  text-align: center;
+}
+
 /* ── Scroll progress & back-to-top ─────────────────────── */
 .scroll-progress {
   position: fixed;

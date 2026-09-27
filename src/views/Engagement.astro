@@ -74,6 +74,12 @@ const engagementFaqs = faqs.filter((f) => f.group === 'engagement');
           <PlanCard plan={p} locale={locale} />
         ))}
       </div>
+
+      <p class="check-more">
+        <a class="link-arrow" href={localUrl(locale, routes.readiness)}>
+          {t('engagement.checkLink', locale)} <Icon name="arrow" size={15} />
+        </a>
+      </p>
       <p class="fineprint">
         <Icon name="sparkle" size={14} /> {t('eng.notIncludedNote', locale)}
       </p>

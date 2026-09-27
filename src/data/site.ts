@@ -43,6 +43,7 @@ export const routes = {
   process: '/process',
   faq: '/faq',
   insights: '/insights',
+  readiness: '/readiness',
   contact: '/contact',
   privacy: '/legal/privacy',
   terms: '/legal/terms',

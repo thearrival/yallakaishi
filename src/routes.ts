@@ -10,6 +10,7 @@ export const staticRoutes = [
   'process',
   'faq',
   'insights',
+  'readiness',
   'contact',
   'legal/privacy',
   'legal/terms',
