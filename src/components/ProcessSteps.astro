@@ -24,7 +24,7 @@ const { steps, locale, showDetail = true } = Astro.props;
       </div>
       <div class="process-body">
         <p class="process-when">{pick(s.when, locale)}</p>
-        <h3>{pick(s.name, locale)}</h3>
+        <h2>{pick(s.name, locale)}</h2>
         <p class="process-summary">{pick(s.summary, locale)}</p>
         {showDetail && <p class="process-detail">{pick(s.detail, locale)}</p>}
         <div class="process-youget">

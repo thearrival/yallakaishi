@@ -19,7 +19,7 @@ const { industry, locale, href } = Astro.props;
     </span>
     <div class="industry-text">
       <p class="industry-index">{industry.index}</p>
-      <h3>{pick(industry.name, locale)}</h3>
+      <h2>{pick(industry.name, locale)}</h2>
       <p class="industry-headline">{pick(industry.headline, locale)}</p>
       <p class="industry-body">{pick(industry.body, locale)}</p>
     </div>
@@ -49,7 +49,11 @@ const { industry, locale, href } = Astro.props;
       </ul>
     </div>
     {href && (
-      <a class="link-arrow" href={href}>
+      <a
+        class="link-arrow"
+        href={href}
+        aria-label={`${pick(industry.name, locale)} — ${t('common.more', locale)}`}
+      >
         {t('common.more', locale)}
         <Icon name="arrow" size={15} />
       </a>

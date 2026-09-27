@@ -15,7 +15,7 @@ const { plan, locale } = Astro.props;
   {plan.popular && <span class="plan-badge">{t('eng.mostPopular', locale)}</span>}
   <header class="plan-head">
     <span class="plan-index">{plan.index}</span>
-    <h3>{pick(plan.name, locale)}</h3>
+    <h2>{pick(plan.name, locale)}</h2>
     <p class="plan-tagline">{pick(plan.tagline, locale)}</p>
   </header>
 

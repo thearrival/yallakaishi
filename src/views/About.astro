@@ -89,7 +89,7 @@ const { locale, path } = Astro.props;
             <span class="value-icon">
               <Icon name={v.icon} size={24} />
             </span>
-            <h3>{pick(v.title, locale)}</h3>
+            <h2>{pick(v.title, locale)}</h2>
             <p>{pick(v.body, locale)}</p>
           </article>
         ))}
@@ -115,7 +115,7 @@ const { locale, path } = Astro.props;
                 .join('')
                 .slice(0, 2)}
             </span>
-            <h3>{pick(m.name, locale)}</h3>
+            <h2>{pick(m.name, locale)}</h2>
             <p class="team-role">{pick(m.role, locale)}</p>
             <p class="team-focus">{pick(m.focus, locale)}</p>
             <p class="team-langs">
@@ -139,7 +139,7 @@ const { locale, path } = Astro.props;
       <div class="presence-grid">
         {presence.map((p) => (
           <article class="presence-card" data-reveal>
-            <h3>{pick(p.city, locale)}</h3>
+            <h2>{pick(p.city, locale)}</h2>
             <p class="presence-role">{pick(p.role, locale)}</p>
             <p>{pick(p.note, locale)}</p>
           </article>

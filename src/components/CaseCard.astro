@@ -26,7 +26,7 @@ const { item, locale, featured = false } = Astro.props;
     <span class="case-index">{item.index}</span>
   </header>
 
-  <h3>{pick(item.title, locale)}</h3>
+  <h2>{pick(item.title, locale)}</h2>
   <p class="case-client">{pick(item.clientLabel, locale)}</p>
   <p class="case-context">{pick(item.context, locale)}</p>
 

@@ -1203,7 +1203,7 @@ body.drawer-open {
   color: var(--success);
   border: 1px solid #bfe6d1;
 }
-.wizard-success h3 {
+.wizard-success h2 {
   margin-block-end: 0.7rem;
 }
 .wizard-success p {

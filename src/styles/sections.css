@@ -597,7 +597,7 @@ html[dir='rtl'] .svc-card::before {
   letter-spacing: var(--tracking-wide);
   color: var(--faint);
 }
-.svc-card h3 {
+.svc-card h2 {
   margin-block-end: 0.6rem;
 }
 .svc-summary {
@@ -700,7 +700,7 @@ html[dir='rtl'] .svc-card::before {
   font-weight: var(--w-semi);
   margin-block-end: 0.4rem;
 }
-.process-body h3 {
+.process-body h2 {
   margin-block-end: 0.5rem;
 }
 .process-summary {
@@ -812,7 +812,7 @@ html[dir='rtl'] .svc-card::before {
   letter-spacing: var(--tracking-wide);
   color: var(--faint);
 }
-.industry-card h3 {
+.industry-card h2 {
   font-size: var(--fs-h4);
 }
 .industry-card p {
@@ -858,6 +858,9 @@ html[dir='rtl'] .svc-card::before {
 }
 .industry-text {
   min-width: 0;
+}
+.industry-text h2 {
+  font-size: var(--fs-h3);
 }
 .industry-icon {
   display: grid;
@@ -1030,7 +1033,7 @@ html[dir='rtl'] .svc-card::before {
   font-size: var(--fs-lg);
   color: var(--line-strong);
 }
-.case-card h3 {
+.case-card h2 {
   margin-block-end: 0.5rem;
 }
 .case-client {
@@ -1187,7 +1190,7 @@ html[dir='rtl'] .plan-badge {
   letter-spacing: var(--tracking-wide);
   color: var(--faint);
 }
-.plan-head h3 {
+.plan-head h2 {
   font-size: var(--fs-xl);
   margin-block: 0.35rem 0.5rem;
 }
@@ -1387,7 +1390,7 @@ html[dir='rtl'] .plan-badge {
   justify-content: space-between;
   gap: 0.75rem;
 }
-.mini-card h3 {
+.mini-card h2 {
   font-size: var(--fs-h4);
   line-height: 1.35;
 }
@@ -1539,7 +1542,7 @@ html[dir='rtl'] .mini-cta:hover {
   color: var(--teal-ink);
   margin-block-end: 1rem;
 }
-.value-card h3 {
+.value-card h2 {
   font-size: var(--fs-h4);
   margin-block-end: 0.55rem;
 }
@@ -1581,7 +1584,7 @@ html[dir='rtl'] .mini-cta:hover {
   font-size: var(--fs-md);
   margin-block-end: 1rem;
 }
-.team-card h3 {
+.team-card h2 {
   font-size: var(--fs-md);
 }
 .team-role {
@@ -1631,7 +1634,7 @@ html[dir='rtl'] .mini-cta:hover {
   border-inline-start-color: var(--gold);
   box-shadow: var(--sh-md);
 }
-.presence-card h3 {
+.presence-card h2 {
   font-size: var(--fs-md);
 }
 .presence-role {
@@ -1724,7 +1727,7 @@ html[dir='rtl'] .mini-cta:hover {
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
 }
-.post-card h3 {
+.post-card h2 {
   font-size: var(--fs-h4);
   line-height: 1.4;
 }

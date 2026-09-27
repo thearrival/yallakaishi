@@ -161,7 +161,11 @@ const orgLd = {
         title={t('home.process.title', locale)}
         sub={t('home.process.sub', locale)}
       >
-        <a class="link-arrow" href={localUrl(locale, routes.process)}>
+        <a
+          class="link-arrow"
+          href={localUrl(locale, routes.process)}
+          aria-label={t('process.meta.title', locale)}
+        >
           {t('common.more', locale)} <Icon name="arrow" size={16} />
         </a>
       </SectionHead>
@@ -193,7 +197,7 @@ const orgLd = {
               <Icon name={i.icon} size={24} />
             </span>
             <span class="industry-index">{i.index}</span>
-            <h3>{pick(i.name, locale)}</h3>
+            <h2>{pick(i.name, locale)}</h2>
             <p>{pick(i.headline, locale)}</p>
             <span class="link-arrow">
               {t('common.more', locale)} <Icon name="arrow" size={15} />
