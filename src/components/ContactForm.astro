@@ -69,17 +69,17 @@ const countries = [
   data-msg-required={t('form.errorRequired', locale)}
   data-msg-email={t('form.errorEmail', locale)}
   data-msg-phone={t('form.errorPhone', locale)}
-  data-msg-services={t('form.errorServices', locale)}
   data-msg-consent={t('form.agreeError', locale)}
   data-msg-too-short={t('form.errorTooShort', locale)}
   data-msg-sending={t('form.sending', locale)}
   data-msg-generic={t('form.errorGeneric', locale)}
+  data-msg-mailto={t('form.mailtoNote', locale)}
   novalidate
 >
   <ol class="wizard-steps" role="list">
     <li class="is-active" data-step-dot="1">
       <span>1</span>
-      <em>{t('nav.about', locale)}</em>
+      <em>{t('form.stepAbout', locale)}</em>
     </li>
     <li data-step-dot="2">
       <span>2</span>
@@ -195,20 +195,22 @@ const countries = [
       <strong>{t('form.services', locale)}</strong>
     </legend>
 
-    <p class="field-error" id="e-services" role="alert"></p>
+    <p class="wizard-note">
+      <Icon name="sparkle" size={14} />
+      {t('form.servicesHint', locale)}
+      <span class="wizard-count" data-service-count>
+        0 / {supportServiceCount + coreServices.length}
+      </span>
+    </p>
+
     <div class="service-groups">
       {serviceGroups.map((g) => (
         <div class="service-group">
           <p class="mini-label">{g.label}</p>
           <div class="chip-grid">
-            {g.options.map((o, i) => (
+            {g.options.map((o) => (
               <label class="chip">
-                <input
-                  type="checkbox"
-                  name="services"
-                  value={o.value}
-                  data-first={i === 0 ? '1' : undefined}
-                />
+                <input type="checkbox" name="services" value={o.value} />
                 <span>{o.label}</span>
               </label>
             ))}
@@ -216,14 +218,6 @@ const countries = [
         </div>
       ))}
     </div>
-
-    <p class="wizard-note">
-      <Icon name="sparkle" size={14} />
-      {t('cs.combineNote', locale)}
-      <span class="wizard-count" data-service-count>
-        0 / {supportServiceCount + coreServices.length}
-      </span>
-    </p>
 
     <p class="field field--full">
       <label for="f-msg">
@@ -341,11 +335,11 @@ const countries = [
       required: form.dataset.msgRequired,
       email: form.dataset.msgEmail,
       phone: form.dataset.msgPhone,
-      services: form.dataset.msgServices,
       consent: form.dataset.msgConsent,
       tooShort: form.dataset.msgTooShort,
       sending: form.dataset.msgSending,
       generic: form.dataset.msgGeneric,
+      mailto: form.dataset.msgMailto,
     };
 
     var step = 1;
@@ -360,7 +354,7 @@ const countries = [
       return form.querySelector('[data-step="' + n + '"]');
     }
 
-    function show(n) {
+    function show(n, opts) {
       step = n;
       panels.forEach(function (p) {
         p.hidden = Number(p.dataset.step) !== n;
@@ -371,7 +365,7 @@ const countries = [
         d.classList.toggle('is-done', i < n);
       });
       var p = panel(n);
-      if (p) {
+      if (p && !(opts && opts.initial)) {
         var first = p.querySelector('input, select, textarea, button');
         if (first) first.focus({ preventScroll: true });
         var top = p.getBoundingClientRect().top + window.scrollY - 100;
@@ -415,13 +409,6 @@ const countries = [
       );
 
       if (n === 2) {
-        var checked = p.querySelectorAll('input[name="services"]:checked');
-        var svcBox = document.getElementById('e-services');
-        if (!checked.length) {
-          if (svcBox) svcBox.textContent = strings.services;
-          ok = false;
-        } else if (svcBox) svcBox.textContent = '';
-
         var msgArea = p.querySelector('#f-msg');
         if (msgArea && msgArea.value.trim().length < 20) {
           setError(msgArea, strings.tooShort.replace('{n}', '20'));
@@ -487,7 +474,19 @@ const countries = [
       });
     });
 
+    // Enter advances the wizard instead of tripping validation on the hidden
+    // step 3 panel (its submit button lives in a display:none fieldset).
+    form.querySelectorAll('[data-step] input, [data-step] select').forEach(function (el) {
+      el.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter' || step >= 3) return;
+        e.preventDefault();
+        var next = panel(step).querySelector('[data-next]');
+        if (next) next.click();
+      });
+    });
+
     var counter = form.querySelector('[data-service-count]');
+    var countBase = counter ? counter.textContent.split(' ')[1] : '';
     form.querySelectorAll('input[name="services"]').forEach(function (c) {
       c.addEventListener('change', function () {
         if (counter)
@@ -557,6 +556,7 @@ const countries = [
       if (dotsEl) dotsEl.hidden = true;
       var ref = form.querySelector('[data-ref]');
       if (ref) ref.textContent = data.ref;
+      if (again) again.hidden = false;
       if (success) {
         success.hidden = false;
         success.setAttribute('tabindex', '-1');
@@ -569,6 +569,32 @@ const countries = [
       if (submitBtn) submitBtn.disabled = false;
       if (submitLabel && submitLabel.dataset.original)
         submitLabel.textContent = submitLabel.dataset.original;
+    }
+
+    var again = form.querySelector('[data-reset]');
+    if (again) {
+      again.addEventListener('click', function (e) {
+        e.preventDefault();
+        form.reset();
+        form.querySelectorAll('.has-error').forEach(function (f) {
+          f.classList.remove('has-error');
+        });
+        form.querySelectorAll('[aria-invalid]').forEach(function (i) {
+          i.removeAttribute('aria-invalid');
+        });
+        form.querySelectorAll('.field-error').forEach(function (b) {
+          b.textContent = '';
+        });
+        if (counter) counter.textContent = '0 ' + countBase;
+        if (status) {
+          status.classList.remove('is-error');
+          status.textContent = '';
+        }
+        if (success) success.hidden = true;
+        again.hidden = true;
+        buildReview();
+        show(1);
+      });
     }
 
     var labelEl = form.querySelector('[data-submit-label]');
@@ -585,7 +611,7 @@ const countries = [
       if (!endpoint) {
         if (status) {
           status.classList.remove('is-error');
-          status.textContent = strings.generic;
+          status.textContent = strings.mailto;
         }
         window.location.href = mailtoFallback(data);
         done(data);
@@ -617,6 +643,6 @@ const countries = [
         .finally(restore);
     });
 
-    show(1);
+    show(1, { initial: true });
   })();
 </script>

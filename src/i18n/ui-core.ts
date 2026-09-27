@@ -172,11 +172,6 @@ export const uiCore = {
     zh: '请输入有效的电话号码。',
     ar: 'أدخل رقم هاتف صحيحًا.',
   },
-  'form.errorServices': {
-    en: 'Select at least one service.',
-    zh: '请至少选择一项服务。',
-    ar: 'اختر خدمة واحدة على الأقل.',
-  },
   'form.errorTooShort': {
     en: 'Please add a little more detail ({n} characters minimum).',
     zh: '请补充更多细节（至少 {n} 个字符）。',
@@ -223,6 +218,17 @@ export const uiCore = {
     en: 'We never share your details. Used only to answer your enquiry.',
     zh: '我们绝不共享您的信息，仅用于回复您的咨询。',
     ar: 'لا نشارك بياناتك أبدًا، وتُستخدم فقط للرد على استفسارك.',
+  },
+  'form.stepAbout': { en: 'About you', zh: '关于您', ar: 'عنك' },
+  'form.servicesHint': {
+    en: 'Optional — tick anything that applies, or just tell us below.',
+    zh: '选填 — 勾选符合的选项，或直接在下方描述。',
+    ar: 'اختياري — حدّد ما ينطبق عليك، أو أخبرنا أدناه.',
+  },
+  'form.mailtoNote': {
+    en: 'Your mail client will open with the brief pre-filled — just press send.',
+    zh: '您的邮件客户端将打开并预填需求简述 — 点击发送即可。',
+    ar: 'سيفتح بريدك المسودة معبّأة — اضغط إرسال.',
   },
 
   /* ── Footer ────────────────────────────────────────── */

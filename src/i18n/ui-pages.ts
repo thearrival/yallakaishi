@@ -181,11 +181,6 @@ export const uiPages = {
     ar: 'كل الخدمات في هذه الفئة',
   },
   'cs.requestCta': { en: 'Request service', zh: '申请服务', ar: 'اطلب الخدمة' },
-  'cs.combineNote': {
-    en: 'You can combine categories in one request — most clients do.',
-    zh: '您可以在一次申请中组合多个类别 — 多数客户正是如此。',
-    ar: 'يمكنك دمج الفئات في طلب واحد — وهذا ما يفعله معظم العملاء.',
-  },
   'cs.whyTitle': {
     en: 'Why clients use us for China',
     zh: '客户为何选择我们在华支持',
