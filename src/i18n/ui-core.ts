@@ -17,7 +17,7 @@ export const uiCore = {
     ar: 'يلا كايشي — خدمات أعمال عابرة للحدود بين الصين والخليج',
   },
   'meta.homeDesc': {
-    en: 'Market entry, compliance, regulatory translation, due diligence and in-country support for SMEs entering China and the GCC. Fixed-fee proposals, 24-hour reply.',
+    en: 'Market entry, compliance, regulatory translation, due diligence and in-country support for SMEs operating in China and the GCC. Fixed-fee proposals, 24-hour reply.',
     zh: '扎根广州的跨境商业服务，助力中小企业进入中国与海湾市场：市场准入、合规运营、监管翻译、尽职调查与在地支持。固定费用提案，24 小时回复。',
     ar: 'دخول السوق، الامتثال، الترجمة التنظيمية، العناية الواجبة والدعم الميداني للشركات الصغيرة في الصين والخليج. عروض بأسعار ثابتة ورد خلال 24 ساعة.',
   },

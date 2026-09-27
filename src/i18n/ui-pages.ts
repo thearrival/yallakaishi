@@ -24,7 +24,7 @@ export const uiPages = {
   },
   'home.hero.sub': {
     en: 'Market entry, compliance and in-country operations on both ends of the corridor — fixed-fee scope and a written plan before you spend a riyal or a renminbi.',
-    zh: '走廊两端的市场准入、合规与在地运营 — 固定费用，动工前先出书面方案。',
+    zh: '走廊两端的市场准入、合规与在地运营 — 固定费用，花钱前先出书面方案。',
     ar: 'دخول السوق والامتثال والعمليات الميدانية على طرفي الممر — نطاق برسوم ثابتة وخطة مكتوبة قبل أول ريال أو يوان.',
   },
   'home.hero.cta1': {
@@ -60,7 +60,7 @@ export const uiPages = {
   'home.services.eyebrow': { en: 'What we do', zh: '我们的服务', ar: 'ما نقدمه' },
   'home.services.title': {
     en: 'Six services. One bridge.',
-    zh: '六大服务，一座桥梁.',
+    zh: '六大服务，一座桥梁。',
     ar: 'ست خدمات. جسر واحد.',
   },
   'home.services.sub': {
@@ -77,7 +77,7 @@ export const uiPages = {
   'home.process.eyebrow': { en: 'How we work', zh: '合作流程', ar: 'كيف نعمل' },
   'home.process.title': {
     en: 'Clear process. Clear deliverables.',
-    zh: '流程清晰，交付明确.',
+    zh: '流程清晰，交付明确。',
     ar: 'عملية واضحة. مخرجات محددة.',
   },
   'home.process.sub': {
@@ -89,7 +89,7 @@ export const uiPages = {
   'home.industries.eyebrow': { en: 'Who we serve', zh: '服务对象', ar: 'من نخدم' },
   'home.industries.title': {
     en: 'Six sectors, two directions of trade.',
-    zh: '六大行业，双向贸易.',
+    zh: '六大行业，双向贸易。',
     ar: 'ستة قطاعات، تجارة في اتجاهين.',
   },
   'home.industries.sub': {
@@ -105,7 +105,7 @@ export const uiPages = {
   },
   'home.engagement.title': {
     en: 'Pick the shape of the work.',
-    zh: '选择适合的合作形态.',
+    zh: '选择适合的合作形态。',
     ar: 'اختر شكل العمل.',
   },
   'home.engagement.sub': {
@@ -117,7 +117,7 @@ export const uiPages = {
   'home.faq.eyebrow': { en: 'Questions', zh: '常见问题', ar: 'الأسئلة الشائعة' },
   'home.faq.title': {
     en: 'Straight answers, before you book.',
-    zh: '预约之前，先给你直接的答案.',
+    zh: '预约之前，先给你直接的答案。',
     ar: 'إجابات مباشرة قبل أن تحجز.',
   },
 
@@ -142,7 +142,7 @@ export const uiPages = {
   'services.eyebrow': { en: 'Service lines', zh: '服务线', ar: 'خطوط الخدمة' },
   'services.title': {
     en: 'Everything the corridor demands, under one roof.',
-    zh: '走廊所需，一站式齐备.',
+    zh: '走廊所需，一站式齐备。',
     ar: 'كل ما يتطلبه الممر تحت سقف واحد.',
   },
   'services.sub': {
@@ -166,7 +166,7 @@ export const uiPages = {
   'cs.eyebrow': { en: 'In-country support', zh: '在地支持', ar: 'دعم داخل الصين' },
   'cs.title': {
     en: 'China business, travel & admin — handled.',
-    zh: '在华商务、出行与行政 — 交给我们.',
+    zh: '在华商务、出行与行政 — 交给我们。',
     ar: 'أعمال وسفر وإجراءات في الصين — نتكفّل بها.',
   },
   'cs.sub': {
@@ -219,7 +219,7 @@ export const uiPages = {
   'industries.eyebrow': { en: 'Industries', zh: '行业', ar: 'القطاعات' },
   'industries.title': {
     en: 'Your sector has its own rulebook.',
-    zh: '每个行业都有自己的规则手册.',
+    zh: '每个行业都有自己的规则手册。',
     ar: 'لكل قطاع قواعده الخاصة.',
   },
   'industries.sub': {
@@ -239,7 +239,7 @@ export const uiPages = {
   'cases.eyebrow': { en: 'Case studies', zh: '案例', ar: 'دراسات الحالة' },
   'cases.title': {
     en: 'How the work actually runs.',
-    zh: '实际推进方式.',
+    zh: '实际推进方式。',
     ar: 'كيف يجري العمل فعليًا.',
   },
   'cases.sub': {
@@ -275,7 +275,7 @@ export const uiPages = {
   'eng.eyebrow': { en: 'Working with us', zh: '与我们合作', ar: 'العمل معنا' },
   'eng.title': {
     en: 'Transparent by default.',
-    zh: '默认透明.',
+    zh: '默认透明。',
     ar: 'الشفافية هي الأصل.',
   },
   'eng.sub': {
@@ -283,7 +283,7 @@ export const uiPages = {
     zh: '开工前您就清楚价格、交付物与截止日期。若范围变更，我们会先书面重新报价。',
     ar: 'تعرف السعر والمخرجات والموعد النهائي قبل بدء العمل. وإذا تغيّر النطاق نعيد التسعير كتابيًا أولًا.',
   },
-  'eng.fixedFee': { en: 'fixed fee', zh: '固定费用', ar: 'رسوم ثابتة' },
+  'eng.fixedFee': { en: 'Fixed fee', zh: '固定费用', ar: 'رسوم ثابتة' },
   'eng.capped': { en: 'capped budget', zh: '封顶预算', ar: 'ميزانية محدّدة' },
   'eng.mostPopular': { en: 'Most chosen', zh: '最常选择', ar: 'الأكثر اختيارًا' },
   'eng.includes': { en: 'What is included', zh: '包含内容', ar: 'ما يشمله' },
@@ -315,12 +315,12 @@ export const uiPages = {
   'about.eyebrow': { en: 'About us', zh: '关于我们', ar: 'من نحن' },
   'about.title': {
     en: 'Two worlds, one team.',
-    zh: '两个世界，一个团队.',
+    zh: '两个世界，一个团队。',
     ar: 'عالمان، فريق واحد.',
   },
   'about.sub': {
     en: 'We have lived on both ends of the corridor — which is why our advice survives contact with reality.',
-    zh: '我们长期生活在走廊两端 — 所以我们的建议经得起现实检验.',
+    zh: '我们长期生活在走廊两端 — 所以我们的建议经得起现实检验。',
     ar: 'عشنا على طرفي الممر — ولذلك تصمد نصائحنا أمام الواقع.',
   },
   'about.storyTitle': {
@@ -356,7 +356,7 @@ export const uiPages = {
   'process.eyebrow': { en: 'How we work', zh: '工作方式', ar: 'منهجيتنا' },
   'process.title': {
     en: 'Four steps. No black boxes.',
-    zh: '四个步骤，没有黑箱.',
+    zh: '四个步骤，没有黑箱。',
     ar: 'أربع خطوات. بلا صناديق سوداء.',
   },
   'process.sub': {
@@ -386,7 +386,7 @@ export const uiPages = {
   'faq.eyebrow': { en: 'FAQ', zh: '常见问题', ar: 'الأسئلة الشائعة' },
   'faq.title': {
     en: 'Everything worth asking.',
-    zh: '值得问的一切.',
+    zh: '值得问的一切。',
     ar: 'كل ما يستحق السؤال.',
   },
   'faq.sub': {
@@ -415,17 +415,17 @@ export const uiPages = {
   'insights.eyebrow': { en: 'Insights', zh: '洞察', ar: 'رؤى' },
   'insights.title': {
     en: 'What changed, and what it means for you.',
-    zh: '变了什么，对您意味着什么.',
+    zh: '变了什么，对您意味着什么。',
     ar: 'ما الذي تغيّر، وماذا يعني لك.',
   },
   'insights.sub': {
     en: 'Short, practical briefings from the corridor — written for operators, not for lawyers.',
-    zh: '来自走廊的简短实务简报 — 为经营者而写，不为律师而写.',
+    zh: '来自走廊的简短实务简报 — 为经营者而写，不为律师而写。',
     ar: 'إحاطات عملية قصيرة من الممر — مكتوبة للممارسين لا للمحامين.',
   },
   'insights.empty': {
     en: 'New briefings are on the way.',
-    zh: '新简报即将发布.',
+    zh: '新简报即将发布。',
     ar: 'إحاطات جديدة في الطريق.',
   },
   'insights.back': { en: 'All insights', zh: '全部洞察', ar: 'كل الرؤى' },
