@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { locales, localePrefix } from '../i18n';
 import { staticRoutes } from '../routes';
+import { industries } from '../data/industries';
 
 const SITE = 'https://yallakaishi.com';
 
@@ -20,6 +21,14 @@ export const GET: APIRoute = async () => {
 
   for (const route of staticRoutes) {
     const path = route === '' ? '/' : `/${route}/`;
+    const langs: Record<string, string> = {};
+    for (const l of locales) langs[l] = `${SITE}${localePrefix(l)}${path}`;
+    langs['x-default'] = langs.en;
+    urls.push({ loc: `${SITE}${path}`, langs });
+  }
+
+  for (const ind of industries) {
+    const path = `/industries/${ind.slug}/`;
     const langs: Record<string, string> = {};
     for (const l of locales) langs[l] = `${SITE}${localePrefix(l)}${path}`;
     langs['x-default'] = langs.en;
