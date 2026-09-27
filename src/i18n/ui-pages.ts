@@ -140,6 +140,16 @@ export const uiPages = {
     ar: 'ست خدمات عابرة للحدود: عمليات الامتثال، الترجمة التنظيمية، دخول السوق والتراخيص، العناية الواجبة بالشركاء، التقنية والتدريب — لتجارة الصين ⇄ الخليج.',
   },
   'services.eyebrow': { en: 'Service lines', zh: '服务线', ar: 'خطوط الخدمة' },
+  'services.deliverTitle': {
+    en: 'What you get',
+    zh: '交付内容',
+    ar: 'ماذا تحصل عليه',
+  },
+  'services.timeTitle': {
+    en: 'Typical timeline',
+    zh: '参考周期',
+    ar: 'المدة النموذجية',
+  },
   'services.title': {
     en: 'Everything the corridor demands, under one roof.',
     zh: '走廊所需，一站式齐备。',

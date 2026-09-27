@@ -3,7 +3,7 @@ import type { Locale } from '../i18n';
 import { localUrl, localeMeta, pick } from '../i18n';
 import { t } from '../i18n/ui';
 import { routes, site } from '../data/site';
-import { industries } from '../data/industries';
+import { coreServices } from '../data/services';
 
 import BaseLayout from '../components/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
@@ -16,14 +16,14 @@ interface Props {
   slug: string;
 }
 const { locale, path, slug } = Astro.props;
-const industry = industries.find((i) => i.slug === slug);
+const service = coreServices.find((s) => s.slug === slug);
 
 const contactHref = `${localUrl(locale, routes.contact)}#brief`;
-const name = industry ? pick(industry.name, locale) : '';
-const desc = industry ? pick(industry.body, locale).split(/(?<=[.。])\s/)[0] : '';
+const name = service ? pick(service.title, locale) : '';
+const desc = service ? pick(service.summary, locale) : '';
 ---
 
-{industry && (
+{service && (
   <BaseLayout
     locale={locale}
     path={path}
@@ -32,21 +32,21 @@ const desc = industry ? pick(industry.body, locale).split(/(?<=[.。])\s/)[0] : 
     jsonLd={[
       {
         '@context': 'https://schema.org',
-        '@type': 'Article',
-        headline: name,
+        '@type': 'Service',
+        name,
         description: desc,
         inLanguage: localeMeta[locale].code,
-        author: { '@type': 'Organization', name: site.name },
-        publisher: { '@type': 'Organization', name: site.name },
+        areaServed: ['CN', 'SA', 'AE', 'QA', 'KW', 'BH', 'OM'],
+        provider: { '@type': 'Organization', name: site.name },
       },
     ]}
   >
     <PageHero
       locale={locale}
       path={path}
-      eyebrow={t('industries.eyebrow', locale)}
+      eyebrow={t('services.eyebrow', locale)}
       title={name}
-      sub={pick(industry.headline, locale)}
+      sub={pick(service.summary, locale)}
     >
       <div class="hero-actions">
         <a class="btn btn-primary" href={contactHref}>
@@ -59,34 +59,27 @@ const desc = industry ? pick(industry.body, locale).split(/(?<=[.。])\s/)[0] : 
       <div class="container container--reading">
         <div class="detail-intro" data-reveal>
           <span class="detail-icon">
-            <Icon name={industry.icon} size={26} />
+            <Icon name={service.icon} size={26} />
           </span>
-          <p>{pick(industry.body, locale)}</p>
+          <p>{pick(service.body, locale)}</p>
         </div>
 
         <div class="detail-blocks">
           <div class="detail-block" data-reveal>
-            <p class="mini-label">{t('industries.entryTitle', locale)}</p>
+            <p class="mini-label">{t('services.deliverTitle', locale)}</p>
             <ul class="tick-list tick-list--two">
-              {industry.entryPoints.map((e) => (
+              {service.deliverables.map((d) => (
                 <li>
                   <Icon name="check" size={15} />
-                  <span>{pick(e, locale)}</span>
+                  <span>{pick(d, locale)}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div class="detail-block detail-block--risk" data-reveal>
-            <p class="mini-label">{t('industries.risks', locale)}</p>
-            <ul class="risk-list">
-              {industry.risks.map((r) => (
-                <li>
-                  <Icon name="sparkle" size={14} />
-                  <span>{pick(r, locale)}</span>
-                </li>
-              ))}
-            </ul>
+          <div class="detail-block detail-block--muted" data-reveal>
+            <p class="mini-label">{t('services.timeTitle', locale)}</p>
+            <p class="detail-time">{pick(service.timeline, locale)}</p>
           </div>
         </div>
       </div>

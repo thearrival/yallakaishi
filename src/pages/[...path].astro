@@ -3,12 +3,14 @@ import { getCollection } from 'astro:content';
 import { locales, localePrefix, parseLocaleFromPath } from '../i18n';
 import { staticRoutes } from '../routes';
 import { industries } from '../data/industries';
+import { coreServices } from '../data/services';
 
 import Home from '../views/Home.astro';
 import Services from '../views/Services.astro';
 import ChinaSupport from '../views/ChinaSupport.astro';
 import Industries from '../views/Industries.astro';
 import IndustryPage from '../views/IndustryPage.astro';
+import ServicePage from '../views/ServicePage.astro';
 import CaseStudies from '../views/CaseStudies.astro';
 import Engagement from '../views/Engagement.astro';
 import About from '../views/About.astro';
@@ -50,6 +52,9 @@ export async function getStaticPaths() {
     for (const ind of industries) {
       paths.push({ params: { path: join(`industries/${ind.slug}`) } });
     }
+    for (const svc of coreServices) {
+      paths.push({ params: { path: join(`services/${svc.slug}`) } });
+    }
   }
 
   return paths;
@@ -85,6 +90,9 @@ if (rest.startsWith('insights/')) {
 } else if (rest.startsWith('industries/')) {
   View = IndustryPage;
   viewProps = { locale, path: `/${rest}`, slug: rest.slice('industries/'.length) };
+} else if (rest.startsWith('services/')) {
+  View = ServicePage;
+  viewProps = { locale, path: `/${rest}`, slug: rest.slice('services/'.length) };
 } else if (rest in views) {
   View = views[rest];
   if (rest.startsWith('legal/'))

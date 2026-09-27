@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { locales, localePrefix } from '../i18n';
 import { staticRoutes } from '../routes';
 import { industries } from '../data/industries';
+import { coreServices } from '../data/services';
 
 const SITE = 'https://yallakaishi.com';
 
@@ -29,6 +30,14 @@ export const GET: APIRoute = async () => {
 
   for (const ind of industries) {
     const path = `/industries/${ind.slug}/`;
+    const langs: Record<string, string> = {};
+    for (const l of locales) langs[l] = `${SITE}${localePrefix(l)}${path}`;
+    langs['x-default'] = langs.en;
+    urls.push({ loc: `${SITE}${path}`, langs });
+  }
+
+  for (const svc of coreServices) {
+    const path = `/services/${svc.slug}/`;
     const langs: Record<string, string> = {};
     for (const l of locales) langs[l] = `${SITE}${localePrefix(l)}${path}`;
     langs['x-default'] = langs.en;

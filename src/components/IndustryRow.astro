@@ -14,7 +14,7 @@ const { industry, locale, href } = Astro.props;
 
 <article class="industry-row" data-reveal>
   <div class="industry-main">
-    <span class="industry-icon">
+    <span class="detail-icon">
       <Icon name={industry.icon} size={26} />
     </span>
     <div class="industry-text">
@@ -26,7 +26,7 @@ const { industry, locale, href } = Astro.props;
   </div>
 
   <div class="industry-side">
-    <div class="industry-block">
+    <div class="detail-block">
       <p class="mini-label">{t('nav.services', locale)}</p>
       <ul class="tick-list">
         {industry.entryPoints.map((e) => (
@@ -37,7 +37,7 @@ const { industry, locale, href } = Astro.props;
         ))}
       </ul>
     </div>
-    <div class="industry-block industry-block--risk">
+    <div class="detail-block detail-block--risk">
       <p class="mini-label">{t('industries.risks', locale)}</p>
       <ul class="risk-list">
         {industry.risks.map((r) => (
