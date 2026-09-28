@@ -29,9 +29,10 @@ const { locale, path } = Astro.props;
       '@type': 'CollectionPage',
       name: t('cases.meta.title', locale),
       hasPart: caseStudies.map((c) => ({
-        '@type': 'CreativeWork',
+        '@type': 'CaseStudy',
         name: c.title[locale],
         about: c.sector[locale],
+        abstract: c.context[locale],
       })),
     },
   ]}

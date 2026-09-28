@@ -1,11 +1,14 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { locales, localePrefix } from '../i18n';
+import { locales, localePrefix, type Locale } from '../i18n';
 import { staticRoutes } from '../routes';
 import { industries } from '../data/industries';
 import { coreServices } from '../data/services';
 
 const SITE = 'https://yallakaishi.com';
+
+/** hreflang code emitted in the XML (the `code` from localeMeta, not the folder name). */
+const hreflangCode: Record<string, string> = { en: 'en', zh: 'zh-Hans', ar: 'ar' };
 
 export const GET: APIRoute = async () => {
   const posts = await getCollection('insights');
@@ -20,40 +23,44 @@ export const GET: APIRoute = async () => {
 
   const urls: { loc: string; lastmod?: string; langs: Record<string, string> }[] = [];
 
-  for (const route of staticRoutes) {
-    const path = route === '' ? '/' : `/${route}/`;
+  /**
+   * Every localized version gets its own `<url>` entry, and each entry
+   * advertises all of its alternates. Listing only the English URL and
+   * relying on the alternate links leaves the translated pages without
+   * entries of their own in the sitemap.
+   */
+  const addPath = (
+    path: string,
+    availableLocales: readonly Locale[] = locales,
+    lastmod?: string,
+  ) => {
     const langs: Record<string, string> = {};
     for (const l of locales) langs[l] = `${SITE}${localePrefix(l)}${path}`;
+    if (!langs.en) return;
     langs['x-default'] = langs.en;
-    urls.push({ loc: `${SITE}${path}`, langs });
+    for (const l of availableLocales) {
+      if (!langs[l]) continue;
+      urls.push({ loc: langs[l], lastmod, langs });
+    }
+  };
+
+  for (const route of staticRoutes) {
+    addPath(route === '' ? '/' : `/${route}/`);
   }
 
   for (const ind of industries) {
-    const path = `/industries/${ind.slug}/`;
-    const langs: Record<string, string> = {};
-    for (const l of locales) langs[l] = `${SITE}${localePrefix(l)}${path}`;
-    langs['x-default'] = langs.en;
-    urls.push({ loc: `${SITE}${path}`, langs });
+    addPath(`/industries/${ind.slug}/`);
   }
 
   for (const svc of coreServices) {
-    const path = `/services/${svc.slug}/`;
-    const langs: Record<string, string> = {};
-    for (const l of locales) langs[l] = `${SITE}${localePrefix(l)}${path}`;
-    langs['x-default'] = langs.en;
-    urls.push({ loc: `${SITE}${path}`, langs });
+    addPath(`/services/${svc.slug}/`);
   }
 
   for (const p of posts) {
-    const path = `/insights/${slugOf(p.id)}/`;
-    const langs: Record<string, string> = {};
-    for (const l of locales) {
-      const exists = (byLocale.get(l) ?? new Set()).has(slugOf(p.id));
-      if (exists) langs[l] = `${SITE}${localePrefix(l)}${path}`;
-    }
-    if (langs.en) {
-      langs['x-default'] = langs.en;
-      urls.push({ loc: langs.en, lastmod: p.data.date.toISOString().slice(0, 10), langs });
+    const slug = slugOf(p.id);
+    const available = locales.filter((l) => (byLocale.get(l) ?? new Set()).has(slug));
+    if (available.includes('en')) {
+      addPath(`/insights/${slug}/`, available, p.data.date.toISOString().slice(0, 10));
     }
   }
 
@@ -66,7 +73,7 @@ export const GET: APIRoute = async () => {
       ...(u.lastmod ? [`    <lastmod>${u.lastmod}</lastmod>`] : []),
       ...Object.entries(u.langs).map(
         ([l, href]) =>
-          `    <xhtml:link rel="alternate" hreflang="${l === 'zh' ? 'zh-Hans' : l}" href="${href}"/>`,
+          `    <xhtml:link rel="alternate" hreflang="${hreflangCode[l] ?? l}" href="${href}"/>`,
       ),
       '  </url>',
     ]),
