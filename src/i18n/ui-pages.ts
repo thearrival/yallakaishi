@@ -584,6 +584,26 @@ export const uiPages = {
     zh: '关于本简报还有问题？',
     ar: 'أسئلة حول هذه الإحاطة؟',
   },
+  'insights.relatedService': {
+    en: 'The service behind this',
+    zh: '支撑本篇的服务',
+    ar: 'الخدمة وراء هذه المقالة',
+  },
+  'insights.filterBy': {
+    en: 'Filter by topic',
+    zh: '按主题筛选',
+    ar: 'تصفية حسب الموضوع',
+  },
+  'insights.allTags': {
+    en: 'All',
+    zh: '全部',
+    ar: 'الكل',
+  },
+  'insights.noTagMatch': {
+    en: 'No articles on that topic yet.',
+    zh: '该主题暂无文章。',
+    ar: 'لا توجد مقالات حول هذا الموضوع بعد.',
+  },
 
   /* ══════════ CONTACT ══════════ */
   'contact.meta.title': { en: 'Contact', zh: '联系我们', ar: 'اتصل بنا' },

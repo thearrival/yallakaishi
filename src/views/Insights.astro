@@ -24,6 +24,13 @@ const posts = (await getCollection('insights', (e) => e.data.locale === locale))
 );
 
 const listHref = localUrl(locale, routes.insights);
+
+/** Distinct tags across this locale's articles, most used first. */
+const tagCounts = new Map<string, number>();
+for (const p of posts) {
+  for (const tag of p.data.tags) tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+}
+const tags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 ---
 
 <BaseLayout
@@ -55,15 +62,55 @@ const listHref = localUrl(locale, routes.insights);
   <section class="section section--flush">
     <div class="container">
       {posts.length > 0 ? (
-        <div class="post-grid">
-          {posts.map((p) => (
-            <PostCard
-              entry={p}
-              locale={locale}
-              href={`${listHref.replace(/\/$/, '')}/${slugOf(p.id)}/`}
-            />
-          ))}
-        </div>
+        <>
+          {tags.length > 1 && (
+            <div class="tag-filter" data-tag-filter>
+              <p class="mini-label" id="tag-filter-label">
+                {t('insights.filterBy', locale)}
+              </p>
+              <ul class="chip-row" role="group" aria-labelledby="tag-filter-label">
+                <li>
+                  <button
+                    class="chip chip--btn is-on"
+                    type="button"
+                    data-tag=""
+                    aria-pressed="true"
+                  >
+                    {t('insights.allTags', locale)}
+                  </button>
+                </li>
+                {tags.map(([tag, n]) => (
+                  <li>
+                    <button
+                      class="chip chip--btn"
+                      type="button"
+                      data-tag={tag}
+                      aria-pressed="false"
+                    >
+                      {tag}
+                      <span class="chip-count">{n}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div class="post-grid" data-post-grid>
+            {posts.map((p) => (
+              <div class="post-cell" data-tags={p.data.tags.join('|')}>
+                <PostCard
+                  entry={p}
+                  locale={locale}
+                  href={`${listHref.replace(/\/$/, '')}/${slugOf(p.id)}/`}
+                />
+              </div>
+            ))}
+          </div>
+          <p class="tag-empty" data-tag-empty hidden>
+            {t('insights.noTagMatch', locale)}
+          </p>
+        </>
       ) : (
         <div class="empty-state" data-reveal>
           <Icon name="document" size={30} />
@@ -75,3 +122,34 @@ const listHref = localUrl(locale, routes.insights);
 
   <CTABand locale={locale} />
 </BaseLayout>
+
+{tags.length > 1 && <script is:inline>
+  (function () {
+    var root = document.querySelector('[data-tag-filter]');
+    var grid = document.querySelector('[data-post-grid]');
+    if (!root || !grid) return;
+
+    var buttons = root.querySelectorAll('[data-tag]');
+    var cells = grid.querySelectorAll('[data-tags]');
+    var empty = document.querySelector('[data-tag-empty]');
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var want = btn.getAttribute('data-tag') || '';
+        buttons.forEach(function (b) {
+          var on = b === btn;
+          b.classList.toggle('is-on', on);
+          b.setAttribute('aria-pressed', String(on));
+        });
+        var shown = 0;
+        cells.forEach(function (cell) {
+          var list = (cell.getAttribute('data-tags') || '').split('|');
+          var match = !want || list.indexOf(want) > -1;
+          cell.hidden = !match;
+          if (match) shown++;
+        });
+        if (empty) empty.hidden = shown > 0;
+      });
+    });
+  })();
+</script>}

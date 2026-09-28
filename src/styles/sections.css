@@ -1844,6 +1844,65 @@ html[dir='rtl'] .mini-cta:hover {
 .article-foot {
   padding-block-end: clamp(2.5rem, 2rem + 3vw, 4rem);
 }
+.tag-filter {
+  margin-block-end: 1.75rem;
+}
+.tag-filter .mini-label {
+  margin-block-end: 0.6rem;
+}
+.tag-filter .chip-row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tag-empty {
+  margin-block-start: 1.5rem;
+  color: var(--muted);
+}
+.post-cell[hidden] {
+  display: none;
+}
+
+.article-related {
+  margin-block-start: 2.25rem;
+}
+.related-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-block-start: 0.75rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--sh-xs);
+  transition:
+    border-color var(--t-fast),
+    transform var(--t-fast);
+}
+.related-card:hover {
+  border-color: var(--teal-line);
+  transform: translateY(-2px);
+}
+.related-card-body {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.related-card-body strong {
+  font-size: var(--fs-md);
+  color: var(--ink);
+}
+.related-card-body span {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+.related-card svg {
+  flex: none;
+  color: var(--teal);
+}
+
 .article-cta {
   display: flex;
   flex-wrap: wrap;

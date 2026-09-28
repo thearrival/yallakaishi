@@ -4,6 +4,7 @@ import type { Locale } from '../i18n';
 import { localUrl, localeMeta } from '../i18n';
 import { t } from '../i18n/ui';
 import { routes } from '../data/site';
+import { coreServices } from '../data/services';
 
 import BaseLayout from '../components/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
@@ -46,6 +47,9 @@ if (entry) {
 
 const listHref = localUrl(locale, routes.insights);
 const listBase = listHref.replace(/\/$/, '');
+
+/** The article's `related` frontmatter points at a service slug. */
+const relatedService = d?.related ? coreServices.find((s) => s.slug === d.related) : undefined;
 ---
 
 {entry && Content && fmt ? (
@@ -111,6 +115,22 @@ const listBase = listHref.replace(/\/$/, '');
           </a>
         </p>
       </footer>
+
+      {relatedService && (
+        <aside class="container container--reading article-related">
+          <p class="eyebrow">{t('insights.relatedService', locale)}</p>
+          <a
+            class="related-card"
+            href={localUrl(locale, `${routes.services}/${relatedService.slug}/`)}
+          >
+            <span class="related-card-body">
+              <strong>{relatedService.title[locale]}</strong>
+              <span>{relatedService.summary[locale]}</span>
+            </span>
+            <Icon name="arrow" size={18} />
+          </a>
+        </aside>
+      )}
     </article>
 
     {others.length > 0 && (
