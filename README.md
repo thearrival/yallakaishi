@@ -29,6 +29,23 @@ npm run format     # prettier --write
 npm run ci         # format:check + typecheck + test + build + verify
 ```
 
+## Environment variables
+
+All optional — the site builds and runs fully without any of them.
+
+| Variable                 | Effect when unset                                                                                                                                                                                                                                  |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PUBLIC_FORM_ENDPOINT`   | Enquiry form falls back to a local success state instead of POSTing.                                                                                                                                                                               |
+| `PUBLIC_CF_BEAMON_TOKEN` | No analytics script is loaded at all (the default). Set it to the token from the Cloudflare Web Analytics dashboard to enable cookieless measurement; the privacy policy only discloses analytics when the token is present in a production build. |
+
+Cloudflare Web Analytics is the intended provider: cookieless, no personal data,
+no consent banner. It requires the zone to be proxied through Cloudflare, which
+GitHub Pages alone cannot do.
+
+Response headers live in `public/_headers` (Netlify / Cloudflare Pages format).
+GitHub Pages ignores that file, so no security headers are active today — see the
+comment at the top of the file for why a CSP is deliberately omitted.
+
 ## Structure
 
 ```

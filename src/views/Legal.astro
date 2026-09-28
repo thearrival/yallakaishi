@@ -21,6 +21,21 @@ interface Block {
   body: Localized[];
 }
 
+/**
+ * Only disclosed when the beacon is actually enabled, so the policy never
+ * claims measurement that is not happening. See `components/Analytics.astro`.
+ */
+const analyticsBlock: Block = {
+  heading: { en: 'Analytics', zh: '访问统计', ar: 'تحليلات الاستخدام' },
+  body: [
+    {
+      en: 'We measure which pages are actually useful using cookieless, privacy-preserving analytics. It records the page you viewed and broad technical facts such as browser, screen size and country. It never sees your name, your email, or anything you type into a form, it sets no cookies, and it builds no advertising profile — so there is no consent banner to click through. You can refuse measurement entirely with the Do Not Track setting in your browser, or the tracking protection built into Firefox and Brave. The measurements are processed by Cloudflare in the United States and the European Union.',
+      zh: '我们使用无 Cookie、注重隐私的分析工具，衡量哪些页面真正有用。它记录您浏览的页面，以及浏览器、屏幕尺寸、国家等粗略技术信息。它不会获取您的姓名、邮箱，也不会读取您在表单中输入的任何内容；它不设置 Cookie，不建立广告画像 — 因此无需点击同意横幅。您可通过浏览器的"请勿跟踪"设置，或 Firefox 与 Brave 内置的跟踪保护，完全拒绝被统计。统计数据由 Cloudflare 在美国与欧盟处理。',
+      ar: 'نقيس الصفحات المفيدة فعلًا باستخدام تحليلات خالية من ملفات تعريف الارتباط تحترم الخصوصية. تسجّل الصفحة التي شاهدتها وحقائق تقنية عامة مثل المتصفح وحجم الشاشة والبلد. لا ترى اسمك ولا بريدك ولا ما تكتبه في أي نموذج، ولا تضع ملفات تعريف ارتباط، ولا تبني ملفًا إعلانيًا — لذا لا توجد لافتة موافقة تحتاج إلى الضغط. يمكنك رفض القياس كليًا عبر إعداد "عدم التتبع" في متصفحك أو الحماية المدمجة في Firefox وBrave. تُعالَج القياسات بواسطة Cloudflare في الولايات المتحدة والاتحاد الأوروبي.',
+    },
+  ],
+};
+
 const privacy: Block[] = [
   {
     heading: { en: 'What we collect', zh: '我们收集什么', ar: 'ما نجمعه' },
@@ -183,7 +198,16 @@ const desc =
       ? t('legal.termsDesc', locale)
       : t('legal.disclaimerDesc', locale);
 
-const blocks = kind === 'privacy' ? privacy : kind === 'terms' ? terms : disclaimer;
+const analyticsEnabled = import.meta.env.PROD && !!import.meta.env.PUBLIC_CF_BEAMON_TOKEN;
+
+const blocks =
+  kind === 'privacy'
+    ? analyticsEnabled
+      ? [...privacy.slice(0, -1), analyticsBlock, privacy[privacy.length - 1]]
+      : privacy
+    : kind === 'terms'
+      ? terms
+      : disclaimer;
 
 const toc = blocks.map((b, i) => ({
   id: `s${i + 1}`,

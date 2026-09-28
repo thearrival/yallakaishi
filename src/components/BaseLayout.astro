@@ -9,6 +9,7 @@ import { t } from '../i18n/ui';
 import SEO from './SEO.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
+import Analytics from './Analytics.astro';
 
 interface Props {
   locale: Locale;
@@ -47,6 +48,7 @@ const meta = localeMeta[locale];
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <slot name="head" />
+    <Analytics />
   </head>
 
   <body>
