@@ -21,6 +21,7 @@ import InsightArticle from '../views/InsightArticle.astro';
 import Readiness from '../views/Readiness.astro';
 import Contact from '../views/Contact.astro';
 import Legal from '../views/Legal.astro';
+import LegalIndex from '../views/LegalIndex.astro';
 import NotFound from '../views/NotFound.astro';
 
 export async function getStaticPaths() {
@@ -78,6 +79,7 @@ const views: Record<string, any> = {
   insights: Insights,
   readiness: Readiness,
   contact: Contact,
+  legal: LegalIndex,
   'legal/privacy': Legal,
   'legal/terms': Legal,
   'legal/disclaimer': Legal,

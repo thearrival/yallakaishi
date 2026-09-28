@@ -1844,6 +1844,64 @@ html[dir='rtl'] .mini-cta:hover {
 .article-foot {
   padding-block-end: clamp(2.5rem, 2rem + 3vw, 4rem);
 }
+.legal-index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 1rem;
+}
+.legal-index-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 1.4rem 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--sh-xs);
+  transition:
+    border-color var(--t-fast),
+    transform var(--t-fast),
+    box-shadow var(--t-fast);
+}
+.legal-index-card:hover {
+  border-color: var(--teal-line);
+  transform: translateY(-2px);
+  box-shadow: var(--sh-sm);
+}
+.legal-index-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--r);
+  background: var(--teal-soft);
+  color: var(--teal-ink);
+}
+.legal-index-body {
+  display: grid;
+  gap: 0.3rem;
+  min-width: 0;
+  flex: 1;
+}
+.legal-index-body strong {
+  font-size: var(--fs-md);
+  color: var(--ink);
+}
+.legal-index-body span {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+.legal-index-card > svg {
+  flex: none;
+  margin-block-start: 0.65rem;
+  color: var(--teal);
+}
+.legal-index-note {
+  margin-block-start: 1.75rem;
+  color: var(--muted);
+}
+
 .tag-filter {
   margin-block-end: 1.75rem;
 }

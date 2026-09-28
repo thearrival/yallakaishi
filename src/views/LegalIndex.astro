@@ -1,0 +1,101 @@
+---
+import type { Locale } from '../i18n';
+import { localUrl } from '../i18n';
+import { t } from '../i18n/ui';
+import { routes } from '../data/site';
+
+import BaseLayout from '../components/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTABand from '../components/CTABand.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+
+const documents = [
+  {
+    kind: 'privacy',
+    href: routes.privacy,
+    title: t('legal.privacyTitle', locale),
+    desc: t('legal.privacyDesc', locale),
+    icon: 'shield',
+  },
+  {
+    kind: 'terms',
+    href: routes.terms,
+    title: t('legal.termsTitle', locale),
+    desc: t('legal.termsDesc', locale),
+    icon: 'document',
+  },
+  {
+    kind: 'disclaimer',
+    href: routes.disclaimer,
+    title: t('legal.disclaimerTitle', locale),
+    desc: t('legal.disclaimerDesc', locale),
+    icon: 'stamp',
+  },
+] as const;
+---
+
+<BaseLayout
+  locale={locale}
+  path={path}
+  title={t('legal.indexTitle', locale)}
+  description={t('legal.indexDesc', locale)}
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: t('legal.indexTitle', locale),
+      description: t('legal.indexDesc', locale),
+      hasPart: documents.map((d) => ({
+        '@type': 'WebPage',
+        name: d.title,
+        url: `https://yallakaishi.com${localUrl(locale, d.href)}`,
+      })),
+    },
+  ]}
+>
+  <PageHero
+    locale={locale}
+    path={path}
+    eyebrow={t('legal.eyebrow', locale)}
+    title={t('legal.indexTitle', locale)}
+    sub={t('legal.indexDesc', locale)}
+  >
+    <p class="hero-chip hero-chip--muted">
+      <Icon name="document" size={15} /> {t('legal.lastUpdated', locale)}
+    </p>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <div class="legal-index-grid">
+        {documents.map((d) => (
+          <a class="legal-index-card" href={localUrl(locale, d.href)} data-reveal>
+            <span class="legal-index-icon" aria-hidden="true">
+              <Icon name={d.icon} size={20} />
+            </span>
+            <span class="legal-index-body">
+              <strong>{d.title}</strong>
+              <span>{d.desc}</span>
+            </span>
+            <Icon name="arrow" size={18} />
+          </a>
+        ))}
+      </div>
+
+      <p class="legal-index-note">
+        {t('legal.indexNote', locale)}{' '}
+        <a class="link-arrow" href={`${localUrl(locale, routes.contact)}#brief`}>
+          {t('common.contactUs', locale)} <Icon name="arrow" size={15} />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <CTABand locale={locale} />
+</BaseLayout>

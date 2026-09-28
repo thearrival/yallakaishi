@@ -64,10 +64,19 @@ const ld: Record<string, unknown>[] = [
 <link rel="canonical" href={canonical} />
 {noindex && <meta name="robots" content="noindex,nofollow" />}
 
-{alternates.map((a) => (
-  <link rel="alternate" hreflang={a.lang} href={a.href} />
-))}
-<link rel="alternate" hreflang="x-default" href={defaultAlt} />
+{
+  /* A page kept out of the index has nothing to offer a search engine, and
+     declaring alternates would point at URLs that may not exist — the 404
+     advertises /zh/404/ and /ar/404/, neither of which is ever served. */
+  !noindex && (
+    <>
+      {alternates.map((a) => (
+        <link rel="alternate" hreflang={a.lang} href={a.href} />
+      ))}
+      <link rel="alternate" hreflang="x-default" href={defaultAlt} />
+    </>
+  )
+}
 
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content={site.name} />

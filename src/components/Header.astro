@@ -8,8 +8,14 @@ import Logo from './Logo.astro';
 interface Props {
   locale: Locale;
   path: string;
+  /**
+   * Path the language switcher points at. Defaults to the current page, which
+   * is wrong for a page that has no localised counterpart (the 404), so that
+   * case sends visitors to the homepage in the language they picked.
+   */
+  altLangPath?: string;
 }
-const { locale, path } = Astro.props;
+const { locale, path, altLangPath = path } = Astro.props;
 
 const navSpec: { route: RouteKey; label: TKey }[] = [
   { route: 'services', label: 'nav.services' },
@@ -26,7 +32,9 @@ const navItems = navSpec.map(({ route, label }) => ({
   active: path === routes[route] || path.startsWith(`${routes[route]}/`),
 }));
 
-const others = locales.filter((l) => l !== locale).map((l) => ({ l, href: localUrl(l, path) }));
+const others = locales
+  .filter((l) => l !== locale)
+  .map((l) => ({ l, href: localUrl(l, altLangPath) }));
 const contactHref = localUrl(locale, routes.contact);
 ---
 
@@ -115,7 +123,7 @@ const contactHref = localUrl(locale, routes.contact);
           {locales.map((l) => (
             <a
               class:list={['lang-link', { 'is-active': l === locale }]}
-              href={localUrl(l, path)}
+              href={localUrl(l, altLangPath)}
               hreflang={localeMeta[l].code}
               lang={localeMeta[l].code}
               aria-current={l === locale ? 'true' : undefined}

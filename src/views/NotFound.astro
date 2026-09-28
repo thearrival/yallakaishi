@@ -1,6 +1,6 @@
 ---
 import type { Locale } from '../i18n';
-import { localUrl } from '../i18n';
+import { localUrl, locales, localeMeta } from '../i18n';
 import { t } from '../i18n/ui';
 import { routes } from '../data/site';
 import { coreServices } from '../data/services';
@@ -13,38 +13,118 @@ interface Props {
   path?: string;
 }
 const { locale, path = '/' } = Astro.props;
+
+/**
+ * The host serves a single 404 document for every locale, so the English copy is
+ * rendered on the server and the other two are shipped alongside it. A blocking
+ * script in <head> picks the right set from the URL before first paint — no
+ * flash of the wrong language. The surrounding header and footer stay English,
+ * which is the one thing a single static 404 file cannot avoid.
+ */
+const copy = Object.fromEntries(
+  locales.map((l) => [
+    l,
+    {
+      code: t('404.code', l),
+      title: t('404.title', l),
+      body: t('404.body', l),
+      backHome: t('common.backHome', l),
+      browse: t('404.searchServices', l),
+      services: t('nav.services', l),
+      serviceNames: coreServices.map((s) => s.title[l]),
+      home: localUrl(l, '/'),
+      servicesHref: localUrl(l, routes.services),
+    },
+  ]),
+);
+
+const en = copy[locale];
 ---
 
 <BaseLayout
   locale={locale}
   path={path}
-  title={`${t('404.code', locale)} · ${t('404.title', locale)}`}
-  description={t('404.body', locale)}
+  altLangPath="/"
+  title={`${en.code} · ${en.title}`}
+  description={en.body}
   noindex
 >
+  <Fragment slot="head">
+    <script type="application/json" data-404-copy set:html={JSON.stringify(copy)} />
+    <script is:inline>
+      (function () {
+        var m = location.pathname.match(/^\/(zh|ar)(\/|$)/);
+        var want = m ? m[1] : 'en';
+        if (want === document.documentElement.dataset.locale) return;
+        var data = document.querySelector('[data-404-copy]');
+        if (!data) return;
+        var copy;
+        try {
+          copy = JSON.parse(data.textContent || '{}')[want];
+        } catch (e) {
+          return;
+        }
+        if (!copy) return;
+
+        var meta = { en: ['en', 'ltr'], zh: ['zh-Hans', 'ltr'], ar: ['ar', 'rtl'] }[want];
+        document.documentElement.lang = meta[0];
+        document.documentElement.dir = meta[1];
+        document.documentElement.dataset.locale = want;
+
+        var set = function (sel, value) {
+          document.querySelectorAll(sel).forEach(function (el) {
+            el.textContent = value;
+          });
+        };
+        set('[data-404="code"]', copy.code);
+        set('[data-404="title"]', copy.title);
+        set('[data-404="body"]', copy.body);
+        set('[data-404="services"]', copy.services);
+        // The buttons carry an icon, so only their inner label is replaced.
+        set('[data-404="home-text"]', copy.backHome);
+        set('[data-404="browse-text"]', copy.browse);
+        document.querySelectorAll('[data-404="home"]').forEach(function (el) {
+          el.setAttribute('href', copy.home);
+        });
+        document.querySelectorAll('[data-404="browse"]').forEach(function (el) {
+          el.setAttribute('href', copy.servicesHref);
+        });
+        document.querySelectorAll('[data-404-link]').forEach(function (el, i) {
+          if (copy.serviceNames[i]) el.textContent = copy.serviceNames[i];
+          el.setAttribute('href', copy.servicesHref);
+        });
+        document.title = copy.code + ' · ' + copy.title;
+      })();
+    </script>
+  </Fragment>
+
   <section class="notfound">
     <div class="container container--narrow notfound-inner">
-      <p class="notfound-code" aria-hidden="true">
-        {t('404.code', locale)}
+      <p class="notfound-code" aria-hidden="true" data-404="code">
+        {en.code}
       </p>
-      <h1>{t('404.title', locale)}</h1>
-      <p class="lede">{t('404.body', locale)}</p>
+      <h1 data-404="title">{en.title}</h1>
+      <p class="lede" data-404="body">
+        {en.body}
+      </p>
 
       <div class="center-actions">
-        <a class="btn btn-primary btn-lg" href={localUrl(locale, '/')}>
-          {t('common.backHome', locale)} <Icon name="arrow" size={18} />
+        <a class="btn btn-primary btn-lg" href={en.home} data-404="home">
+          <span data-404="home-text">{en.backHome}</span> <Icon name="arrow" size={18} />
         </a>
-        <a class="btn btn-outline btn-lg" href={localUrl(locale, routes.services)}>
-          {t('404.searchServices', locale)}
+        <a class="btn btn-outline btn-lg" href={en.servicesHref} data-404="browse">
+          <span data-404="browse-text">{en.browse}</span>
         </a>
       </div>
 
       <div class="notfound-links">
-        <p class="mini-label">{t('nav.services', locale)}</p>
+        <p class="mini-label" data-404="services">
+          {en.services}
+        </p>
         <ul class="chip-row">
           {coreServices.map((s) => (
             <li>
-              <a class="chip chip--link" href={localUrl(locale, routes.services)}>
+              <a class="chip chip--link" href={en.servicesHref} data-404-link>
                 {s.title[locale]}
               </a>
             </li>

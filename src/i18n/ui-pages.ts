@@ -656,6 +656,21 @@ export const uiPages = {
 
   /* ══════════ LEGAL ══════════ */
   'legal.eyebrow': { en: 'Legal', zh: '法律信息', ar: 'قانوني' },
+  'legal.indexTitle': {
+    en: 'Legal & policies',
+    zh: '法律与政策',
+    ar: 'الشؤون القانونية والسياسات',
+  },
+  'legal.indexDesc': {
+    en: 'How we handle your information, the terms you accept when you use this site, and the limits of what our work can promise.',
+    zh: '我们如何处理您的信息、您使用本站时接受的条款，以及我们所能承诺的边界。',
+    ar: 'كيف نتعامل مع بياناتك، والشروط التي تقبلها باستخدام الموقع، وحدود ما يمكن أن يعد به عملنا.',
+  },
+  'legal.indexNote': {
+    en: 'Something here unclear, or you want a document in a different form?',
+    zh: '如有不清楚之处，或需要其他形式的文件？',
+    ar: 'هل هناك ما يحتاج توضيحًا، أو ترغب في المستند بشكل آخر؟',
+  },
   'legal.lastUpdated': {
     en: 'Last updated: 27 September 2026',
     zh: '最后更新：2026 年 9 月 27 日',

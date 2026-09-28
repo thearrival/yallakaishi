@@ -8,8 +8,10 @@ import Logo from './Logo.astro';
 interface Props {
   locale: Locale;
   path: string;
+  /** Path the language switcher points at — see the note in Header.astro. */
+  altLangPath?: string;
 }
-const { locale, path } = Astro.props;
+const { locale, path, altLangPath = path } = Astro.props;
 
 const col = (keys: { route: RouteKey; label: TKey }[]) =>
   keys.map((k) => ({ href: localUrl(locale, routes[k.route]), label: t(k.label, locale) }));
@@ -54,7 +56,7 @@ const year = new Date().getFullYear();
         {locales.map((l) => (
           <a
             class:list={['lang-chip', { 'is-active': l === locale }]}
-            href={localUrl(l, path)}
+            href={localUrl(l, altLangPath)}
             hreflang={localeMeta[l].code}
             lang={localeMeta[l].code}
             aria-current={l === locale ? 'true' : undefined}

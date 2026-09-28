@@ -25,6 +25,8 @@ interface Props {
   branded?: boolean;
   /** Set false to suppress the sticky mobile CTA, e.g. on the contact page. */
   cta?: boolean;
+  /** Path the language switcher targets; defaults to the current page. */
+  altLangPath?: string;
 }
 
 const {
@@ -38,6 +40,7 @@ const {
   jsonLd,
   branded,
   cta = true,
+  altLangPath,
 } = Astro.props;
 const meta = localeMeta[locale];
 const contactHref = `${localUrl(locale, routes.contact)}#brief`;
@@ -73,11 +76,11 @@ const contactHref = `${localUrl(locale, routes.contact)}#brief`;
       {t('nav.skip', locale)}
     </a>
     <div class="scroll-progress" data-progress aria-hidden="true"></div>
-    <Header locale={locale} path={path} />
+    <Header locale={locale} path={path} altLangPath={altLangPath} />
     <main id="main">
       <slot />
     </main>
-    <Footer locale={locale} path={path} />
+    <Footer locale={locale} path={path} altLangPath={altLangPath} />
     <button class="to-top" type="button" data-to-top aria-label={t('common.backToTop', locale)}>
       <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
         <path

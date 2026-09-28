@@ -12,6 +12,7 @@ export const staticRoutes = [
   'insights',
   'readiness',
   'contact',
+  'legal',
   'legal/privacy',
   'legal/terms',
   'legal/disclaimer',

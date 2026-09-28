@@ -45,6 +45,7 @@ export const routes = {
   insights: '/insights',
   readiness: '/readiness',
   contact: '/contact',
+  legal: '/legal',
   privacy: '/legal/privacy',
   terms: '/legal/terms',
   disclaimer: '/legal/disclaimer',
