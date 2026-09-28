@@ -1,6 +1,7 @@
 ---
 import { localUrl, type Locale } from '../i18n';
 import { t } from '../i18n/ui';
+import { staticRoutes } from '../routes';
 import Icon from './Icon.astro';
 
 interface Props {
@@ -12,32 +13,52 @@ interface Props {
 }
 const { locale, path, eyebrow, title, sub } = Astro.props;
 
-const crumbs = path
-  .split('/')
-  .filter(Boolean)
-  .reduce<{ href: string; label: string }[]>((acc, seg, i, arr) => {
-    const href = localUrl(locale, '/' + arr.slice(0, i + 1).join('/') + '/');
-    const label = i === 0 ? t('common.home', locale) : seg.replace(/-/g, ' ');
-    acc.push({ href, label });
-    return acc;
-  }, []);
+const segments = path.split('/').filter(Boolean);
+
+/**
+ * An ancestor is only a link when that path is a real page. `/legal/` has no
+ * index, so linking to it produced a 404 from every legal page.
+ */
+const isRoute = (p: string) =>
+  (staticRoutes as readonly string[]).includes(p.replace(/^\/+|\/+$/g, ''));
+
+/** Real names for the sections that appear as breadcrumb ancestors. */
+const parentLabel: Record<string, string> = {
+  services: t('nav.services', locale),
+  'china-support': t('nav.china', locale),
+  industries: t('nav.industries', locale),
+  insights: t('nav.insights', locale),
+  legal: t('legal.eyebrow', locale),
+};
+
+const crumbs = segments.map((seg, i) => {
+  const routePath = '/' + segments.slice(0, i + 1).join('/');
+  const isCurrent = i === segments.length - 1;
+  return {
+    href: isCurrent ? '' : localUrl(locale, routePath + '/'),
+    linkable: !isCurrent && isRoute(routePath),
+    label: isCurrent ? title : (parentLabel[seg] ?? seg.replace(/-/g, ' ')),
+  };
+});
 ---
 
 <section class="page-hero">
   <div class="container">
     {crumbs.length > 0 && (
-      <nav class="breadcrumb" aria-label={t('common.home', locale)}>
+      <nav class="breadcrumb" aria-label={t('common.breadcrumb', locale)}>
         <ol>
           <li>
             <a href={localUrl(locale, '/')}>{t('common.home', locale)}</a>
           </li>
-          {crumbs.map((c, i) => (
+          {crumbs.map((c) => (
             <li>
               <Icon name="arrow" size={12} />
-              {i === crumbs.length - 1 ? (
+              {c.href === '' ? (
                 <span aria-current="page">{c.label}</span>
-              ) : (
+              ) : c.linkable ? (
                 <a href={c.href}>{c.label}</a>
+              ) : (
+                <span>{c.label}</span>
               )}
             </li>
           ))}
