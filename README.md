@@ -46,6 +46,30 @@ Response headers live in `public/_headers` (Netlify / Cloudflare Pages format).
 GitHub Pages ignores that file, so no security headers are active today — see the
 comment at the top of the file for why a CSP is deliberately omitted.
 
+## Payload budget
+
+Measured on the deployed site (gzip, which is what GitHub Pages serves):
+
+| Page                               | Raw HTML | Gzip    |
+| ---------------------------------- | -------- | ------- |
+| `/`                                | 68 KB    | 12.4 KB |
+| `/ar/`                             | 73 KB    | 13.5 KB |
+| `/services/compliance-operations/` | 25 KB    | 5.8 KB  |
+
+Plus one ~66 KB stylesheet (~18 KB gzip) and **no JavaScript at all** — every
+behaviour is a small inline script. Worst-case first load is roughly 35 KB,
+which is why the repeated inline SVG icons are left as they are: they compress
+about 5.5x, so an icon-sprite refactor across 92 pages would cost a lot of
+churn for no measurable gain.
+
+Two things are worth knowing before adding anything to the page:
+
+- GitHub Pages serves `/_astro/*` with `Cache-Control: max-age=600` even though
+  those filenames are content-hashed. `public/_headers` sets a one-year
+  immutable cache for that path, but it only takes effect once a CDN is in front.
+- GitHub Pages serves gzip, not brotli. Brotli would cut the homepage from
+  12.4 KB to about 9.7 KB. Both improve as soon as the zone is on Cloudflare.
+
 ## Structure
 
 ```

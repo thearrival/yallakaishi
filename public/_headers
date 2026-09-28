@@ -15,5 +15,22 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   Cross-Origin-Opener-Policy: same-origin
 
-/assets/*
+# Build output is content-hashed, so it can be cached indefinitely.
+# GitHub Pages serves this path with only `max-age=600`; a CDN in front of it
+# is what actually makes the year-long cache below take effect.
+/_astro/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Unhashed brand assets: long cache, but revalidated so an edit propagates.
+/apple-touch-icon.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/og-image.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/favicon.svg
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+# Fingerprinted HTML must never be cached, or a deploy would not be visible.
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
