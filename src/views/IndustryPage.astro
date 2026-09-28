@@ -1,6 +1,6 @@
 ---
 import type { Locale } from '../i18n';
-import { localUrl, localeMeta, pick } from '../i18n';
+import { localUrl, localeMeta, metaDescription, pick } from '../i18n';
 import { t } from '../i18n/ui';
 import { routes, site } from '../data/site';
 import { industries } from '../data/industries';
@@ -20,7 +20,7 @@ const industry = industries.find((i) => i.slug === slug);
 
 const contactHref = `${localUrl(locale, routes.contact)}#brief`;
 const name = industry ? pick(industry.name, locale) : '';
-const desc = industry ? pick(industry.body, locale).split(/(?<=[.。])\s/)[0] : '';
+const desc = industry ? metaDescription(pick(industry.body, locale)) : '';
 ---
 
 {industry && (

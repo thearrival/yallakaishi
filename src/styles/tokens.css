@@ -9,8 +9,11 @@
   /* ── Colour ─────────────────────────────────────────── */
   --ink: #0a1020;
   --body: #3d4a63;
-  --muted: #6b7a94;
-  --faint: #97a3b8;
+  /* Secondary text tones: both verified >= 4.5:1 (WCAG AA) on every
+     surface they sit on (white / surface-2 / surface-3 / soft tints).
+     Hierarchy comes from size and weight, not from dropping below AA. */
+  --muted: #55617a;
+  --faint: #5f6c85;
 
   --surface: #ffffff;
   --surface-2: #f7f9fc;

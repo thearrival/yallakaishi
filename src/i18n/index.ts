@@ -48,6 +48,19 @@ export function format(template: string, vars: Record<string, string | number> =
   );
 }
 
+/**
+ * Meta description from body copy: first sentence, capped at a length search
+ * engines will actually display. Trims on a word boundary and appends an
+ * ellipsis, so a long opening sentence never overflows the SERP snippet.
+ */
+export function metaDescription(body: string, max = 158): string {
+  const firstSentence = body.split(/(?<=[.。！？])\s/)[0].trim();
+  if (firstSentence.length <= max) return firstSentence;
+  const clipped = firstSentence.slice(0, max - 1);
+  const lastSpace = clipped.lastIndexOf(' ');
+  return `${(lastSpace > max * 0.6 ? clipped.slice(0, lastSpace) : clipped).replace(/[,;:.]$/, '')}…`;
+}
+
 /** Path prefix for a locale: `''` for English (default), `/zh`, `/ar`. */
 export function localePrefix(locale: Locale): string {
   return locale === defaultLocale ? '' : `/${locale}`;
