@@ -4,8 +4,9 @@ import '../styles/base.css';
 import '../styles/components.css';
 import '../styles/sections.css';
 
-import { localeMeta, type Locale } from '../i18n';
+import { localeMeta, localUrl, type Locale } from '../i18n';
 import { t } from '../i18n/ui';
+import { routes, site } from '../data/site';
 import SEO from './SEO.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
@@ -22,10 +23,24 @@ interface Props {
   noindex?: boolean;
   jsonLd?: Record<string, unknown>[];
   branded?: boolean;
+  /** Set false to suppress the sticky mobile CTA, e.g. on the contact page. */
+  cta?: boolean;
 }
 
-const { locale, path, title, description, image, type, noindex, jsonLd, branded } = Astro.props;
+const {
+  locale,
+  path,
+  title,
+  description,
+  image,
+  type,
+  noindex,
+  jsonLd,
+  branded,
+  cta = true,
+} = Astro.props;
 const meta = localeMeta[locale];
+const contactHref = `${localUrl(locale, routes.contact)}#brief`;
 ---
 
 <!doctype html>
@@ -74,6 +89,37 @@ const meta = localeMeta[locale];
       </svg>
     </button>
 
+    {cta && (
+      <div class="mobile-cta" data-mobile-cta hidden>
+        <a class="mobile-cta-btn mobile-cta-btn--ghost" href={`mailto:${site.email}`}>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path
+              d="M3 6h18v12H3V6zM3 7l9 6 9-6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>{t('common.email', locale)}</span>
+        </a>
+        <a class="mobile-cta-btn mobile-cta-btn--primary" href={contactHref}>
+          <span>{t('common.requestProposal', locale)}</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path
+              d="M5 12h13M13 6l6 6-6 6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+      </div>
+    )}
+
     <script is:inline>
       (function () {
         var header = document.querySelector('[data-header]');
@@ -82,10 +128,24 @@ const meta = localeMeta[locale];
 
         var progress = document.querySelector('[data-progress]');
         var toTop = document.querySelector('[data-to-top]');
+        var mobileCta = document.querySelector('[data-mobile-cta]');
+        var bandVisible = false;
 
         function onScroll() {
           if (header) header.classList.toggle('is-stuck', window.scrollY > 8);
           if (toTop) toTop.classList.toggle('is-on', window.scrollY > 640);
+          if (mobileCta) {
+            // Past the hero, but never over a form the visitor is filling in.
+            var past = window.scrollY > 560;
+            var overForm = false;
+            var form = document.querySelector('#brief, [data-wizard]');
+            if (form) {
+              var r = form.getBoundingClientRect();
+              overForm = r.top < window.innerHeight * 0.75 && r.bottom > 0;
+            }
+            mobileCta.hidden = !(past && !overForm);
+            mobileCta.classList.toggle('is-off', bandVisible);
+          }
           if (progress) {
             var max = document.documentElement.scrollHeight - window.innerHeight;
             progress.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
@@ -127,7 +187,21 @@ const meta = localeMeta[locale];
           });
         }
 
+        // Sticky mobile CTA: appears once the hero is behind us, and yields to
+        // the page's own CTA band so two CTAs never compete on screen.
+        var ctaBand = document.querySelector('.cta-band');
+        if (mobileCta && ctaBand && 'IntersectionObserver' in window) {
+          new IntersectionObserver(
+            function (entries) {
+              bandVisible = entries[0].isIntersecting;
+              mobileCta.classList.toggle('is-off', bandVisible);
+            },
+            { threshold: 0.25 },
+          ).observe(ctaBand);
+        }
+
         // Scroll reveal — respects prefers-reduced-motion via CSS.
+
         var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         var reveals = document.querySelectorAll('[data-reveal]');
         if (reduce || !('IntersectionObserver' in window)) {

@@ -1,0 +1,27 @@
+name = "yallakaishi-enquiry"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+
+# Pages Functions live alongside the static site, so the enquiry endpoint is
+# served from the same origin as the pages: https://yallakaishi.com/api/enquiry
+# No CORS configuration is required, and no third party handles the payload.
+
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "yallakaishi-enquiries"
+# database_id = "<id from: wrangler d1 create yallakaishi-enquiries>"
+
+# [[send_email]]
+# Only needed for the email notification. Requires Email Routing on the zone and
+# a verified destination. Without it, enquiries are still stored in D1.
+# name = "SEND_EMAIL"
+# destination_address = "hello@yallakaishi.com"
+
+[vars]
+MAIL_TO = "hello@yallakaishi.com"
+MAIL_FROM = "website@yallakaishi.com"
+NOTIFY = "true"
+
+# Add production secrets with:  wrangler secret put <NAME>
+# CORS_ORIGIN is only needed if the form is ever hosted on a different origin.
+# CORS_ORIGIN = "https://yallakaishi.com"

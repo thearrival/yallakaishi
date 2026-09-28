@@ -253,6 +253,11 @@ export const uiPages = {
     zh: '准备就绪 — 基础扎实。以固定费用推进执行。',
     ar: 'جاهز للانطلاق — تأسيسك متين. آن وقت التنفيذ برسوم ثابتة.',
   },
+  'engagement.tableCaption': {
+    en: 'Engagement models compared: what is included, how fees work and what each option suits.',
+    zh: '合作模式对比：包含内容、收费方式与适用场景。',
+    ar: 'مقارنة نماذج التعاقد: ما يشمله كل نموذج وكيف تُحتسب الرسوم ولمن يناسب.',
+  },
   'engagement.checkLink': {
     en: 'Take the 1-minute readiness check',
     zh: '花一分钟做就绪度自测',

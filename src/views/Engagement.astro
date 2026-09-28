@@ -95,8 +95,17 @@ const engagementFaqs = faqs.filter((f) => f.group === 'engagement');
         sub={t('eng.sub', locale)}
       />
 
-      <div class="table-wrap" data-reveal>
+      <div
+        class="table-wrap"
+        data-reveal
+        tabindex="0"
+        role="region"
+        aria-labelledby="plans-heading"
+      >
         <table class="compare-table">
+          <caption class="sr-only" id="plans-heading">
+            {t('engagement.tableCaption', locale)}
+          </caption>
           <thead>
             <tr>
               <th scope="col">{t('nav.engagement', locale)}</th>

@@ -12,7 +12,13 @@ interface Props {
 }
 const { locale } = Astro.props;
 
-const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
+/**
+ * Same-origin by default: the enquiry Pages Function is served from this very
+ * zone, so no CORS and no third-party form processor. Point
+ * `PUBLIC_FORM_ENDPOINT` elsewhere to override; a failed POST falls back to a
+ * pre-filled mail client rather than dropping the enquiry.
+ */
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '/api/enquiry';
 const contactEmail = site.email;
 
 const serviceGroups = [
@@ -300,6 +306,12 @@ const countries = [
 
     <p class="form-status" data-status role="status" aria-live="polite"></p>
 
+    <p class="form-fallback" data-fallback hidden>
+      <a class="link-arrow" data-fallback-link href={`mailto:${site.email}`}>
+        {t('form.emailFallback', locale)} <Icon name="arrow" size={15} />
+      </a>
+    </p>
+
     <div class="form-direct">
       <p class="mini-label">{t('form.directTitle', locale)}</p>
       <p>{t('form.directBody', locale)}</p>
@@ -349,6 +361,7 @@ const countries = [
     var status = form.querySelector('[data-status]');
     var submitBtn = form.querySelector('[data-submit]');
     var submitLabel = form.querySelector('[data-submit-label]');
+    var fallback = form.querySelector('[data-fallback-link]');
 
     function panel(n) {
       return form.querySelector('[data-step="' + n + '"]');
@@ -548,14 +561,15 @@ const countries = [
       );
     }
 
-    function done(data) {
+    function done(data, serverRef) {
       form.querySelectorAll('fieldset[data-step]').forEach(function (p) {
         p.hidden = true;
       });
       var dotsEl = form.querySelector('.wizard-steps');
       if (dotsEl) dotsEl.hidden = true;
       var ref = form.querySelector('[data-ref]');
-      if (ref) ref.textContent = data.ref;
+      // Prefer the reference issued by the server so it matches the D1 record.
+      if (ref) ref.textContent = serverRef || data.ref;
       if (again) again.hidden = false;
       if (success) {
         success.hidden = false;
@@ -620,6 +634,10 @@ const countries = [
 
       if (submitBtn) submitBtn.disabled = true;
       if (submitLabel) submitLabel.textContent = strings.sending;
+      // Cleared here rather than in restore(): restore() also runs after a
+      // failure, which is exactly when the fallback must stay visible.
+      var fbBox = form.querySelector('[data-fallback]');
+      if (fbBox) fbBox.hidden = true;
       if (status) {
         status.classList.remove('is-error');
         status.textContent = strings.sending;
@@ -632,12 +650,24 @@ const countries = [
       })
         .then(function (r) {
           if (!r.ok) throw new Error('bad status');
-          done(data);
+          return r.json().catch(function () {
+            return {};
+          });
+        })
+        .then(function (res) {
+          if (res && res.ref) done(data, res.ref);
+          else done(data);
         })
         .catch(function () {
+          // The Worker may not be deployed yet, or the network failed. Never
+          // lose the brief: say what happened and offer the mail handoff.
           if (status) {
             status.classList.add('is-error');
             status.textContent = strings.generic;
+          }
+          if (fallback) {
+            fallback.hidden = false;
+            fallback.href = mailtoFallback(data);
           }
         })
         .finally(restore);
