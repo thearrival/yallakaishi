@@ -61,7 +61,9 @@ const contactHref = `${localUrl(locale, routes.contact)}#brief`;
       branded={branded}
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <!-- iOS ignores SVG for apple-touch-icon, so this must stay a real PNG. -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content={site.name} />
     <slot name="head" />
     <Analytics />
   </head>

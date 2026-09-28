@@ -7,6 +7,7 @@ import {
   localeMeta,
   localePrefix,
   localUrl,
+  metaDescription,
   parseLocaleFromPath,
   pick,
   type Localized,
@@ -108,5 +109,45 @@ describe('parseLocaleFromPath', () => {
       locale: 'zh',
       rest: 'legal/privacy',
     });
+  });
+});
+
+describe('metaDescription', () => {
+  it('returns a short first sentence untouched', () => {
+    const body = 'Restaurants need halal certification. Then comes labelling.';
+    expect(metaDescription(body)).toBe('Restaurants need halal certification.');
+  });
+
+  it('caps a long opening sentence and never exceeds the limit', () => {
+    const long =
+      'Whether you are placing orders into the Pearl River Delta or setting up production in the Gulf, the risks are the same: certificates that were never renewed, capacity that exists only on paper, and quality systems with no records behind them.';
+    const out = metaDescription(long);
+    expect(out.length).toBeLessThanOrEqual(158);
+    expect(out.endsWith('…')).toBe(true);
+  });
+
+  it('clips on a word boundary rather than mid-word', () => {
+    const out = metaDescription(
+      'Satisfyingly uncomplicated administrative choreography for international entrants seeking a regional licence without unnecessary delay or unnecessary expense in a foreign jurisdiction today.',
+    );
+    expect(out.length).toBeLessThanOrEqual(158);
+    expect(out.endsWith('…')).toBe(true);
+    // the last token before the ellipsis is a whole word, not a fragment
+    expect(out.slice(0, -1).trim().split(' ').pop()).toMatch(/^[A-Za-z]+$/);
+  });
+
+  it('splits on Chinese full stops as well as Latin ones', () => {
+    expect(metaDescription('这是第一句。这是第二句。')).toBe('这是第一句。');
+  });
+
+  it('handles copy with no sentence break at all', () => {
+    const out = metaDescription('A single unbroken run of words that never terminates');
+    expect(out).toBe('A single unbroken run of words that never terminates');
+  });
+
+  it('respects a custom limit', () => {
+    expect(
+      metaDescription('One two three four five six seven eight.', 20).length,
+    ).toBeLessThanOrEqual(20);
   });
 });

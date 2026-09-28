@@ -54,7 +54,10 @@ export function format(template: string, vars: Record<string, string | number> =
  * ellipsis, so a long opening sentence never overflows the SERP snippet.
  */
 export function metaDescription(body: string, max = 158): string {
-  const firstSentence = body.split(/(?<=[.。！？])\s/)[0].trim();
+  // First sentence. Latin copy separates sentences with a space, CJK does not,
+  // so a Latin terminator must be followed by whitespace or the end of the text.
+  const match = body.trim().match(/[\s\S]*?[.!?](?=\s|$)|[\s\S]*?[。！？]/);
+  const firstSentence = (match ? match[0] : body.trim()).trim();
   if (firstSentence.length <= max) return firstSentence;
   const clipped = firstSentence.slice(0, max - 1);
   const lastSpace = clipped.lastIndexOf(' ');
