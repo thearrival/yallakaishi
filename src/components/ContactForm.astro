@@ -43,28 +43,34 @@ const languageOptions = ['en', 'zh', 'ar'].map((c) => ({
   label: localeMeta[c as Locale].native,
 }));
 
-const countries = [
-  'Saudi Arabia',
-  'United Arab Emirates',
-  'Qatar',
-  'Kuwait',
-  'Bahrain',
-  'Oman',
-  'China',
-  'Hong Kong SAR',
-  'Taiwan',
-  'Singapore',
-  'Malaysia',
-  'Egypt',
-  'Jordan',
-  'United Kingdom',
-  'United States',
-  'Germany',
-  'France',
-  'India',
-  'Pakistan',
-  'Other',
-].map((c) => ({ value: c, label: c }));
+/**
+ * Country names are localised: the form is the highest-intent page on the site,
+ * and an English-only country list made the Arabic and Chinese versions of it
+ * unusable. `value` stays the English name so stored records remain comparable
+ * across locales.
+ */
+const countries: { en: string; zh: string; ar: string }[] = [
+  { en: 'Saudi Arabia', zh: '沙特阿拉伯', ar: 'السعودية' },
+  { en: 'United Arab Emirates', zh: '阿联酋', ar: 'الإمارات' },
+  { en: 'Qatar', zh: '卡塔尔', ar: 'قطر' },
+  { en: 'Kuwait', zh: '科威特', ar: 'الكويت' },
+  { en: 'Bahrain', zh: '巴林', ar: 'البحرين' },
+  { en: 'Oman', zh: '阿曼', ar: 'عُمان' },
+  { en: 'China', zh: '中国', ar: 'الصين' },
+  { en: 'Hong Kong SAR', zh: '中国香港', ar: 'هونغ كونغ' },
+  { en: 'Taiwan', zh: '中国台湾', ar: 'تايوان' },
+  { en: 'Singapore', zh: '新加坡', ar: 'سنغافورة' },
+  { en: 'Malaysia', zh: '马来西亚', ar: 'ماليزيا' },
+  { en: 'Egypt', zh: '埃及', ar: 'مصر' },
+  { en: 'Jordan', zh: '约旦', ar: 'الأردن' },
+  { en: 'United Kingdom', zh: '英国', ar: 'المملكة المتحدة' },
+  { en: 'United States', zh: '美国', ar: 'الولايات المتحدة' },
+  { en: 'Germany', zh: '德国', ar: 'ألمانيا' },
+  { en: 'France', zh: '法国', ar: 'فرنسا' },
+  { en: 'India', zh: '印度', ar: 'الهند' },
+  { en: 'Pakistan', zh: '巴基斯坦', ar: 'باكستان' },
+  { en: 'Other', zh: '其他', ar: 'أخرى' },
+];
 ---
 
 <form
@@ -168,7 +174,7 @@ const countries = [
         <select id="f-country" name="country" required aria-describedby="e-country">
           <option value="">—</option>
           {countries.map((c) => (
-            <option value={c.value}>{c.label}</option>
+            <option value={c.en}>{c[locale]}</option>
           ))}
         </select>
         <span class="field-error" id="e-country" role="alert"></span>
