@@ -3,6 +3,7 @@ import '../styles/tokens.css';
 import '../styles/base.css';
 import '../styles/components.css';
 import '../styles/sections.css';
+import '../styles/brand.css';
 
 import { localeMeta, localUrl, type Locale } from '../i18n';
 import { t } from '../i18n/ui';
@@ -51,6 +52,11 @@ const contactHref = `${localUrl(locale, routes.contact)}#brief`;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      // Reveal effects are opt-in: without JavaScript every section stays
+      // visible instead of leaving the lower half of the page blank.
+      document.documentElement.classList.add('js');
+    </script>
     <meta name="color-scheme" content="light" />
     <SEO
       title={title}
@@ -188,7 +194,7 @@ const contactHref = `${localUrl(locale, routes.contact)}#brief`;
             if (e.key === 'Escape') setDrawer(false);
           });
           window.addEventListener('resize', function () {
-            if (window.innerWidth > 1040) setDrawer(false);
+            if (window.innerWidth > 1180) setDrawer(false);
           });
         }
 

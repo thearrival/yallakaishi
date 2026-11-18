@@ -33,10 +33,30 @@ export const uiPages = {
     ar: 'احصل على تقييم مجاني',
   },
   'home.hero.cta2': { en: 'Explore services', zh: '浏览服务', ar: 'استكشف الخدمات' },
-  'home.panel.title': {
-    en: 'The corridor, in one view',
-    zh: '一条走廊，一图看懂',
-    ar: 'الممر في نظرة واحدة',
+  'home.bridge.eyebrow': {
+    en: 'Two-way bridge',
+    zh: '双向桥梁',
+    ar: 'جسر في الاتجاهين',
+  },
+  'home.bridge.title': {
+    en: 'A bridge that works both ways.',
+    zh: '双向通行的桥梁。',
+    ar: 'جسر يعمل في الاتجاهين.',
+  },
+  'home.bridge.sub': {
+    en: 'Whether you are entering China or selling into the Gulf, we stand on both ends — with one team and one point of contact.',
+    zh: '无论您是进入中国，还是销往海湾，我们都站在两端 — 一个团队，一个对接窗口。',
+    ar: 'سواء دخلت الصين أو كنت تبيع في الخليج، نقف على الطرفين — فريق واحد ونقطة تواصل واحدة.',
+  },
+  'home.bridge.inTitle': {
+    en: 'Gulf companies entering China',
+    zh: '海湾企业进入中国',
+    ar: 'شركات الخليج تدخل الصين',
+  },
+  'home.bridge.outTitle': {
+    en: 'Chinese companies entering the Gulf',
+    zh: '中国企业进入海湾',
+    ar: 'الشركات الصينية تدخل الخليج',
   },
   'home.panel.leg1t': { en: 'China side', zh: '中国一端', ar: 'الجانب الصيني' },
   'home.panel.leg1d': {

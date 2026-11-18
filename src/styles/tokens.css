@@ -1,76 +1,100 @@
 /* ══════════════════════════════════════════════════════════════
-   YALLA KAISHI — DESIGN TOKENS
-   Premium light corporate · gold + deep teal · tri-script safe
+   YALLA KAISHI — DESIGN TOKENS (v4 "China desk" brand)
+   Ink + paper + orange · thick rules · rounded cards · tri-script
    All directional values are LOGICAL (inline/block) so RTL
    (العربية) mirrors automatically with zero extra CSS.
    ══════════════════════════════════════════════════════════════ */
 
+/* ── Self-hosted variable fonts (Google Fonts, OFL) ──────────
+   No third-party font CDN: the site stays fast and reachable in
+   mainland China. Chinese and Arabic fall back to the reader's
+   own high-quality system faces.                                     */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/outfit-var.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-var.woff2') format('woff2');
+}
+
 :root {
   /* ── Colour ─────────────────────────────────────────── */
-  --ink: #0a1020;
-  --body: #3d4a63;
-  /* Secondary text tones: both verified >= 4.5:1 (WCAG AA) on every
-     surface they sit on (white / surface-2 / surface-3 / soft tints).
-     Hierarchy comes from size and weight, not from dropping below AA. */
-  --muted: #55617a;
-  --faint: #5f6c85;
+  --ink: #0b0f1a;
+  --body: #2a3040;
+  --muted: #4a5060;
+  --faint: #5a6272;
 
+  --paper: #faf8f5;
   --surface: #ffffff;
-  --surface-2: #f7f9fc;
-  --surface-3: #eef2f8;
+  --surface-2: #f4efe6;
+  --surface-3: #ece4d5;
 
-  --line: #e6eaf1;
-  --line-strong: #d2dae7;
+  --orange: #ff7a00;
+  --amber: #ffb000;
+  --navy: #161b2a;
+  --dm: #d5d8e2;
 
-  --gold: #c08a2e;
-  --gold-ink: #7c5413; /* text-safe gold on white (7.4:1) */
-  --gold-soft: #f6ecd8;
-  --gold-line: #e8d5ad;
+  /* Legacy accent aliases: the whole UI is orange-led now, so both
+     old "gold" and "teal" accents resolve to the brand orange. */
+  --gold: var(--orange);
+  --gold-ink: #a84800; /* text-safe orange on paper/white (5.1:1) */
+  --gold-soft: #fff1de;
+  --gold-line: #ffb000;
 
-  --teal: #0f766e;
-  --teal-ink: #0b5c56;
-  --teal-soft: #e4f2f0;
-  --teal-line: #c4e2de;
+  --teal: var(--orange);
+  --teal-ink: var(--gold-ink);
+  --teal-soft: #fff1de;
+  --teal-line: #ffd0a0;
 
-  --danger: #b42318;
+  --line: #e3dacb;
+  --line-strong: #0b0f1a;
+
+  --danger: #b3261e;
   --danger-soft: #fdecea;
-  --success: #12734d;
+  --success: #0a6b3d;
   --success-soft: #e6f4ec;
 
-  --focus: #0f766e;
+  --focus: var(--orange);
 
-  /* Gradients (used sparingly, never for body text) */
-  --grad-gold: linear-gradient(135deg, #d8a044 0%, #b8862f 55%, #96681f 100%);
-  --grad-hero: linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
-  --grad-ink: linear-gradient(160deg, #0a1020 0%, #16233f 100%);
-  --grad-card: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
-  --grad-rule: linear-gradient(90deg, var(--gold), var(--teal) 55%, transparent);
+  /* Solid, print-like surfaces — no decorative gradients. */
+  --grad-gold: linear-gradient(180deg, #ff8a1f 0%, #ff7a00 100%);
+  --grad-hero: linear-gradient(180deg, #0b0f1a 0%, #161b2a 100%);
+  --grad-ink: linear-gradient(180deg, #0b0f1a 0%, #161b2a 100%);
+  --grad-card: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
+  --grad-rule: linear-gradient(90deg, var(--orange), var(--amber));
 
   /* ── Typography ─────────────────────────────────────── */
-  --font-display: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
-  --font-body: 'Inter', 'Nototo Sans SC', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --font-body: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
 
-  --fs-2xs: 0.6875rem;
-  --fs-xs: 0.75rem;
-  --fs-sm: 0.8125rem;
-  --fs-base: 0.9375rem;
-  --fs-md: 1rem;
-  --fs-lg: 1.125rem;
-  --fs-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --fs-2xs: 0.75rem;
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.0625rem;
+  --fs-lg: 1.1875rem;
+  --fs-xl: clamp(1.35rem, 1.15rem + 0.7vw, 1.65rem);
 
-  --fs-h4: clamp(1rem, 0.95rem + 0.35vw, 1.15rem);
-  --fs-h3: clamp(1.15rem, 1rem + 0.7vw, 1.45rem);
-  --fs-h2: clamp(1.75rem, 1.35rem + 1.8vw, 2.75rem);
-  --fs-h1: clamp(2.4rem, 1.7rem + 3.4vw, 4.25rem);
+  --fs-h4: clamp(1.05rem, 0.98rem + 0.4vw, 1.25rem);
+  --fs-h3: clamp(1.25rem, 1.1rem + 0.75vw, 1.6rem);
+  --fs-h2: clamp(1.9rem, 1.5rem + 1.7vw, 2.9rem);
+  --fs-h1: clamp(2.6rem, 1.9rem + 3.2vw, 4.4rem);
 
-  --lh-tight: 1.08;
-  --lh-snug: 1.25;
+  --lh-tight: 1.05;
+  --lh-snug: 1.22;
   --lh-body: 1.65;
 
-  --tracking-tight: -0.02em;
+  --tracking-tight: -0.025em;
   --tracking-snug: -0.01em;
-  --tracking-wide: 0.08em;
-  --tracking-wider: 0.18em;
+  --tracking-wide: 0.06em;
+  --tracking-wider: 0.14em;
 
   --w-regular: 400;
   --w-medium: 500;
@@ -78,30 +102,30 @@
   --w-bold: 700;
 
   /* ── Space ──────────────────────────────────────────── */
-  --section-y: clamp(4rem, 3rem + 5vw, 7.5rem);
-  --gutter: clamp(1.25rem, 1rem + 1.6vw, 2rem);
+  --section-y: clamp(4.5rem, 3.5rem + 4.5vw, 7rem);
+  --gutter: clamp(1.25rem, 1rem + 1.8vw, 2.5rem);
 
   /* ── Radius ─────────────────────────────────────────── */
   --r-xs: 6px;
-  --r-sm: 10px;
-  --r: 14px;
-  --r-lg: 20px;
-  --r-xl: 28px;
+  --r-sm: 12px;
+  --r: 16px;
+  --r-lg: 22px;
+  --r-xl: 36px;
   --r-pill: 999px;
 
-  /* ── Shadow ─────────────────────────────────────────── */
-  --sh-xs: 0 1px 2px rgba(10, 16, 32, 0.05);
-  --sh-sm: 0 2px 6px rgba(10, 16, 32, 0.06), 0 1px 2px rgba(10, 16, 32, 0.04);
-  --sh-md: 0 10px 24px -12px rgba(10, 16, 32, 0.16), 0 4px 8px -4px rgba(10, 16, 32, 0.06);
-  --sh-lg: 0 28px 56px -28px rgba(10, 16, 32, 0.28), 0 8px 16px -8px rgba(10, 16, 32, 0.08);
-  --sh-gold: 0 18px 34px -18px rgba(160, 111, 29, 0.55);
-  --sh-inset: inset 0 1px 0 rgba(255, 255, 255, 0.38);
-  --ring: 0 0 0 3px rgba(15, 118, 110, 0.28);
+  /* ── Shadow (ink-tinted, used sparingly) ────────────── */
+  --sh-xs: 0 1px 0 rgba(11, 15, 26, 0.04);
+  --sh-sm: 0 2px 0 rgba(11, 15, 26, 0.06);
+  --sh-md: 0 14px 32px -24px rgba(11, 15, 26, 0.45);
+  --sh-lg: 0 26px 54px -34px rgba(11, 15, 26, 0.5);
+  --sh-gold: 0 12px 26px -18px rgba(255, 122, 0, 0.65);
+  --sh-inset: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  --ring: 0 0 0 3px rgba(255, 122, 0, 0.35);
 
   /* ── Layout ─────────────────────────────────────────── */
   --container: 1200px;
   --container-narrow: 780px;
-  --nav-h: 74px;
+  --nav-h: 84px;
 
   /* ── Motion ─────────────────────────────────────────── */
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -115,10 +139,10 @@
   --z-progress: 300;
 }
 
-/* ── Arabic: switch to the Arabic stack + tuned rhythm ── */
+/* ── Arabic: Arabic-first display + body stacks ────────── */
 :root[lang='ar'] {
-  --font-display: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Noto Sans SC', sans-serif;
-  --font-body: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Noto Sans SC', sans-serif;
+  --font-display: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+  --font-body: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
   --lh-body: 1.8;
   --tracking-tight: 0;
   --tracking-snug: 0;
@@ -126,8 +150,9 @@
   --tracking-wider: 0.04em;
 }
 
-/* ── Chinese: keep Inter for latin, Noto for CJK ── */
-:root[lang='zh'] {
-  --font-body: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+/* ── Chinese: Latin stays Inter/Outfit, CJK uses system faces ── */
+:root[lang^='zh'] {
+  --font-body: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
   --lh-body: 1.75;
+  --tracking-tight: -0.01em;
 }

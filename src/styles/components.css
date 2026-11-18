@@ -738,11 +738,11 @@ body.drawer-open {
   overflow: hidden;
 }
 
-@media (max-width: 1040px) {
+/* Six nav items + language switch + CTA need roughly 1,200px. Below that the
+   drawer takes over, but the header CTA stays until phones, where the sticky
+   bottom bar becomes the primary action. */
+@media (max-width: 1180px) {
   .main-nav {
-    display: none;
-  }
-  .header-cta {
     display: none;
   }
   .nav-toggle {
@@ -750,6 +750,11 @@ body.drawer-open {
   }
   .header-actions {
     margin-inline-start: auto;
+  }
+}
+@media (max-width: 1040px) {
+  .header-cta {
+    display: none;
   }
 }
 @media (max-width: 520px) {

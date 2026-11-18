@@ -8,16 +8,13 @@ import { industries } from '../data/industries';
 import { processSteps } from '../data/process';
 import { faqs } from '../data/faq';
 import { plans } from '../data/engagement';
-import { caseStudies } from '../data/cases';
 
 import BaseLayout from '../components/BaseLayout.astro';
 import SectionHead from '../components/SectionHead.astro';
 import ServiceCard from '../components/ServiceCard.astro';
-import ProcessSteps from '../components/ProcessSteps.astro';
 import PlanCard from '../components/PlanCard.astro';
 import FAQList from '../components/FAQList.astro';
-import CTABand from '../components/CTABand.astro';
-import CaseCard from '../components/CaseCard.astro';
+import ContactForm from '../components/ContactForm.astro';
 import Icon from '../components/Icon.astro';
 
 interface Props {
@@ -56,11 +53,18 @@ const orgLd = {
   jsonLd={[orgLd]}
 >
   <!-- ══════════ HERO ══════════ -->
-  <section class="hero">
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="container hero-grid">
+  <section class="home-hero">
+    <svg class="hero-shape" aria-hidden="true" width="420" height="420" viewBox="0 0 100 100">
+      <path
+        d="M22 12 Q22 6 28 9 L88 44 Q94 50 88 56 L28 91 Q22 94 22 88 Z"
+        fill="#FF7A00"
+        transform="rotate(-18 50 50)"
+      ></path>
+    </svg>
+
+    <div class="hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow eyebrow--gold">{t('home.hero.eyebrow', locale)}</p>
+        <span class="chip">{t('home.hero.eyebrow', locale)}</span>
         <h1>
           <span class="hero-line">{t('home.hero.title1', locale)}</span>
           <span class="hero-line hero-line--accent">{t('home.hero.title2', locale)}</span>
@@ -68,7 +72,7 @@ const orgLd = {
         <p class="lede">{t('home.hero.sub', locale)}</p>
 
         <div class="hero-actions">
-          <a class="btn btn-primary btn-lg" href={`${localUrl(locale, routes.contact)}#brief`}>
+          <a class="btn btn-primary btn-lg" href="#brief">
             {t('home.hero.cta1', locale)}
             <Icon name="arrow" size={18} />
           </a>
@@ -90,50 +94,69 @@ const orgLd = {
         </ul>
 
         <p class="hero-trust">
-          <Icon name="clock" size={14} />
+          <Icon name="pin" size={14} />
           <span>
-            {site.address.city} · {t('common.hoursValue', locale)}
+            {t('home.panel.live', locale)} · {t('common.hoursValue', locale)}
           </span>
         </p>
       </div>
 
-      <aside class="bridge-panel" aria-label={t('home.panel.title', locale)}>
-        <header class="bridge-head">
-          <span class="bridge-dot" aria-hidden="true"></span>
-          <p class="bridge-title">{t('home.panel.title', locale)}</p>
-          <span class="bridge-live">{t('home.panel.live', locale)}</span>
-        </header>
-
-        <div class="bridge-legs">
-          <div class="bridge-leg">
-            <p class="bridge-leg-t">{t('home.panel.leg1t', locale)}</p>
-            <p class="bridge-leg-d">{t('home.panel.leg1d', locale)}</p>
-          </div>
-
-          <div class="bridge-spine" aria-hidden="true">
-            <span></span>
-            <Icon name="swap" size={20} />
-            <span></span>
-          </div>
-
-          <div class="bridge-leg bridge-leg--gulf">
-            <p class="bridge-leg-t">{t('home.panel.leg2t', locale)}</p>
-            <p class="bridge-leg-d">{t('home.panel.leg2d', locale)}</p>
-          </div>
+      <div class="logo-card" data-reveal>
+        <img
+          src="/logo.png"
+          alt={`${site.name} 开始`}
+          width="670"
+          height="438"
+          fetchpriority="high"
+        />
+        <div class="logo-tags">
+          <span class="rg">{t('meta.tagline', locale)}</span>
+          <span class="rg">{t('eng.fixedFee', locale)}</span>
+          <span class="rg">EN · 中文 · العربية</span>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <footer class="bridge-foot">
-          <span class="bridge-foot-label">{t('home.panel.foot', locale)}</span>
-          <span class="bridge-foot-value">
-            {site.name} · {t('common.response', locale)}
-          </span>
-        </footer>
-      </aside>
+  <!-- ══════════ TWO-WAY BRIDGE ══════════ -->
+  <section class="section" id="bridge">
+    <div class="container">
+      <SectionHead
+        eyebrow={t('home.bridge.eyebrow', locale)}
+        title={t('home.bridge.title', locale)}
+        sub={t('home.bridge.sub', locale)}
+      />
+
+      <div class="bridge-pair">
+        <article class="bridge-card" data-reveal>
+          <span class="chip">{t('home.panel.leg1t', locale)}</span>
+          <h2>{t('home.bridge.inTitle', locale)}</h2>
+          <p>{t('home.panel.leg1d', locale)}</p>
+          <div class="bridge-card-foot">
+            <span>{t('home.panel.foot', locale)}</span>
+            <a class="link-arrow" href={localUrl(locale, routes.chinaSupport)}>
+              {t('nav.china', locale)} <Icon name="arrow" size={15} />
+            </a>
+          </div>
+        </article>
+
+        <article class="bridge-card" data-reveal>
+          <span class="chip">{t('home.panel.leg2t', locale)}</span>
+          <h2>{t('home.bridge.outTitle', locale)}</h2>
+          <p>{t('home.panel.leg2d', locale)}</p>
+          <div class="bridge-card-foot">
+            <span>{t('home.panel.foot', locale)}</span>
+            <a class="link-arrow" href={localUrl(locale, routes.services)}>
+              {t('nav.services', locale)} <Icon name="arrow" size={15} />
+            </a>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
   <!-- ══════════ SERVICES ══════════ -->
-  <section class="section" id="services">
+  <section class="section section--tint" id="services">
     <div class="container">
       <SectionHead
         eyebrow={t('home.services.eyebrow', locale)}
@@ -153,28 +176,8 @@ const orgLd = {
     </div>
   </section>
 
-  <!-- ══════════ PROCESS ══════════ -->
-  <section class="section section--tint" id="process">
-    <div class="container">
-      <SectionHead
-        eyebrow={t('home.process.eyebrow', locale)}
-        title={t('home.process.title', locale)}
-        sub={t('home.process.sub', locale)}
-      >
-        <a
-          class="link-arrow"
-          href={localUrl(locale, routes.process)}
-          aria-label={t('process.meta.title', locale)}
-        >
-          {t('common.more', locale)} <Icon name="arrow" size={16} />
-        </a>
-      </SectionHead>
-      <ProcessSteps steps={processSteps} locale={locale} showDetail={false} />
-    </div>
-  </section>
-
   <!-- ══════════ INDUSTRIES ══════════ -->
-  <section class="section" id="industries">
+  <section class="section section--dark" id="industries">
     <div class="container">
       <SectionHead
         eyebrow={t('home.industries.eyebrow', locale)}
@@ -186,17 +189,14 @@ const orgLd = {
         </a>
       </SectionHead>
 
-      <div class="industry-grid">
+      <div class="industry-tiles">
         {industries.map((i) => (
           <a
-            class="industry-card"
+            class="industry-tile"
             href={`${localUrl(locale, routes.industries)}${i.slug}/`}
             data-reveal
           >
-            <span class="detail-icon">
-              <Icon name={i.icon} size={24} />
-            </span>
-            <span class="industry-index">{i.index}</span>
+            <span class="tile-index">{i.index}</span>
             <h2>{pick(i.name, locale)}</h2>
             <p>{pick(i.headline, locale)}</p>
             <span class="link-arrow">
@@ -208,26 +208,34 @@ const orgLd = {
     </div>
   </section>
 
-  <!-- ══════════ CASE ══════════ -->
-  <section class="section section--tint" id="cases">
+  <!-- ══════════ HOW IT WORKS ══════════ -->
+  <section class="section" id="process">
     <div class="container">
       <SectionHead
-        eyebrow={t('cases.eyebrow', locale)}
-        title={t('cases.title', locale)}
-        sub={t('cases.sub', locale)}
+        eyebrow={t('home.process.eyebrow', locale)}
+        title={t('home.process.title', locale)}
+        sub={t('home.process.sub', locale)}
       >
-        <a class="link-arrow" href={localUrl(locale, routes.cases)}>
-          {t('common.viewAll', locale)} <Icon name="arrow" size={16} />
+        <a class="link-arrow" href={localUrl(locale, routes.process)}>
+          {t('process.meta.title', locale)} <Icon name="arrow" size={16} />
         </a>
       </SectionHead>
-      <div class="case-grid case-grid--one">
-        <CaseCard item={caseStudies[0]} locale={locale} featured />
-      </div>
+
+      <ol class="steps-grid">
+        {processSteps.slice(0, 3).map((step) => (
+          <li data-reveal>
+            <div class="step-num">{step.index}</div>
+            <h3>{pick(step.name, locale)}</h3>
+            <p>{pick(step.summary, locale)}</p>
+            <span class="rg">{pick(step.when, locale)}</span>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 
-  <!-- ══════════ ENGAGEMENT ══════════ -->
-  <section class="section" id="engagement">
+  <!-- ══════════ PLANS ══════════ -->
+  <section class="section plans-band" id="plans">
     <div class="container">
       <SectionHead
         eyebrow={t('home.engagement.eyebrow', locale)}
@@ -238,11 +246,14 @@ const orgLd = {
           {t('eng.compare', locale)} <Icon name="arrow" size={16} />
         </a>
       </SectionHead>
+
       <div class="plan-grid">
         {plans.map((p) => (
           <PlanCard plan={p} locale={locale} />
         ))}
       </div>
+
+      <p class="plans-note">{t('eng.notIncludedNote', locale)}</p>
     </div>
   </section>
 
@@ -257,12 +268,54 @@ const orgLd = {
       <FAQList items={faqs.slice(0, 6)} locale={locale} />
       <p class="faq-more">
         <a class="link-arrow" href={localUrl(locale, routes.faq)}>
-          {t('faq.meta.title', locale)} · {t('common.viewAll', locale)}{' '}
+          {t('faq.meta.title', locale)} · {t('common.viewAll', locale)}
           <Icon name="arrow" size={15} />
         </a>
       </p>
     </div>
   </section>
 
-  <CTABand locale={locale} />
+  <!-- ══════════ CONTACT ══════════ -->
+  <section class="section home-contact" id="brief">
+    <div class="container home-contact-grid">
+      <div class="home-contact-copy" data-reveal>
+        <p class="eyebrow">{t('contact.eyebrow', locale)}</p>
+        <h2>{t('home.cta.title', locale)}</h2>
+        <p>{t('home.cta.body', locale)}</p>
+
+        <ul class="home-contact-points">
+          <li>
+            <Icon name="check" size={18} />
+            <span>
+              {t('eng.fixedFee', locale)} · {t('eng.capped', locale)}
+            </span>
+          </li>
+          <li>
+            <Icon name="check" size={18} />
+            <span>
+              {t('home.panel.foot', locale)} — {t('common.response', locale)}
+            </span>
+          </li>
+          <li>
+            <Icon name="check" size={18} />
+            <span>EN · 中文 · العربية</span>
+          </li>
+        </ul>
+
+        <div class="home-contact-direct">
+          <a class="btn btn-outline" href={`mailto:${site.email}`}>
+            <Icon name="mail" size={17} /> {site.email}
+          </a>
+          <a class="btn btn-ghost" href={`tel:${site.phoneIntl}`}>
+            <Icon name="phone" size={17} /> {site.phoneDisplay}
+          </a>
+        </div>
+      </div>
+
+      <div class="home-contact-form" data-reveal>
+        <p class="mini-label">{t('contact.formTitle', locale)}</p>
+        <ContactForm locale={locale} />
+      </div>
+    </div>
+  </section>
 </BaseLayout>

@@ -3,7 +3,6 @@ import { localeMeta, localUrl, type Locale, locales } from '../i18n';
 import { t, type TKey } from '../i18n/ui';
 import { routes, site, type RouteKey } from '../data/site';
 import Icon from './Icon.astro';
-import Logo from './Logo.astro';
 
 interface Props {
   locale: Locale;
@@ -40,14 +39,14 @@ const contactHref = localUrl(locale, routes.contact);
 
 <header class="site-header" data-header>
   <div class="container header-inner">
-    <a class="brand" href={localUrl(locale, '/')} aria-label={site.name}>
-      <span class="brand-mark" aria-hidden="true">
-        <Logo size={28} gradId="yk-grad-hdr" />
-      </span>
-      <span class="brand-text">
-        <strong>{site.name}</strong>
-        <small>{t('meta.tagline', locale)}</small>
-      </span>
+    <a class="brand brand--logo" href={localUrl(locale, '/')} aria-label={site.name}>
+      <img
+        src="/logo.png"
+        alt={`${site.name} 开始`}
+        width="670"
+        height="438"
+        fetchpriority="high"
+      />
     </a>
 
     <nav class="main-nav" aria-label={t('nav.services', locale)}>

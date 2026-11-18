@@ -3,7 +3,6 @@ import { localUrl, type Locale, locales, localeMeta } from '../i18n';
 import { t, type TKey } from '../i18n/ui';
 import { routes, site, type RouteKey } from '../data/site';
 import Icon from './Icon.astro';
-import Logo from './Logo.astro';
 
 interface Props {
   locale: Locale;
@@ -44,11 +43,8 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <a class="brand brand--footer" href={localUrl(locale, '/')}>
-        <span class="brand-mark" aria-hidden="true">
-          <Logo size={26} gradId="yk-grad-ftr" />
-        </span>
-        <strong>{site.name}</strong>
+      <a class="brand brand--footer brand--logo-footer" href={localUrl(locale, '/')}>
+        <img src="/logo.png" alt={`${site.name} 开始`} width="670" height="438" loading="lazy" />
       </a>
       <p>{t('foot.tagline', locale)}</p>
 
