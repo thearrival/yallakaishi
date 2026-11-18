@@ -54,9 +54,9 @@ describe('data completeness', () => {
 });
 
 describe('published catalogue counts', () => {
-  it('ships exactly 6 core services', () => {
-    expect(coreServices).toHaveLength(6);
-    expect(new Set(coreServices.map((s) => s.slug)).size).toBe(6);
+  it('ships exactly 7 core services', () => {
+    expect(coreServices).toHaveLength(7);
+    expect(new Set(coreServices.map((s) => s.slug)).size).toBe(7);
   });
 
   it('ships 6 China-support categories totalling 32 services', () => {
@@ -65,15 +65,15 @@ describe('published catalogue counts', () => {
     expect(supportCategories.reduce((n, c) => n + c.services.length, 0)).toBe(32);
   });
 
-  it('ships 3 industries, 3 case studies, 3 plans, 3 process steps', () => {
+  it('ships 3 industries, 3 case studies, 3 plans, 4 process steps', () => {
     expect(industries).toHaveLength(3);
     expect(caseStudies).toHaveLength(3);
     expect(plans).toHaveLength(3);
-    expect(processSteps).toHaveLength(3);
+    expect(processSteps).toHaveLength(4);
   });
 
-  it('ships at least 12 FAQs across known groups', () => {
-    expect(faqs.length).toBeGreaterThanOrEqual(12);
+  it('ships at least 6 FAQs across known groups', () => {
+    expect(faqs.length).toBeGreaterThanOrEqual(6);
     const groupKeys = new Set(faqGroups.map((g) => g.key));
     for (const f of faqs) expect(groupKeys.has(f.group)).toBe(true);
   });

@@ -13,23 +13,23 @@ export interface Industry {
 
 export const industries: Industry[] = [
   {
-    slug: 'tech-advanced-manufacturing',
+    slug: 'b2b-manufacturing-components',
     index: '01',
-    icon: 'chip',
+    icon: 'gear',
     name: {
-      en: 'Tech and advanced manufacturing',
-      zh: '科技与先进制造',
-      ar: 'التقنية والتصنيع المتقدم',
+      en: 'B2B manufacturing and components',
+      zh: 'B2B 制造与零部件',
+      ar: 'التصنيع B2B والمكونات',
     },
     headline: {
-      en: 'Great product, but no Chinese-language presence or local contacts.',
-      zh: '产品很好，但没有中文形象，也没有本地联系人。',
-      ar: 'منتج ممتاز، لكن بلا حضور باللغة الصينية أو جهات اتصال محلية.',
+      en: 'Export-ready manufacturers with a differentiated product.',
+      zh: '具有差异化产品的出口就绪制造商。',
+      ar: 'مصنعون جاهزون للتصدير بمنتج متميز.',
     },
     body: {
-      en: 'One closed distributor deal can be worth tens of thousands of dollars, so focus beats volume. We build the Chinese-facing presence and open the first conversations.',
-      zh: '一单分销协议就可能价值数万美元，因此专注胜过数量。我们建立面向中国的形象，并开启第一批对话。',
-      ar: 'صفقة توزيع واحدة قد تساوي عشرات الآلاف من الدولارات، لذا فالتركيز أفضل من الحجم. نبني الحضور الموجّه للصين ونفتح أول المحادثات.',
+      en: 'Chinese manufacturers and component suppliers with export documentation and a decision-maker willing to invest in growth.',
+      zh: '具有出口文件和愿意投资增长的决策者的中国制造商和零部件供应商。',
+      ar: 'مصنعون وموردو مكونات صينيون مع وثائق تصدير وصانع قرار مستعد للاستثمار في النمو.',
     },
     entryPoints: [
       { en: 'Europe', zh: '欧洲', ar: 'أوروبا' },
@@ -43,23 +43,19 @@ export const industries: Industry[] = [
     ],
   },
   {
-    slug: 'trade-supply-chain',
+    slug: 'consumer-brands',
     index: '02',
-    icon: 'swap',
-    name: {
-      en: 'Trade and supply chain',
-      zh: '贸易与供应链',
-      ar: 'التجارة وسلسلة التوريد',
-    },
+    icon: 'cart',
+    name: { en: 'Consumer brands', zh: '消费品牌', ar: 'العلامات الاستهلاكية' },
     headline: {
-      en: 'Buyers need trusted Chinese suppliers and clear communication.',
-      zh: '买家需要值得信赖的中国供应商和清晰的沟通。',
-      ar: 'المشترون بحاجة إلى موردين صينيين موثوقين وتواصل واضح.',
+      en: 'Consumer brands with the right to sell abroad.',
+      zh: '有权在海外销售的消费品牌。',
+      ar: 'علامات استهلاكية لها حق البيع في الخارج.',
     },
     body: {
-      en: 'Buyers need trusted Chinese suppliers and clear communication. We connect both sides with verified profiles and bilingual outreach.',
-      zh: '买家需要值得信赖的中国供应商和清晰的沟通。我们通过经验证的资料和双语触达连接双方。',
-      ar: 'المشترون بحاجة إلى موردين صينيين موثوقين وتواصل واضح. نربط الطرفين بملفات موثّقة وتواصل ثنائي اللغة.',
+      en: 'Consumer brands with adequate fulfilment capability and a product that can be adapted for the target market.',
+      zh: '具有充足履约能力且产品可适应目标市场的消费品牌。',
+      ar: 'علامات استهلاكية ذات قدرة تلبية كافية ومنتج يمكن تكييفه للسوق المستهدف.',
     },
     entryPoints: [
       { en: 'Middle East', zh: '中东', ar: 'الشرق الأوسط' },
@@ -72,23 +68,23 @@ export const industries: Industry[] = [
     ],
   },
   {
-    slug: 'education-professional-services',
+    slug: 'professional-services-education',
     index: '03',
     icon: 'cap',
     name: {
-      en: 'Education and professional services',
-      zh: '教育与专业服务',
-      ar: 'التعليم والخدمات المهنية',
+      en: 'Professional services and education',
+      zh: '专业服务与教育',
+      ar: 'الخدمات المهنية والتعليم',
     },
     headline: {
-      en: 'They want Chinese students, partners and clients, but do not know the platforms.',
-      zh: '他们想要中国学生、合作伙伴和客户，但不知道该用哪些平台。',
-      ar: 'يريدون طلابًا وشركاء وعملاء صينيين، لكنهم لا يعرفون المنصات.',
+      en: 'Established companies with a specific China hypothesis.',
+      zh: '具有明确中国假设的成熟企业。',
+      ar: 'شركات راسخة مع فرضية صينية محددة.',
     },
     body: {
-      en: 'They want Chinese students, partners and clients, but do not know the platforms. We build the presence and run the outreach.',
-      zh: '他们想要中国学生、合作伙伴和客户，但不知道该用哪些平台。我们建立形象并执行触达。',
-      ar: 'يريدون طلابًا وشركاء وعملاء صينيين، لكنهم لا يعرفون المنصات. نبني الحضور وندير التوعية.',
+      en: 'International B2B companies with a specific China hypothesis, budget, and executive sponsor.',
+      zh: '具有明确中国假设、预算和高管支持的国际 B2B 企业。',
+      ar: 'شركات B2B دولية مع فرضية صينية محددة وميزانية وراعٍ تنفيذي.',
     },
     entryPoints: [
       { en: 'Europe', zh: '欧洲', ar: 'أوروبا' },

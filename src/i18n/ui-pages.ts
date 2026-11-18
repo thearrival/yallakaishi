@@ -8,34 +8,34 @@ import type { Locale, Localized } from './index';
 export const uiPages = {
   /* ══════════ HOME ══════════ */
   'home.hero.eyebrow': {
-    en: 'Yalla Kaishi 开始 · Guangzhou',
-    zh: 'Yalla Kaishi 开始 · 广州',
-    ar: 'Yalla Kaishi 开始 · 广州',
+    en: 'China ↔ International Growth',
+    zh: '中国 ↔ 国际增长',
+    ar: 'الصين ↔ النمو الدولي',
   },
   'home.hero.title1': {
-    en: 'Your China desk,',
-    zh: '你的中国办公桌，',
-    ar: 'مكتبك الصيني،',
+    en: 'Grow across China and the world—',
+    zh: '跨越中国与世界增长——',
+    ar: 'النمو عبر الصين والعالم——',
   },
   'home.hero.title2': {
-    en: 'in two languages.',
-    zh: '双语服务。',
-    ar: 'بلغتين.',
+    en: 'with a clearer plan and the right local connections.',
+    zh: '以更清晰的计划与正确的本地连接。',
+    ar: 'بخطة أوضح وروابط محلية مناسبة.',
   },
   'home.hero.sub': {
-    en: 'We are the Chinese-speaking sales and marketing team for global B2B companies, and the English-speaking voice for Chinese factories.',
-    zh: '我们是全球 B2B 企业的中文销售与营销团队，也是中国工厂的英语发声者。',
-    ar: 'نحن فريق المبيعات والتسويق الناطق بالصينية للشركات B2B العالمية، والصوت الناطق بالإنجليزية للمصانع الصينية.',
+    en: 'We help Chinese companies reach international buyers and help international companies assess and enter China. From market validation and localization to demand generation, supplier discovery, and partner development, we connect strategy to execution.',
+    zh: '我们帮助中国公司触达国际买家，并帮助国际企业评估并进入中国。从市场验证与本地化到需求生成、供应商发现和合作伙伴开发，我们连接战略与执行。',
+    ar: 'نساعد الشركات الصينية في الوصول إلى المشترين الدوليين ونساعد الشركات الدولية في تقييم والدخول إلى الصين. من التحقق من السوق والتوطين إلى توليد الطلب واكتشاف الموردين وتطوير الشركاء، نربط الاستراتيجية بالتنفيذ.',
   },
   'home.hero.cta1': {
-    en: 'See the 30-day China Test',
-    zh: '查看 30 天中国测试',
-    ar: '查看 30 天中国测试',
+    en: 'I’m a Chinese company going global',
+    zh: '我是走向全球的中国企业',
+    ar: 'أنا شركة صينية تتوجه عالميًا',
   },
   'home.hero.cta2': {
-    en: 'Explore the bridge',
-    zh: '探索这座桥梁',
-    ar: '探索这座桥梁',
+    en: 'I’m entering or sourcing from China',
+    zh: '我正在进入或从中国采购',
+    ar: 'أدخل أو أستورد من الصين',
   },
   'home.stats.projects': {
     en: 'Cross-border projects delivered',
