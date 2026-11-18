@@ -1,12 +1,24 @@
 /* ══════════════════════════════════════════════════════════════
-   OUTSTANDING LAYER — bold, immersive, premium
+   DESIGN SYSTEM — outstanding, modern, marketing-focused
    ══════════════════════════════════════════════════════════════ */
 
-/* ── Global ─────────────────────────────────────────────────── */
+:root {
+  --d-bg: #0a0f2a;
+  --d-surface: #ffffff;
+  --d-muted: #475569;
+  --d-orange: #ff6a00;
+  --d-amber: #ffb000;
+  --d-cyan: #00d4ff;
+  --d-ink: #0f172a;
+  --d-paper: #f8fafc;
+}
+
+/* ── Base ───────────────────────────────────────────────────── */
 body {
-  background: #f8fafc;
-  color: #0f172a;
+  background: var(--d-paper);
+  color: var(--d-ink);
   font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.6;
   overflow-x: hidden;
 }
 h1,
@@ -16,17 +28,20 @@ h4 {
   font-family: 'Outfit', system-ui, sans-serif;
   font-weight: 900;
   letter-spacing: -0.05em;
-  line-height: 0.95;
+  line-height: 1.02;
   text-wrap: balance;
+}
+.lede {
+  text-wrap: pretty;
 }
 
 /* ── Hero ───────────────────────────────────────────────────── */
 .home-hero {
-  min-height: 85vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   background:
-    radial-gradient(ellipse 80% 60% at 15% 20%, rgba(255, 106, 0, 0.4), transparent 60%),
+    radial-gradient(ellipse 80% 60% at 15% 20%, rgba(255, 106, 0, 0.45), transparent 60%),
     radial-gradient(ellipse 70% 50% at 85% 30%, rgba(0, 212, 255, 0.25), transparent 60%),
     radial-gradient(ellipse 90% 70% at 50% 80%, rgba(255, 176, 0, 0.3), transparent 65%),
     linear-gradient(165deg, #050816 0%, #0a0f2a 50%, #050816 100%);
@@ -92,6 +107,8 @@ h4 {
   color: #ffb000;
   backdrop-filter: blur(8px);
   font-weight: 700;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
 }
 .hero-actions .btn {
   border-radius: 999px;
@@ -107,7 +124,7 @@ h4 {
   box-shadow: 0 12px 32px -12px rgba(255, 106, 0, 0.6);
 }
 .btn-primary:hover {
-  transform: translateY(-4px) scale(1.03);
+  transform: translateY(-4px) scale(1.02);
   box-shadow: 0 20px 40px -14px rgba(255, 106, 0, 0.7);
 }
 .btn-outline {
@@ -129,9 +146,11 @@ h4 {
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 32px;
   box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.6);
+  padding: 2rem;
 }
 .logo-card img {
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+  border-radius: 16px;
 }
 
 /* ── Sections ───────────────────────────────────────────────── */
