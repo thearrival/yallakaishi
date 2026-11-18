@@ -5,9 +5,9 @@ export const site = {
   nameZh: '亚拉凯世',
   url: 'https://yallakaishi.com',
   email: 'hello@yallakaishi.com',
-  phoneDisplay: '+86 187 0678 7811',
-  phoneIntl: '+8618706787811',
-  whatsappIntl: '8618706787811',
+  phoneDisplay: '+86 183 2609 5404',
+  phoneIntl: '+8618326095404',
+  whatsappIntl: '8618326095404',
   address: {
     street: 'Jinhui Building, 123 Jiefang South Road',
     district: 'Yuexiu District',
