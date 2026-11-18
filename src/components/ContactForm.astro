@@ -18,7 +18,7 @@ const { locale } = Astro.props;
  * `PUBLIC_FORM_ENDPOINT` elsewhere to override; a failed POST falls back to a
  * pre-filled mail client rather than dropping the enquiry.
  */
-const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '/api/enquiry';
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
 const contactEmail = site.email;
 
 const serviceGroups = [
@@ -560,7 +560,9 @@ const countries: { en: string; zh: string; ar: string }[] = [
       return (
         'mailto:' +
         contactEmail +
-        '?subject=' +
+        '?cc=' +
+        encodeURIComponent('esmail19980@gmail.com') +
+        '&subject=' +
         encodeURIComponent(subject) +
         '&body=' +
         encodeURIComponent(body)
