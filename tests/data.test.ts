@@ -65,11 +65,11 @@ describe('published catalogue counts', () => {
     expect(supportCategories.reduce((n, c) => n + c.services.length, 0)).toBe(32);
   });
 
-  it('ships 6 industries, 3 case studies, 3 plans, 4 process steps', () => {
-    expect(industries).toHaveLength(6);
+  it('ships 3 industries, 3 case studies, 3 plans, 3 process steps', () => {
+    expect(industries).toHaveLength(3);
     expect(caseStudies).toHaveLength(3);
     expect(plans).toHaveLength(3);
-    expect(processSteps).toHaveLength(4);
+    expect(processSteps).toHaveLength(3);
   });
 
   it('ships at least 12 FAQs across known groups', () => {

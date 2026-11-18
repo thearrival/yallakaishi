@@ -7,19 +7,19 @@ import type { Locale, Localized } from './index';
 export const uiCore = {
   /* ── Document metadata ─────────────────────────────── */
   'meta.tagline': {
-    en: 'China ⇄ Gulf. Sorted.',
-    zh: '中国 ⇄ 海湾，一站搞定。',
-    ar: 'الصين ⇄ الخليج. تمّ الأمر.',
+    en: 'Your first step into China.',
+    zh: '你进入中国的第一步。',
+    ar: '你进入中国的第一步。',
   },
   'meta.homeTitle': {
-    en: 'Yalla Kaishi — China ⇄ GCC Cross-Border Business Services',
-    zh: '亚拉凯世 — 中国 ⇄ 海湾跨境商业服务',
-    ar: 'يلا كايشي — خدمات أعمال عابرة للحدود بين الصين والخليج',
+    en: 'Yalla Kaishi 开始 | Your China desk, in two languages',
+    zh: 'Yalla Kaishi 开始 | 你的中国办公桌，双语服务',
+    ar: 'Yalla Kaishi 开始 | 你的中国办公桌，双语服务',
   },
   'meta.homeDesc': {
-    en: 'Market entry, compliance, regulatory translation, due diligence and in-country support for SMEs operating in China and the GCC. Fixed-fee proposals, 24-hour reply.',
-    zh: '扎根广州的跨境商业服务，助力中小企业进入中国与海湾市场：市场准入、合规运营、监管翻译、尽职调查与在地支持。固定费用提案，24 小时回复。',
-    ar: 'دخول السوق، الامتثال، الترجمة التنظيمية، العناية الواجبة والدعم الميداني للشركات الصغيرة في الصين والخليج. عروض بأسعار ثابتة ورد خلال 24 ساعة.',
+    en: 'Yalla Kaishi is a bilingual China desk for global B2B companies and Chinese factories: Chinese presence, buyer outreach and meetings in Chinese.',
+    zh: 'Yalla Kaishi 是为全球 B2B 企业与中文工厂提供双语中国办公桌服务：中文形象、买家触达与中文会议。',
+    ar: 'Yalla Kaishi 是为全球 B2B 企业与中文工厂提供双语中国办公桌服务：中文形象、买家触达与中文会议。',
   },
 
   /* ── Navigation ────────────────────────────────────── */
@@ -243,9 +243,9 @@ export const uiCore = {
 
   /* ── Footer ────────────────────────────────────────── */
   'foot.tagline': {
-    en: 'From Guangzhou to Riyadh, Dubai and Doha — one bilingual team, zero guesswork.',
-    zh: '从广州到利雅得、迪拜、多哈 — 一个双语团队，不再靠猜。',
-    ar: 'من غوانغتشو إلى الرياض ودبي ودوحة — فريق واحد يتحدث ثلاث لغات، بلا تخمين.',
+    en: 'Your first step into China.',
+    zh: '你进入中国的第一步。',
+    ar: '你进入中国的第一步。',
   },
   'foot.explore': { en: 'Explore', zh: '浏览', ar: 'استكشف' },
   'foot.company': { en: 'Company', zh: '公司', ar: 'الشركة' },
