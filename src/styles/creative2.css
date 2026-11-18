@@ -1,0 +1,151 @@
+/* ══════════════════════════════════════════════════════════════
+   CREATIVE 2 LAYER — extra motion and interactivity
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Hero floating shapes ───────────────────────────────────── */
+.home-hero::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 50%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(255, 106, 0, 0.25), transparent 70%);
+  filter: blur(60px);
+  animation: float-shape 12s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes float-shape {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-30px, 30px) scale(1.15);
+  }
+}
+
+/* ── Card hover glow ────────────────────────────────────────── */
+.svc-card,
+.industry-tile,
+.plan-card {
+  position: relative;
+  overflow: hidden;
+}
+.svc-card::before,
+.industry-tile::before,
+.plan-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 106, 0, 0.15),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.svc-card:hover::before,
+.industry-tile:hover::before,
+.plan-card:hover::before {
+  opacity: 1;
+}
+.svc-card > *,
+.industry-tile > *,
+.plan-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Button pulse ───────────────────────────────────────────── */
+.btn-primary {
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 106, 0, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(255, 106, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 106, 0, 0);
+  }
+}
+
+/* ── Section reveals ────────────────────────────────────────── */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  filter: blur(10px);
+  transition:
+    opacity 0.8s var(--ease-out),
+    transform 0.8s var(--ease-out),
+    filter 0.8s var(--ease-out);
+}
+html.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+/* ── Marquee ────────────────────────────────────────────────── */
+.marquee-track {
+  animation: marquee 25s linear infinite;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ── Scroll progress ────────────────────────────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #ff6a00, #ffb000, #00d4ff);
+  transform-origin: left;
+  transform: scaleX(0);
+  z-index: 9999;
+  transition: transform 0.1s linear;
+}
+
+/* ── Mobile ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .home-hero h1 {
+    font-size: clamp(2.4rem, 1.8rem + 8vw, 3.2rem);
+  }
+  .hero-actions {
+    flex-direction: column;
+  }
+  .hero-actions .btn {
+    width: 100%;
+  }
+  .svc-card,
+  .industry-tile,
+  .plan-card {
+    transform: none !important;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .home-hero::after,
+  .btn-primary,
+  .marquee-track,
+  html.js [data-reveal] {
+    animation: none !important;
+    transition: none !important;
+  }
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
