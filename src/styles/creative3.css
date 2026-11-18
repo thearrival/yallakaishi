@@ -1,0 +1,179 @@
+/* ══════════════════════════════════════════════════════════════
+   CREATIVE 3 LAYER — advanced motion and interactivity
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Parallax background ────────────────────────────────────── */
+.home-hero {
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* ── 3D card transforms ─────────────────────────────────────── */
+.svc-card,
+.industry-tile,
+.plan-card {
+  transform-style: preserve-3d;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.svc-card:hover,
+.industry-tile:hover,
+.plan-card:hover {
+  transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) translateY(-10px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* ── Animated gradient text ─────────────────────────────────── */
+.hero-line--accent {
+  background: linear-gradient(90deg, #ff6a00, #ffb000, #00d4ff, #ff6a00);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 6s linear infinite;
+}
+@keyframes gradient-shift {
+  to {
+    background-position: 300% 0;
+  }
+}
+
+/* ── Floating elements ──────────────────────────────────────── */
+.home-hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 60%;
+  height: 80%;
+  background: radial-gradient(circle, rgba(255, 106, 0, 0.2), transparent 70%);
+  filter: blur(60px);
+  animation: float 10s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes float {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-30px, 30px) scale(1.1);
+  }
+}
+
+/* ── Interactive cursor ──────────────────────────────────────── */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 106, 0, 0.15), transparent 70%);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+@media (pointer: fine) {
+  .cursor-glow {
+    opacity: 1;
+  }
+}
+
+/* ── Section transitions ────────────────────────────────────── */
+.section {
+  position: relative;
+  overflow: hidden;
+}
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 106, 0, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.section:hover::before {
+  opacity: 1;
+}
+
+/* ── Button ripple ──────────────────────────────────────────── */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.4s,
+    height 0.4s;
+}
+.btn:active::after {
+  width: 200px;
+  height: 200px;
+}
+
+/* ── Scroll progress ────────────────────────────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #ff6a00, #ffb000, #00d4ff);
+  transform-origin: left;
+  transform: scaleX(0);
+  z-index: 9999;
+  transition: transform 0.1s linear;
+}
+
+/* ── Mobile ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .home-hero {
+    min-height: auto;
+    padding: 3rem 1.5rem;
+  }
+  .home-hero h1 {
+    font-size: clamp(2.4rem, 1.8rem + 8vw, 3.2rem);
+  }
+  .hero-actions {
+    flex-direction: column;
+  }
+  .hero-actions .btn {
+    width: 100%;
+  }
+  .svc-card,
+  .industry-tile,
+  .plan-card {
+    transform: none !important;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .home-hero::before,
+  .btn::after,
+  html.js [data-reveal] {
+    animation: none !important;
+    transition: none !important;
+  }
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
