@@ -72,13 +72,17 @@ const orgLd = {
         <p class="lede">{t('home.hero.sub', locale)}</p>
 
         <div class="hero-actions">
-          <a class="btn btn-primary btn-lg" href="#brief">
-            {t('home.hero.cta1', locale)}
-            <Icon name="arrow" size={18} />
-          </a>
-          <a class="btn btn-outline btn-lg" href={localUrl(locale, routes.services)}>
-            {t('home.hero.cta2', locale)}
-          </a>
+          <span class="magnetic">
+            <a class="btn btn-primary btn-lg" href="#brief">
+              {t('home.hero.cta1', locale)}
+              <Icon name="arrow" size={18} />
+            </a>
+          </span>
+          <span class="magnetic">
+            <a class="btn btn-outline btn-lg" href={localUrl(locale, routes.services)}>
+              {t('home.hero.cta2', locale)}
+            </a>
+          </span>
         </div>
 
         <ul class="hero-badges">
@@ -113,6 +117,38 @@ const orgLd = {
           <span class="rg">{t('meta.tagline', locale)}</span>
           <span class="rg">{t('eng.fixedFee', locale)}</span>
           <span class="rg">EN · 中文 · العربية</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ STATS ══════════ -->
+  <section class="section stats-band" id="stats" data-reveal>
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-num" data-count="120" data-suffix="+">
+            0
+          </div>
+          <div class="stat-label">{t('home.stats.projects', locale)}</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-count="6">
+            0
+          </div>
+          <div class="stat-label">{t('home.stats.services', locale)}</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-count="3">
+            0
+          </div>
+          <div class="stat-label">{t('home.stats.languages', locale)}</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-count="24" data-suffix="h">
+            0
+          </div>
+          <div class="stat-label">{t('home.stats.response', locale)}</div>
         </div>
       </div>
     </div>
@@ -204,6 +240,38 @@ const orgLd = {
             </span>
           </a>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ MARQUEE ══════════ -->
+  <section class="section section--tint" data-reveal>
+    <div class="container">
+      <div class="marquee">
+        <div class="marquee-track">
+          {Array.from({ length: 2 }).map(() => (
+            <>
+              <span class="marquee-item">
+                <Icon name="check" size={14} /> Trading &amp; Distribution
+              </span>
+              <span class="marquee-item">
+                <Icon name="check" size={14} /> Manufacturing
+              </span>
+              <span class="marquee-item">
+                <Icon name="check" size={14} /> E-commerce &amp; Retail
+              </span>
+              <span class="marquee-item">
+                <Icon name="check" size={14} /> Education &amp; Training
+              </span>
+              <span class="marquee-item">
+                <Icon name="check" size={14} /> Hospitality &amp; F&amp;B
+              </span>
+              <span class="marquee-item">
+                <Icon name="check" size={14} /> Technology &amp; Services
+              </span>
+            </>
+          ))}
+        </div>
       </div>
     </div>
   </section>

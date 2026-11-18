@@ -33,6 +33,18 @@ export const uiPages = {
     ar: 'احصل على تقييم مجاني',
   },
   'home.hero.cta2': { en: 'Explore services', zh: '浏览服务', ar: 'استكشف الخدمات' },
+  'home.stats.projects': {
+    en: 'Cross-border projects delivered',
+    zh: '已完成跨境项目',
+    ar: 'مشاريع عابرة للحدود',
+  },
+  'home.stats.services': { en: 'Core service lines', zh: '核心服务线', ar: 'خطوط خدمة رئيسية' },
+  'home.stats.languages': { en: 'Working languages', zh: '工作语言', ar: 'لغات العمل' },
+  'home.stats.response': {
+    en: 'First reply, guaranteed',
+    zh: '首次回复保证',
+    ar: 'أول رد، مضمون',
+  },
   'home.bridge.eyebrow': {
     en: 'Two-way bridge',
     zh: '双向桥梁',
