@@ -6,7 +6,18 @@ import type { Locale, Localized } from './index';
  * with the same `{ en, zh, ar }` shape.
  */
 export const uiPages = {
+  'common.viewAll': {
+    en: 'View all',
+    zh: '查看全部',
+    ar: 'عرض الكل',
+  },
   /* ══════════ HOME ══════════ */
+  'about.eyebrowFounder': { en: 'Founder', zh: '创始人', ar: 'المؤسس' },
+  'about.founder.omarAlRashidi': { en: 'Omar Al-Rashidi', zh: '奥马尔·拉希迪', ar: 'عمر الراشد' },
+  'about.eyebrowFounderTwo': { en: 'Co-founder', zh: '合伙人', ar: 'شريك التأسيس' },
+  'about.founder.liuLi': { en: 'Liu Li', zh: '刘丽', ar: 'ليو لي' },
+  'about.eyebrowFounderThree': { en: 'Co-founder', zh: '合伙人', ar: 'شريك التأسيس' },
+  'about.founder.ismailAhmed': { en: 'Ismail Ahmed', zh: '韦德', ar: 'اسماعيل أحمد' },
   'home.hero.eyebrow': {
     en: 'China ↔ International Growth',
     zh: '中国 ↔ 国际增长',
@@ -37,55 +48,7 @@ export const uiPages = {
     zh: '我正在进入或从中国采购',
     ar: 'أدخل أو أستورد من الصين',
   },
-  'home.stats.projects': {
-    en: 'Cross-border projects delivered',
-    zh: '已完成跨境项目',
-    ar: 'مشاريع عابرة للحدود',
-  },
-  'home.stats.services': { en: 'Core service lines', zh: '核心服务线', ar: 'خطوط خدمة رئيسية' },
-  'home.stats.languages': { en: 'Working languages', zh: '工作语言', ar: 'لغات العمل' },
-  'home.stats.response': {
-    en: 'First reply, guaranteed',
-    zh: '首次回复保证',
-    ar: 'أول رد، مضمون',
-  },
-  'home.bridge.eyebrow': {
-    en: 'Two-way bridge',
-    zh: '双向桥梁',
-    ar: '双向桥梁',
-  },
-  'home.bridge.title': {
-    en: 'A bridge that works both ways',
-    zh: '双向通行的桥梁',
-    ar: '双向通行的桥梁',
-  },
-  'home.bridge.sub': {
-    en: 'Whether you are entering China or selling out of it, we stand on both ends.',
-    zh: '无论你是进入中国还是从中国走向世界，我们都在两端为你服务。',
-    ar: '无论你是进入中国还是从中国走向世界，我们都在两端为你服务。',
-  },
-  'home.bridge.inTitle': {
-    en: 'Foreign companies selling to China',
-    zh: '向中国销售的外国公司',
-    ar: '向中国销售的外国公司',
-  },
-  'home.bridge.outTitle': {
-    en: 'Chinese factories selling to the world',
-    zh: '向世界销售的中国工厂',
-    ar: '向世界销售的中国工厂',
-  },
-  'home.panel.leg1d': {
-    en: 'A Chinese company profile, WeChat and Douyin presence, outreach to buyers and distributors, and meetings handled in Chinese.',
-    zh: '中文公司资料、微信与抖音形象、买家与分销商触达，以及中文会议处理。',
-    ar: '中文公司资料、微信与抖音形象、买家与分销商触达，以及中文会议处理。',
-  },
-  'home.panel.leg1t': { en: 'Into China', zh: '进入中国', ar: '进入中国' },
-  'home.panel.leg2d': {
-    en: 'Live factory tours, Arabic and English content, and buyer conversations on Instagram, TikTok, WhatsApp and Facebook.',
-    zh: '工厂直播参观、阿拉伯语与英语内容，以及在 Instagram、TikTok、WhatsApp 和 Facebook 上的买家对话。',
-    ar: '工厂直播参观、阿拉伯语与英语内容，以及在 Instagram、TikTok、WhatsApp 和 Facebook 上的买家对话。',
-  },
-  'home.panel.leg2t': { en: 'Out of China', zh: '走出中国', ar: '走出中国' },
+
   'home.panel.foot': { en: 'Single point of contact', zh: '单一联系人', ar: '单一联系人' },
   'home.panel.live': { en: 'Guangzhou HQ', zh: '广州总部', ar: 'المقر: غوانغتشو' },
 
@@ -105,45 +68,6 @@ export const uiPages = {
     zh: '查看全部服务',
     ar: 'عرض كل الخدمات',
   },
-
-  'home.process.eyebrow': { en: 'How it works', zh: '如何运作', ar: '如何运作' },
-  'home.process.title': {
-    en: 'How the desk works',
-    zh: '办公桌如何运作',
-    ar: '办公桌如何运作',
-  },
-  'home.process.sub': { en: '', zh: '', ar: '' },
-
-  'home.industries.eyebrow': { en: 'Industries', zh: '行业', ar: '行业' },
-  'home.industries.title': {
-    en: 'Three industries, high-value deals',
-    zh: '三大行业，高价值交易',
-    ar: '三大行业，高价值交易',
-  },
-  'home.industries.sub': {
-    en: 'One closed distributor deal can be worth tens of thousands of dollars, so focus beats volume.',
-    zh: '一单分销协议就可能价值数万美元，因此专注胜过数量。',
-    ar: '一单分销协议就可能价值数万美元，因此专注胜过数量。',
-  },
-
-  'home.engagement.eyebrow': { en: 'Plans', zh: '方案', ar: '方案' },
-  'home.engagement.title': {
-    en: 'Plans',
-    zh: '方案',
-    ar: '方案',
-  },
-  'home.engagement.sub': {
-    en: 'Start with a 30-day test. Grow when the results are clear.',
-    zh: '从 30 天测试开始，结果清晰后再扩展。',
-    ar: '从 30 天测试开始，结果清晰后再扩展。',
-  },
-
-  'home.faq.title': {
-    en: 'Straight answers, before you book.',
-    zh: '预约前的直接回答。',
-    ar: '预约前的直接回答。',
-  },
-  'home.faq.eyebrow': { en: 'Questions', zh: '问题', ar: '问题' },
 
   'home.cta.title': {
     en: 'Book your free call',
@@ -491,11 +415,6 @@ export const uiPages = {
     en: 'We have lived on both ends of the corridor — which is why our advice survives contact with reality.',
     zh: '我们长期生活在走廊两端 — 所以我们的建议经得起现实检验。',
     ar: 'عشنا على طرفي الممر — ولذلك تصمد نصائحنا أمام الواقع.',
-  },
-  'about.storyTitle': {
-    en: 'Why Yalla Kaishi exists',
-    zh: '亚拉凯世为何而生',
-    ar: 'لماذا وُجدت يلا كايشي',
   },
   'about.valuesTitle': { en: 'How we operate', zh: '我们的做事方式', ar: 'كيف نعمل' },
   'about.presenceTitle': {

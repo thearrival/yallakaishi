@@ -19,11 +19,6 @@ const { plan, locale } = Astro.props;
     <p class="plan-tagline">{pick(plan.tagline, locale)}</p>
   </header>
 
-  <p class="plan-price">
-    <span class="plan-amount">{pick(plan.price, locale)}</span>
-    <span class="plan-note">{pick(plan.priceNote, locale)}</span>
-  </p>
-
   <p class="plan-best">
     <span class="mini-label">{t('eng.includes', locale)}</span>
     {pick(plan.bestFor, locale)}

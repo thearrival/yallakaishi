@@ -3,17 +3,12 @@ import type { Locale } from '../i18n';
 import { localUrl, pick } from '../i18n';
 import { t } from '../i18n/ui';
 import { routes, site } from '../data/site';
-import { coreServices } from '../data/services';
-import { industries } from '../data/industries';
-import { processSteps } from '../data/process';
-import { faqs } from '../data/faq';
 import { plans } from '../data/engagement';
+import { comparisonRows } from '../data/engagement';
 
 import BaseLayout from '../components/BaseLayout.astro';
 import SectionHead from '../components/SectionHead.astro';
-import ServiceCard from '../components/ServiceCard.astro';
 import PlanCard from '../components/PlanCard.astro';
-import FAQList from '../components/FAQList.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Icon from '../components/Icon.astro';
 
@@ -52,12 +47,12 @@ const orgLd = {
   branded={false}
   jsonLd={[orgLd]}
 >
-  <!-- ══════════ HERO ══════════ -->
+  <!-- ══════════ PLANS HERO ══════════ -->
   <section class="home-hero">
     <svg class="hero-shape" aria-hidden="true" width="420" height="420" viewBox="0 0 100 100">
       <path
         d="M22 12 Q22 6 28 9 L88 44 Q94 50 88 56 L28 91 Q22 94 22 88 Z"
-        fill="#FF7A00"
+        fill="#FF6A00"
         transform="rotate(-18 50 50)"
       ></path>
     </svg>
@@ -79,7 +74,7 @@ const orgLd = {
             </a>
           </span>
           <span class="magnetic">
-            <a class="btn btn-outline btn-lg" href={localUrl(locale, routes.services)}>
+            <a class="btn btn-outline btn-lg" href={localUrl(locale, routes.contact)}>
               {t('home.hero.cta2', locale)}
             </a>
           </span>
@@ -90,10 +85,7 @@ const orgLd = {
             <Icon name="check" size={14} /> {t('common.response', locale)}
           </li>
           <li>
-            <Icon name="check" size={14} /> {t('eng.fixedFee', locale)}
-          </li>
-          <li>
-            <Icon name="check" size={14} /> EN · 中文 · العربية
+            <Icon name="check" size={14} /> EN · 中文 · arabe
           </li>
         </ul>
 
@@ -115,203 +107,22 @@ const orgLd = {
         />
         <div class="logo-tags">
           <span class="rg">{t('meta.tagline', locale)}</span>
-          <span class="rg">{t('eng.fixedFee', locale)}</span>
-          <span class="rg">EN · 中文 · العربية</span>
+          <span class="rg">EN · 中文 · arabe</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════ STATS ══════════ -->
-  <section class="section stats-band" id="stats" data-reveal>
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat">
-          <div class="stat-num" data-count="9">
-            0
-          </div>
-          <div class="stat-label">{t('home.stats.projects', locale)}</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num" data-count="6">
-            0
-          </div>
-          <div class="stat-label">{t('home.stats.services', locale)}</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num" data-count="3">
-            0
-          </div>
-          <div class="stat-label">{t('home.stats.languages', locale)}</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num" data-count="24" data-suffix="h">
-            0
-          </div>
-          <div class="stat-label">{t('home.stats.response', locale)}</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ TWO-WAY BRIDGE ══════════ -->
-  <section class="section" id="bridge">
-    <div class="container">
-      <SectionHead
-        eyebrow={t('home.bridge.eyebrow', locale)}
-        title={t('home.bridge.title', locale)}
-        sub={t('home.bridge.sub', locale)}
-      />
-
-      <div class="bridge-pair">
-        <article class="bridge-card" data-reveal>
-          <span class="chip">{t('home.panel.leg1t', locale)}</span>
-          <h2>{t('home.bridge.inTitle', locale)}</h2>
-          <p>{t('home.panel.leg1d', locale)}</p>
-          <div class="bridge-card-foot">
-            <span>{t('home.panel.foot', locale)}</span>
-            <a class="link-arrow" href={localUrl(locale, routes.chinaSupport)}>
-              {t('nav.china', locale)} <Icon name="arrow" size={15} />
-            </a>
-          </div>
-        </article>
-
-        <article class="bridge-card" data-reveal>
-          <span class="chip">{t('home.panel.leg2t', locale)}</span>
-          <h2>{t('home.bridge.outTitle', locale)}</h2>
-          <p>{t('home.panel.leg2d', locale)}</p>
-          <div class="bridge-card-foot">
-            <span>{t('home.panel.foot', locale)}</span>
-            <a class="link-arrow" href={localUrl(locale, routes.services)}>
-              {t('nav.services', locale)} <Icon name="arrow" size={15} />
-            </a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ SERVICES ══════════ -->
-  <section class="section section--tint" id="services">
+  <!-- ══════════ THREE PLANS ══════════ -->
+  <section class="section section--tint" id="brief">
     <div class="container">
       <SectionHead
         eyebrow={t('home.services.eyebrow', locale)}
         title={t('home.services.title', locale)}
         sub={t('home.services.sub', locale)}
       >
-        <a class="link-arrow" href={localUrl(locale, routes.services)}>
-          {t('home.services.all', locale)} <Icon name="arrow" size={16} />
-        </a>
-      </SectionHead>
-
-      <div class="svc-grid">
-        {coreServices.map((s) => (
-          <ServiceCard service={s} locale={locale} />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ INDUSTRIES ══════════ -->
-  <section class="section section--dark" id="industries">
-    <div class="container">
-      <SectionHead
-        eyebrow={t('home.industries.eyebrow', locale)}
-        title={t('home.industries.title', locale)}
-        sub={t('home.industries.sub', locale)}
-      >
-        <a class="link-arrow" href={localUrl(locale, routes.industries)}>
-          {t('common.viewAll', locale)} <Icon name="arrow" size={16} />
-        </a>
-      </SectionHead>
-
-      <div class="industry-tiles">
-        {industries.map((i) => (
-          <a
-            class="industry-tile"
-            href={`${localUrl(locale, routes.industries)}${i.slug}/`}
-            data-reveal
-          >
-            <span class="tile-index">{i.index}</span>
-            <h2>{pick(i.name, locale)}</h2>
-            <p>{pick(i.headline, locale)}</p>
-            <span class="link-arrow">
-              {t('common.more', locale)} <Icon name="arrow" size={15} />
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ MARQUEE ══════════ -->
-  <section class="section section--tint" data-reveal>
-    <div class="container">
-      <div class="marquee">
-        <div class="marquee-track">
-          {Array.from({ length: 2 }).map(() => (
-            <>
-              <span class="marquee-item">
-                <Icon name="check" size={14} /> Trading &amp; Distribution
-              </span>
-              <span class="marquee-item">
-                <Icon name="check" size={14} /> Manufacturing
-              </span>
-              <span class="marquee-item">
-                <Icon name="check" size={14} /> E-commerce &amp; Retail
-              </span>
-              <span class="marquee-item">
-                <Icon name="check" size={14} /> Education &amp; Training
-              </span>
-              <span class="marquee-item">
-                <Icon name="check" size={14} /> Hospitality &amp; F&amp;B
-              </span>
-              <span class="marquee-item">
-                <Icon name="check" size={14} /> Technology &amp; Services
-              </span>
-            </>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ HOW IT WORKS ══════════ -->
-  <section class="section" id="process">
-    <div class="container">
-      <SectionHead
-        eyebrow={t('home.process.eyebrow', locale)}
-        title={t('home.process.title', locale)}
-        sub={t('home.process.sub', locale)}
-      >
-        <a class="link-arrow" href={localUrl(locale, routes.process)}>
-          {t('process.meta.title', locale)} <Icon name="arrow" size={16} />
-        </a>
-      </SectionHead>
-
-      <ol class="steps-grid">
-        {processSteps.slice(0, 3).map((step) => (
-          <li data-reveal>
-            <div class="step-num">{step.index}</div>
-            <h3>{pick(step.name, locale)}</h3>
-            <p>{pick(step.summary, locale)}</p>
-            <span class="rg">{pick(step.when, locale)}</span>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
-  <!-- ══════════ PLANS ══════════ -->
-  <section class="section plans-band" id="plans">
-    <div class="container">
-      <SectionHead
-        eyebrow={t('home.engagement.eyebrow', locale)}
-        title={t('home.engagement.title', locale)}
-        sub={t('home.engagement.sub', locale)}
-      >
         <a class="link-arrow" href={localUrl(locale, routes.engagement)}>
-          {t('eng.compare', locale)} <Icon name="arrow" size={16} />
+          {t('home.services.all', locale)} <Icon name="arrow" size={16} />
         </a>
       </SectionHead>
 
@@ -321,30 +132,30 @@ const orgLd = {
         ))}
       </div>
 
-      <p class="plans-note">{t('eng.notIncludedNote', locale)}</p>
-    </div>
-  </section>
-
-  <!-- ══════════ FAQ ══════════ -->
-  <section class="section section--tint" id="faq">
-    <div class="container container--narrow">
-      <SectionHead
-        eyebrow={t('home.faq.eyebrow', locale)}
-        title={t('home.faq.title', locale)}
-        align="center"
-      />
-      <FAQList items={faqs.slice(0, 6)} locale={locale} />
-      <p class="faq-more">
-        <a class="link-arrow" href={localUrl(locale, routes.faq)}>
-          {t('faq.meta.title', locale)} · {t('common.viewAll', locale)}
-          <Icon name="arrow" size={15} />
-        </a>
-      </p>
+      <div class="plan-comparison">
+        <h3>{t('eng.compare', locale)}</h3>
+        <div class="comparison-table">
+          <div class="comparison-row">
+            <span>{t('eng.mostPopular', locale)}</span>
+            <span>{t('eng.capped', locale)}</span>
+            <span>{t('eng.fixedFee', locale)}</span>
+            <span>{t('common.viewAll', locale)}</span>
+          </div>
+          {comparisonRows.map((row, i) => (
+            <div class="comparison-row">
+              <span>{row.label[locale]}</span>
+              {row.values.map((v) => (
+                <span>{pick(v, locale)}</span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ══════════ CONTACT ══════════ -->
-  <section class="section home-contact" id="brief">
+  <section class="section home-contact">
     <div class="container home-contact-grid">
       <div class="home-contact-copy" data-reveal>
         <p class="eyebrow">{t('contact.eyebrow', locale)}</p>
@@ -366,7 +177,7 @@ const orgLd = {
           </li>
           <li>
             <Icon name="check" size={18} />
-            <span>EN · 中文 · العربية</span>
+            <span>EN · 中文 · arabe</span>
           </li>
         </ul>
 

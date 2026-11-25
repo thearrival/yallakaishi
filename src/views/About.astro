@@ -3,7 +3,15 @@ import type { Locale } from '../i18n';
 import { pick } from '../i18n';
 import { t } from '../i18n/ui';
 import { site } from '../data/site';
-import { values, founder, team, presence, credentials } from '../data/about';
+import {
+  values,
+  founder,
+  founderTwo,
+  founderThree,
+  team,
+  presence,
+  credentials,
+} from '../data/about';
 
 import BaseLayout from '../components/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
@@ -46,30 +54,86 @@ const { locale, path } = Astro.props;
     sub={t('about.sub', locale)}
   />
 
-  <!-- Founder -->
-  <section class="section">
+  <!-- Founders -->
+  <section class="section section--tint">
     <div class="container">
-      <div class="founder" data-reveal>
-        <div class="founder-portrait" aria-hidden="true">
-          <span>
-            {pick(founder.name, locale)
-              .split(' ')
-              .map((w) => w[0])
-              .join('')}
-          </span>
-        </div>
-        <div class="founder-body">
-          <p class="eyebrow">{t('about.storyTitle', locale)}</p>
-          <blockquote class="founder-quote">
-            <Icon name="quote" size={26} />
-            <p>{pick(founder.quote, locale)}</p>
-          </blockquote>
-          <div class="founder-meta">
-            <strong>{pick(founder.name, locale)}</strong>
-            <span>{pick(founder.role, locale)}</span>
-            <span>{pick(founder.languages, locale)}</span>
+      <div class="founders-grid">
+        <div class="founder-card" data-reveal>
+          <div class="founder-portrait" aria-hidden="true">
+            <img
+              src="/founders/liu-li.png"
+              alt={t('about.founder.liuLi', locale)}
+              width={200}
+              height={260}
+            />
+            <div class="founder-name">
+              <span>{pick(founderTwo.name, locale)}</span>
+            </div>
           </div>
-          <p class="founder-bio">{pick(founder.bio, locale)}</p>
+          <div class="founder-body">
+            <p class="eyebrow-founder">{t('about.eyebrowFounderTwo', locale)}</p>
+            <blockquote class="founder-quote">
+              <Icon name="quote" size={26} />
+              <p>{pick(founderTwo.quote, locale)}</p>
+            </blockquote>
+            <div class="founder-meta">
+              <strong>{pick(founderTwo.name, locale)}</strong>
+              <span>{pick(founderTwo.role, locale)}</span>
+            </div>
+            <p class="founder-bio">{pick(founderTwo.bio, locale)}</p>
+          </div>
+        </div>
+
+        <div class="founder-card" data-reveal>
+          <div class="founder-portrait" aria-hidden="true">
+            <img
+              src="/founders/ismail-ahmed.png"
+              alt={t('about.founder.ismailAhmed', locale)}
+              width={200}
+              height={260}
+            />
+            <div class="founder-name">
+              <span>{pick(founderThree.name, locale)}</span>
+            </div>
+          </div>
+          <div class="founder-body">
+            <p class="eyebrow-founder">{t('about.eyebrowFounderThree', locale)}</p>
+            <blockquote class="founder-quote">
+              <Icon name="quote" size={26} />
+              <p>{pick(founderThree.quote, locale)}</p>
+            </blockquote>
+            <div class="founder-meta">
+              <strong>{pick(founderThree.name, locale)}</strong>
+              <span>{pick(founderThree.role, locale)}</span>
+            </div>
+            <p class="founder-bio">{pick(founderThree.bio, locale)}</p>
+          </div>
+        </div>
+
+        <div class="founder-card" data-reveal>
+          <div class="founder-portrait" aria-hidden="true">
+            <img
+              src="/founders/omar-al-rashidi.png"
+              alt={t('about.founder.omarAlRashidi', locale)}
+              width={200}
+              height={260}
+            />
+            <div class="founder-name">
+              <span>{pick(founder.name, locale)}</span>
+            </div>
+          </div>
+          <div class="founder-body">
+            <p class="eyebrow-founder">{t('about.eyebrowFounder', locale)}</p>
+            <blockquote class="founder-quote">
+              <Icon name="quote" size={26} />
+              <p>{pick(founder.quote, locale)}</p>
+            </blockquote>
+            <div class="founder-meta">
+              <strong>{pick(founder.name, locale)}</strong>
+              <span>{pick(founder.role, locale)}</span>
+            </div>
+            <p class="founder-bio">{pick(founder.bio, locale)}</p>
+          </div>
         </div>
       </div>
     </div>

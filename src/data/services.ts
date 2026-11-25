@@ -14,34 +14,6 @@ export interface CoreService {
 
 export const coreServices: CoreService[] = [
   {
-    slug: 'opportunity-intelligence',
-    icon: 'search',
-    index: '01',
-    title: {
-      en: 'Opportunity intelligence and strategy',
-      zh: '机会情报与战略',
-      ar: 'استخبارات الفرص والاستراتيجية',
-    },
-    summary: {
-      en: 'Market attractiveness, customer and competitor mapping, channel and pricing hypotheses, and a 90-day plan.',
-      zh: '市场吸引力、客户与竞争对手地图、渠道与定价假设，以及 90 天计划。',
-      ar: 'جاذبية السوق، خريطة العملاء والمنافسين، فرضيات القنوات والتسعير، وخطة 90 يومًا.',
-    },
-    body: {
-      en: 'We connect research to real localization, channel activation, lead generation, sourcing, or partner-development work.',
-      zh: '我们将研究与真正的本地化、渠道激活、线索生成、采购或合作伙伴开发工作相结合。',
-      ar: 'نربط البحث بالتوطين الفعلي، وتفعيل القنوات، وتوليد العملاء، وال sourcing، أو تطوير الشركاء.',
-    },
-    deliverables: [
-      { en: 'Executive brief', zh: '高管简报', ar: 'ملخص تنفيذي' },
-      { en: 'Decision matrix', zh: '决策矩阵', ar: 'مصفوفة قرار' },
-      { en: 'Evidence appendix', zh: '证据附录', ar: 'ملحق الأدلة' },
-      { en: '90-day action plan', zh: '90 天行动计划', ar: 'خطة عمل 90 يومًا' },
-    ],
-    timeline: { en: '3–4 weeks', zh: '3–4 周', ar: '3–4 أسابيع' },
-    href: '/contact',
-  },
-  {
     slug: 'international-growth',
     icon: 'globe',
     index: '02',

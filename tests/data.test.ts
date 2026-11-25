@@ -54,9 +54,9 @@ describe('data completeness', () => {
 });
 
 describe('published catalogue counts', () => {
-  it('ships exactly 7 core services', () => {
-    expect(coreServices).toHaveLength(7);
-    expect(new Set(coreServices.map((s) => s.slug)).size).toBe(7);
+  it('ships exactly 6 core services (opportunity intelligence removed)', () => {
+    expect(coreServices).toHaveLength(6);
+    expect(new Set(coreServices.map((s) => s.slug)).size).toBe(6);
   });
 
   it('ships 6 China-support categories totalling 32 services', () => {
