@@ -1,9 +1,7 @@
 ---
 import type { Locale } from '../i18n';
-import { pick } from '../i18n';
 import { t } from '../i18n/ui';
 import { site } from '../data/site';
-import { presence } from '../data/about';
 
 import BaseLayout from '../components/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
@@ -132,14 +130,22 @@ const contactLd = {
           </div>
 
           <div class="side-card" data-reveal>
-            <p class="mini-label">{t('contact.offices', locale)}</p>
-            <ul class="presence-mini">
-              {presence.map((p) => (
-                <li>
-                  <strong>{pick(p.city, locale)}</strong>
-                  <span>{pick(p.role, locale)}</span>
-                </li>
-              ))}
+            <p class="mini-label">{t('contact.hq', locale)}</p>
+            <ul class="hq-list">
+              <li>
+                <Icon name="pin" size={18} />
+                <div>
+                  <strong>Guangzhou, China</strong>
+                  <span>Head office · Filings · Audits · Translation desk</span>
+                </div>
+              </li>
+              <li>
+                <Icon name="globe" size={18} />
+                <div>
+                  <strong>Gulf Region (via partners)</strong>
+                  <span>Licensed counsel · Filing agents · Inspectors</span>
+                </div>
+              </li>
             </ul>
           </div>
         </aside>

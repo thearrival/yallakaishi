@@ -12,8 +12,6 @@ export const uiPages = {
     ar: 'عرض الكل',
   },
   /* ══════════ HOME ══════════ */
-  'about.eyebrowFounder': { en: 'Founder', zh: '创始人', ar: 'المؤسس' },
-  'about.founder.omarAlRashidi': { en: 'Omar Al-Rashidi', zh: '奥马尔·拉希迪', ar: 'عمر الراشد' },
   'about.eyebrowFounderTwo': { en: 'Co-founder', zh: '合伙人', ar: 'شريك التأسيس' },
   'about.founder.liuLi': { en: 'Liu Li', zh: '刘丽', ar: 'ليو لي' },
   'about.eyebrowFounderThree': { en: 'Co-founder', zh: '合伙人', ar: 'شريك التأسيس' },
@@ -417,22 +415,6 @@ export const uiPages = {
     ar: 'عشنا على طرفي الممر — ولذلك تصمد نصائحنا أمام الواقع.',
   },
   'about.valuesTitle': { en: 'How we operate', zh: '我们的做事方式', ar: 'كيف نعمل' },
-  'about.presenceTitle': {
-    en: 'Where we are',
-    zh: '我们的所在地',
-    ar: 'أين نتواجد',
-  },
-  'about.teamTitle': { en: 'The people', zh: '团队成员', ar: 'الأفراد' },
-  'about.teamNote': {
-    en: 'A compact senior team — you always speak to the person doing the work.',
-    zh: '精干的资深团队 — 您永远直接对接执行者本人。',
-    ar: 'فريق صغير ذو خبرة عالية — تتواصل دائمًا مع من ينفّذ العمل.',
-  },
-  'about.credsTitle': {
-    en: 'Credentials & network',
-    zh: '资质与合作网络',
-    ar: 'الاعتمادات والشبكة',
-  },
 
   /* ══════════ PROCESS ══════════ */
   'process.meta.title': { en: 'Process', zh: '合作流程', ar: 'العملية' },

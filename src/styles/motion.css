@@ -1,25 +1,20 @@
-/* ══════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════════════
    MOTION LAYER — creative, interactive, animated
-   ══════════════════════════════════════════════════════════════ */
+   Premium scroll reveals, hover effects, floating elements
+   ══════════════════════════════════════════════════════════════════════════════ */
 
-/* ── Hero background animation ──────────────────────────────── */
+/* ── Hero background gradient animation ────────────────────── */
 .home-hero {
   background-size: 200% 200%;
-  animation: hero-bg 15s ease infinite;
+  animation: hero-bg 12s ease infinite;
 }
 @keyframes hero-bg {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* ── Floating shapes ────────────────────────────────────────── */
+/* -- Floating ambient shape -- */
 .home-hero::before {
   content: '';
   position: absolute;
@@ -27,73 +22,83 @@
   right: -5%;
   width: 40%;
   height: 60%;
-  background: radial-gradient(circle, rgba(255, 106, 0, 0.3), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 107, 107, 0.15), transparent 70%);
   filter: blur(60px);
-  animation: float 8s ease-in-out infinite alternate;
+  animation: float 10s ease-in-out infinite alternate;
   pointer-events: none;
   z-index: 0;
 }
 @keyframes float {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    transform: translate(-20px, 20px) scale(1.1);
-  }
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-20px, 20px) scale(1.1); }
 }
 
 /* ── Card hover glow ────────────────────────────────────────── */
 .svc-card,
 .industry-tile,
-.plan-card {
+.plan-card,
+.founder-card,
+.value-card {
   position: relative;
   overflow: hidden;
 }
 .svc-card::before,
 .industry-tile::before,
-.plan-card::before {
+.plan-card::before,
+.founder-card::before,
+.value-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: radial-gradient(
     circle at var(--mx, 50%) var(--my, 50%),
-    rgba(255, 106, 0, 0.15),
+    rgba(255, 107, 107, 0.12),
     transparent 60%
   );
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
   z-index: 0;
 }
 .svc-card:hover::before,
 .industry-tile:hover::before,
-.plan-card:hover::before {
+.plan-card:hover::before,
+.founder-card:hover::before,
+.value-card:hover::before {
   opacity: 1;
 }
 .svc-card > *,
 .industry-tile > *,
-.plan-card > * {
+.plan-card > *,
+.founder-card > *,
+.value-card > * {
   position: relative;
   z-index: 1;
 }
 
+/* ── Card lift on hover ─────────────────────────────────────── */
+.founder-card,
+.value-card,
+.svc-card,
+.plan-card {
+  transition: transform var(--t-slow), box-shadow var(--t-slow), border-color var(--t);
+}
+.founder-card:hover,
+.value-card:hover,
+.svc-card:hover,
+.plan-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--sh-lg);
+}
+
 /* ── Button pulse ───────────────────────────────────────────── */
 .btn-primary {
-  animation: pulse 2s infinite;
+  animation: pulse 3s infinite;
 }
 @keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(255, 106, 0, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(255, 106, 0, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(255, 106, 0, 0);
-  }
+  0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+  70% { box-shadow: 0 0 0 14px rgba(255, 107, 107, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
 }
 
 /* ── Scroll progress ───────────────────────────────────────── */
@@ -103,7 +108,7 @@
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, #ff6a00, #ffb000, #00d4ff);
+  background: linear-gradient(90deg, var(--coral), var(--gold), #00d4ff);
   transform-origin: left;
   transform: scaleX(0);
   z-index: 9999;
@@ -112,19 +117,17 @@
 
 /* ── Marquee ────────────────────────────────────────────────── */
 .marquee-track {
-  animation: marquee 20s linear infinite;
+  animation: marquee 16s linear infinite;
 }
 @keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
+  to { transform: translateX(-50%); }
 }
 
-/* ── Section reveals ────────────────────────────────────────── */
+/* ── Section reveals (staggered) ────────────────────────────── */
 html.js [data-reveal] {
   opacity: 0;
-  transform: translateY(30px) scale(0.98);
-  filter: blur(8px);
+  transform: translateY(35px) scale(0.97);
+  filter: blur(6px);
   transition:
     opacity 0.8s var(--ease-out),
     transform 0.8s var(--ease-out),
@@ -134,6 +137,41 @@ html.js [data-reveal].is-in {
   opacity: 1;
   transform: none;
   filter: blur(0);
+}
+
+/* Staggered children reveal */
+[data-reveal-stagger] > [data-reveal] {
+  transition-delay: var(--i, 0) * 0.12s;
+}
+
+/* ── Founder portrait hover effect ──────────────────────────── */
+.founder-portrait {
+  overflow: hidden;
+  border-radius: var(--r-xl);
+}
+.founder-portrait img {
+  transition: transform var(--t-slow);
+}
+.founder-card:hover .founder-portrait img {
+  transform: scale(1.05);
+}
+
+/* ── Floating animation for decorative elements ─────────────── */
+@keyframes float-up-down {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.float-anim {
+  animation: float-up-down 6s ease-in-out infinite;
+}
+
+/* ── Glow pulse ─────────────────────────────────────────────── */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.1); }
+}
+.glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
 }
 
 /* ── Mobile ─────────────────────────────────────────────────── */
@@ -148,6 +186,14 @@ html.js [data-reveal].is-in {
   .hero-actions .btn {
     width: 100%;
   }
+  .founders-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .value-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
 }
 
 /* ── Reduced motion ─────────────────────────────────────────── */
@@ -156,6 +202,8 @@ html.js [data-reveal].is-in {
   .home-hero::before,
   .btn-primary,
   .marquee-track,
+  .float-anim,
+  .glow-pulse,
   html.js [data-reveal] {
     animation: none !important;
     transition: none !important;
@@ -165,4 +213,18 @@ html.js [data-reveal].is-in {
     transform: none;
     filter: none;
   }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── Cross-browser font smoothing ───────────────────────────── */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── RTL-aware spacing ─────────────────────────────────────── */
+html[dir='rtl'] {
+  font-feature-settings: 'kern';
 }
