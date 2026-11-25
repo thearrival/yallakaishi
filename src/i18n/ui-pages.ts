@@ -28,11 +28,6 @@ export const uiPages = {
     zh: '跨越中国与世界增长——',
     ar: 'النمو عبر الصين والعالم——',
   },
-  'home.hero.title2': {
-    en: 'with a clearer plan and the right local connections.',
-    zh: '以更清晰的计划与正确的本地连接。',
-    ar: 'بخطة أوضح وروابط محلية مناسبة.',
-  },
   'home.hero.sub': {
     en: 'We help Chinese companies reach international buyers and help international companies assess and enter China. From market validation and localization to demand generation, supplier discovery, and partner development, we connect strategy to execution.',
     zh: '我们帮助中国公司触达国际买家，并帮助国际企业评估并进入中国。从市场验证与本地化到需求生成、供应商发现和合作伙伴开发，我们连接战略与执行。',
@@ -62,11 +57,6 @@ export const uiPages = {
     en: 'We are the Chinese-speaking sales and marketing team for global B2B companies, and the English-speaking voice for Chinese factories.',
     zh: '我们是全球 B2B 企业的中文销售与营销团队，也是中国工厂的英语发声者。',
     ar: '我们是全球 B2B 企业的中文销售与营销团队，也是中国工厂的英语发声者。',
-  },
-  'home.services.all': {
-    en: 'See all services',
-    zh: '查看全部服务',
-    ar: 'عرض كل الخدمات',
   },
 
   'home.cta.title': {
@@ -380,7 +370,6 @@ export const uiPages = {
   'eng.capped': { en: 'capped budget', zh: '封顶预算', ar: 'ميزانية محدّدة' },
   'eng.mostPopular': { en: 'Most chosen', zh: '最常选择', ar: 'الأكثر اختيارًا' },
   'eng.includes': { en: 'What is included', zh: '包含内容', ar: 'ما يشمله' },
-  'eng.notIncluded': { en: 'Not included', zh: '不包含', ar: 'غير مشمول' },
   'eng.notIncludedNote': {
     en: 'Government fees, notarisation, legal disbursements and third-party certifications are always billed at cost with receipts.',
     zh: '政府规费、公证、律师代垫费用与第三方认证始终按实际发生金额凭票据结算。',

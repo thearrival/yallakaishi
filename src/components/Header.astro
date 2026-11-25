@@ -39,7 +39,7 @@ const contactHref = localUrl(locale, routes.contact);
 
 <header class="site-header" data-header>
   <div class="container header-inner">
-    <a class="brand brand--logo" href={localUrl(locale, '/')} aria-label={site.name}>
+    <a class="logo" href={localUrl(locale, '/')} aria-label={site.name}>
       <img
         src="/logo.png"
         alt={`${site.name} 开始`}
@@ -53,7 +53,11 @@ const contactHref = localUrl(locale, routes.contact);
       <ul>
         {navItems.map((item) => (
           <li>
-            <a href={item.href} aria-current={item.active ? 'page' : undefined}>
+            <a
+              class:list={['nav-link', { 'is-active': item.active }]}
+              href={item.href}
+              aria-current={item.active ? 'page' : undefined}
+            >
               {item.label}
             </a>
           </li>
@@ -76,7 +80,7 @@ const contactHref = localUrl(locale, routes.contact);
         ))}
       </div>
 
-      <a class="btn btn-primary btn-sm header-cta" href={`${contactHref}#brief`}>
+      <a class="btn btn--primary btn--sm" href={`${contactHref}#brief`}>
         <span>{t('nav.cta', locale)}</span>
         <Icon name="arrow" size={16} />
       </a>
@@ -91,29 +95,38 @@ const contactHref = localUrl(locale, routes.contact);
         data-close-label={t('nav.closeMenu', locale)}
         data-nav-toggle
       >
-        <Icon name="menu" size={22} class="icon-open" />
-        <Icon name="close" size={22} class="icon-close" />
+        <span class="nav-toggle-bars">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
       </button>
     </div>
   </div>
 
   <div class="drawer" id="mobile-drawer" data-drawer hidden>
     <nav class="container drawer-inner" aria-label={t('nav.menu', locale)}>
-      <ul>
+      <ul class="drawer-nav">
         {navItems.map((item) => (
           <li>
-            <a href={item.href}>{item.label}</a>
+            <a class:list={['drawer-link', { 'is-active': item.active }]} href={item.href}>
+              {item.label}
+            </a>
           </li>
         ))}
         <li>
-          <a href={localUrl(locale, routes.process)}>{t('process.meta.title', locale)}</a>
+          <a class="drawer-link" href={localUrl(locale, routes.process)}>
+            {t('process.meta.title', locale)}
+          </a>
         </li>
         <li>
-          <a href={localUrl(locale, routes.contact)}>{t('nav.contact', locale)}</a>
+          <a class="drawer-link" href={localUrl(locale, routes.contact)}>
+            {t('nav.contact', locale)}
+          </a>
         </li>
       </ul>
 
-      <div class="drawer-foot">
+      <div class="drawer-actions">
         <div
           class="lang-switch lang-switch--drawer"
           role="group"
@@ -131,10 +144,10 @@ const contactHref = localUrl(locale, routes.contact);
             </a>
           ))}
         </div>
-        <a class="btn btn-primary btn-block" href={`${contactHref}#brief`}>
+        <a class="btn btn--primary" href={`${contactHref}#brief`}>
           {t('nav.cta', locale)}
         </a>
-        <a class="btn btn-ghost btn-block" href={`mailto:${site.email}`}>
+        <a class="btn btn--ghost" href={`mailto:${site.email}`}>
           {site.email}
         </a>
       </div>

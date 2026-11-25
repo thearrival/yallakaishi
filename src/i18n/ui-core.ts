@@ -6,11 +6,6 @@ import type { Locale, Localized } from './index';
  */
 export const uiCore = {
   /* ── Document metadata ─────────────────────────────── */
-  'meta.tagline': {
-    en: 'Your first step into China.',
-    zh: '你进入中国的第一步。',
-    ar: '你进入中国的第一步。',
-  },
   'meta.homeTitle': {
     en: 'Yalla Kaishi 开始 | Your China desk, in two languages',
     zh: 'Yalla Kaishi 开始 | 你的中国办公桌，双语服务',
@@ -90,8 +85,6 @@ export const uiCore = {
     ar: 'الرد الأول خلال 24 ساعة',
   },
   'common.backToTop': { en: 'Back to top', zh: '回到顶部', ar: 'العودة إلى الأعلى' },
-  'common.copied': { en: 'Copied', zh: '已复制', ar: 'تم النسخ' },
-  'common.copyEmail': { en: 'Copy email', zh: '复制邮箱', ar: 'نسخ البريد' },
   'common.whatsapp': { en: 'Chat on WhatsApp', zh: 'WhatsApp 在线咨询', ar: 'تواصل عبر واتساب' },
   'common.next': { en: 'Continue', zh: '继续', ar: 'متابعة' },
   'common.prev': { en: 'Back', zh: '上一步', ar: 'رجوع' },

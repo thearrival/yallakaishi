@@ -7,7 +7,6 @@ import { plans } from '../data/engagement';
 import { comparisonRows } from '../data/engagement';
 
 import BaseLayout from '../components/BaseLayout.astro';
-import SectionHead from '../components/SectionHead.astro';
 import PlanCard from '../components/PlanCard.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Icon from '../components/Icon.astro';
@@ -47,153 +46,131 @@ const orgLd = {
   branded={false}
   jsonLd={[orgLd]}
 >
-  <!-- ══════════ PLANS HERO ══════════ -->
-  <section class="home-hero">
-    <svg class="hero-shape" aria-hidden="true" width="420" height="420" viewBox="0 0 100 100">
-      <path
-        d="M22 12 Q22 6 28 9 L88 44 Q94 50 88 56 L28 91 Q22 94 22 88 Z"
-        fill="#FF6A00"
-        transform="rotate(-18 50 50)"
-      ></path>
-    </svg>
-
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <span class="chip">{t('home.hero.eyebrow', locale)}</span>
-        <h1>
-          <span class="hero-line">{t('home.hero.title1', locale)}</span>
-          <span class="hero-line hero-line--accent">{t('home.hero.title2', locale)}</span>
-        </h1>
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <span class="eyebrow">{t('home.hero.eyebrow', locale)}</span>
+        <h1>{t('home.hero.title1', locale)}</h1>
         <p class="lede">{t('home.hero.sub', locale)}</p>
 
         <div class="hero-actions">
-          <span class="magnetic">
-            <a class="btn btn-primary btn-lg" href="#brief">
-              {t('home.hero.cta1', locale)}
-              <Icon name="arrow" size={18} />
-            </a>
-          </span>
-          <span class="magnetic">
-            <a class="btn btn-outline btn-lg" href={localUrl(locale, routes.contact)}>
-              {t('home.hero.cta2', locale)}
-            </a>
-          </span>
+          <a class="btn btn--primary btn--lg" href="#brief">
+            {t('home.hero.cta1', locale)}
+            <Icon name="arrow" size={18} />
+          </a>
+          <a class="btn btn--secondary btn--lg" href={localUrl(locale, routes.contact)}>
+            {t('home.hero.cta2', locale)}
+          </a>
         </div>
 
-        <ul class="hero-badges">
-          <li>
-            <Icon name="check" size={14} /> {t('common.response', locale)}
-          </li>
-          <li>
-            <Icon name="check" size={14} /> EN · 中文 · arabe
-          </li>
-        </ul>
-
-        <p class="hero-trust">
-          <Icon name="pin" size={14} />
-          <span>
-            {t('home.panel.live', locale)} · {t('common.hoursValue', locale)}
-          </span>
-        </p>
-      </div>
-
-      <div class="logo-card" data-reveal>
-        <img
-          src="/logo.png"
-          alt={`${site.name} 开始`}
-          width="670"
-          height="438"
-          fetchpriority="high"
-        />
-        <div class="logo-tags">
-          <span class="rg">{t('meta.tagline', locale)}</span>
-          <span class="rg">EN · 中文 · arabe</span>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">Response</span>
+            <span class="hero-meta-value">{t('common.response', locale)}</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">Languages</span>
+            <span class="hero-meta-value">EN · 中文 · arabe</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">Location</span>
+            <span class="hero-meta-value">
+              {t('home.panel.live', locale)} · {t('common.hoursValue', locale)}
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ══════════ THREE PLANS ══════════ -->
-  <section class="section section--tint" id="brief">
+  <section class="section section--alt" id="brief">
     <div class="container">
-      <SectionHead
-        eyebrow={t('home.services.eyebrow', locale)}
-        title={t('home.services.title', locale)}
-        sub={t('home.services.sub', locale)}
-      >
-        <a class="link-arrow" href={localUrl(locale, routes.engagement)}>
-          {t('home.services.all', locale)} <Icon name="arrow" size={16} />
-        </a>
-      </SectionHead>
+      <div class="sec-head sec-head--center">
+        <span class="eyebrow">{t('home.services.eyebrow', locale)}</span>
+        <h2>{t('home.services.title', locale)}</h2>
+        <p class="lede">{t('home.services.sub', locale)}</p>
+      </div>
 
-      <div class="plan-grid">
+      <div class="grid grid--3">
         {plans.map((p) => (
           <PlanCard plan={p} locale={locale} />
         ))}
       </div>
 
-      <div class="plan-comparison">
-        <h3>{t('eng.compare', locale)}</h3>
-        <div class="comparison-table">
-          <div class="comparison-row">
-            <span>{t('eng.mostPopular', locale)}</span>
-            <span>{t('eng.capped', locale)}</span>
-            <span>{t('eng.fixedFee', locale)}</span>
-            <span>{t('common.viewAll', locale)}</span>
-          </div>
-          {comparisonRows.map((row, i) => (
-            <div class="comparison-row">
-              <span>{row.label[locale]}</span>
-              {row.values.map((v) => (
-                <span>{pick(v, locale)}</span>
-              ))}
-            </div>
-          ))}
-        </div>
+      <div style="margin-top: 4rem;">
+        <h3 style="text-align: center; margin-bottom: 2rem;">{t('eng.compare', locale)}</h3>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>{t('eng.mostPopular', locale)}</th>
+              <th>{t('eng.capped', locale)}</th>
+              <th>{t('eng.fixedFee', locale)}</th>
+              <th>{t('common.viewAll', locale)}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonRows.map((row) => (
+              <tr>
+                <td>{row.label[locale]}</td>
+                {row.values.map((v) => (
+                  <td>{pick(v, locale)}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
 
   <!-- ══════════ CONTACT ══════════ -->
-  <section class="section home-contact">
-    <div class="container home-contact-grid">
-      <div class="home-contact-copy" data-reveal>
-        <p class="eyebrow">{t('contact.eyebrow', locale)}</p>
-        <h2>{t('home.cta.title', locale)}</h2>
-        <p>{t('home.cta.body', locale)}</p>
+  <section class="section">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+        <div data-reveal>
+          <span class="eyebrow">{t('contact.eyebrow', locale)}</span>
+          <h2>{t('home.cta.title', locale)}</h2>
+          <p style="color: var(--muted); margin-block: 1.5rem; line-height: 1.7;">
+            {t('home.cta.body', locale)}
+          </p>
 
-        <ul class="home-contact-points">
-          <li>
-            <Icon name="check" size={18} />
-            <span>
-              {t('eng.fixedFee', locale)} · {t('eng.capped', locale)}
-            </span>
-          </li>
-          <li>
-            <Icon name="check" size={18} />
-            <span>
-              {t('home.panel.foot', locale)} — {t('common.response', locale)}
-            </span>
-          </li>
-          <li>
-            <Icon name="check" size={18} />
-            <span>EN · 中文 · arabe</span>
-          </li>
-        </ul>
+          <ul style="display: flex; flex-direction: column; gap: 1rem; margin-block: 2rem;">
+            <li style="display: flex; align-items: center; gap: 0.75rem; font-size: var(--fs-sm);">
+              <Icon name="check" size={18} />
+              <span>
+                {t('eng.fixedFee', locale)} · {t('eng.capped', locale)}
+              </span>
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.75rem; font-size: var(--fs-sm);">
+              <Icon name="check" size={18} />
+              <span>
+                {t('home.panel.foot', locale)} — {t('common.response', locale)}
+              </span>
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.75rem; font-size: var(--fs-sm);">
+              <Icon name="check" size={18} />
+              <span>EN · 中文 · arabe</span>
+            </li>
+          </ul>
 
-        <div class="home-contact-direct">
-          <a class="btn btn-outline" href={`mailto:${site.email}`}>
-            <Icon name="mail" size={17} /> {site.email}
-          </a>
-          <a class="btn btn-ghost" href={`tel:${site.phoneIntl}`}>
-            <Icon name="phone" size={17} /> {site.phoneDisplay}
-          </a>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a class="btn btn--secondary" href={`mailto:${site.email}`}>
+              <Icon name="mail" size={17} /> {site.email}
+            </a>
+            <a class="btn btn--ghost" href={`tel:${site.phoneIntl}`}>
+              <Icon name="phone" size={17} /> {site.phoneDisplay}
+            </a>
+          </div>
         </div>
-      </div>
 
-      <div class="home-contact-form" data-reveal>
-        <p class="mini-label">{t('contact.formTitle', locale)}</p>
-        <ContactForm locale={locale} />
+        <div data-reveal>
+          <p style="font-size: var(--fs-sm); font-weight: var(--w-medium); color: var(--ink); margin-block-end: 1.5rem;">
+            {t('contact.formTitle', locale)}
+          </p>
+          <ContactForm locale={locale} />
+        </div>
       </div>
     </div>
   </section>

@@ -43,7 +43,7 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <a class="brand brand--footer brand--logo-footer" href={localUrl(locale, '/')}>
+      <a class="logo" href={localUrl(locale, '/')}>
         <img src="/logo.png" alt={`${site.name} 开始`} width="670" height="438" loading="lazy" />
       </a>
       <p>{t('foot.tagline', locale)}</p>
@@ -64,65 +64,61 @@ const year = new Date().getFullYear();
     </div>
 
     <nav class="footer-col" aria-label={t('foot.explore', locale)}>
-      <h2>{t('foot.explore', locale)}</h2>
-      <ul>
+      <h4>{t('foot.explore', locale)}</h4>
+      <ul class="footer-links">
         {explore.map((i) => (
           <li>
-            <a href={i.href}>{i.label}</a>
+            <a class="footer-link" href={i.href}>
+              {i.label}
+            </a>
           </li>
         ))}
       </ul>
     </nav>
 
     <nav class="footer-col" aria-label={t('foot.company', locale)}>
-      <h2>{t('foot.company', locale)}</h2>
-      <ul>
+      <h4>{t('foot.company', locale)}</h4>
+      <ul class="footer-links">
         {company.map((i) => (
           <li>
-            <a href={i.href}>{i.label}</a>
+            <a class="footer-link" href={i.href}>
+              {i.label}
+            </a>
           </li>
         ))}
       </ul>
     </nav>
 
     <nav class="footer-col" aria-label={t('foot.resources', locale)}>
-      <h2>{t('foot.resources', locale)}</h2>
-      <ul>
+      <h4>{t('foot.resources', locale)}</h4>
+      <ul class="footer-links">
         {resources.map((i) => (
           <li>
-            <a href={i.href}>{i.label}</a>
+            <a class="footer-link" href={i.href}>
+              {i.label}
+            </a>
           </li>
         ))}
       </ul>
     </nav>
 
     <div class="footer-col footer-contact">
-      <h2>{t('foot.contact', locale)}</h2>
-      <ul>
-        <li class="footer-copy-row">
-          <a href={`mailto:${site.email}`}>
+      <h4>{t('foot.contact', locale)}</h4>
+      <ul class="footer-links">
+        <li>
+          <a class="footer-link" href={`mailto:${site.email}`}>
             <Icon name="mail" size={16} />
             <span>{site.email}</span>
           </a>
-          <button
-            class="copy-btn"
-            type="button"
-            data-copy={site.email}
-            data-done={t('common.copied', locale)}
-            data-label={t('common.copyEmail', locale)}
-            aria-label={t('common.copyEmail', locale)}
-          >
-            <Icon name="copy" size={14} />
-          </button>
         </li>
         <li>
-          <a href={`tel:${site.phoneIntl}`}>
+          <a class="footer-link" href={`tel:${site.phoneIntl}`}>
             <Icon name="phone" size={16} />
             <span>{site.phoneDisplay}</span>
           </a>
         </li>
         <li>
-          <span class="footer-addr">
+          <span class="footer-link">
             <Icon name="pin" size={16} />
             <span>
               {site.address.street}, {site.address.city}, {site.address.country}
@@ -130,7 +126,7 @@ const year = new Date().getFullYear();
           </span>
         </li>
         <li>
-          <span class="footer-addr">
+          <span class="footer-link">
             <Icon name="clock" size={16} />
             <span>{t('common.hoursValue', locale)}</span>
           </span>
@@ -139,11 +135,11 @@ const year = new Date().getFullYear();
     </div>
   </div>
 
-  <div class="container footer-bar">
+  <div class="container footer-bottom">
     <p>
       © {year} {site.name}. {t('common.allRights', locale)}
     </p>
-    <p class="footer-disclaimer">{t('common.notLegalAdvice', locale)}</p>
+    <p>{t('common.notLegalAdvice', locale)}</p>
   </div>
 </footer>
 
