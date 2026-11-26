@@ -27,6 +27,7 @@ export const uiCore = {
   'nav.china': { en: 'China Support', zh: '中国支持', ar: 'دعم الصين' },
   'nav.industries': { en: 'Industries', zh: '行业方案', ar: 'القطاعات' },
   'nav.engagement': { en: 'Engagement', zh: '合作方式', ar: 'نماذج التعاون' },
+  'nav.engagementModels': { en: 'See engagement models', zh: '查看合作模式', ar: 'اطّلع على نماذج التعاون' },
   'nav.insights': { en: 'Insights', zh: '专业洞察', ar: 'رؤى' },
   'nav.about': { en: 'About', zh: '关于我们', ar: 'من نحن' },
   'nav.contact': { en: 'Contact', zh: '联系我们', ar: 'اتصل بنا' },

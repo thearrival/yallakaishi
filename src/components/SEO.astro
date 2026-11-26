@@ -47,6 +47,24 @@ const ld: Record<string, unknown>[] = [
     : [
         {
           '@context': 'https://schema.org',
+          '@type': 'ProfessionalService',
+          name: site.name,
+          url: `${site.url}/`,
+          email: site.email,
+          telephone: site.phoneIntl,
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: site.address.street,
+            addressLocality: site.address.city,
+            addressRegion: site.address.province,
+            postalCode: site.address.postal,
+            addressCountry: 'CN',
+          },
+          areaServed: ['CN', 'SA', 'AE', 'QA', 'KW', 'BH', 'OM', 'GB', 'US', 'SG'],
+          availableLanguage: ['English', 'Chinese', 'Arabic'],
+        },
+        {
+          '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },

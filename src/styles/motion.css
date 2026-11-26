@@ -228,3 +228,9 @@ html.js [data-reveal].is-in {
 html[dir='rtl'] {
   font-feature-settings: 'kern';
 }
+
+
+/* G4: word reveal */
+[data-word-reveal] .wr-word{display:inline-block;opacity:0;transform:translateY(1.1em);transition:opacity .6s cubic-bezier(.2,.8,.2,1),transform .6s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i,0)*40ms)}
+[data-word-reveal].is-in .wr-word{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){[data-word-reveal] .wr-word{opacity:1;transform:none;transition:none}}

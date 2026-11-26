@@ -12,10 +12,16 @@ export const uiPages = {
     ar: 'عرض الكل',
   },
   /* ══════════ HOME ══════════ */
+  'about.eyebrowFounder': { en: 'Founder', zh: '创始人', ar: 'المؤسس' },
   'about.eyebrowFounderTwo': { en: 'Co-founder', zh: '合伙人', ar: 'شريك التأسيس' },
   'about.founder.liuLi': { en: 'Liu Li', zh: '刘丽', ar: 'ليو لي' },
-  'about.eyebrowFounderThree': { en: 'Co-founder', zh: '合伙人', ar: 'شريك التأسيس' },
   'about.founder.ismailAhmed': { en: 'Ismail Ahmed', zh: '韦德', ar: 'اسماعيل أحمد' },
+  'about.linkedin': {
+    en: 'View {name}\'s LinkedIn profile',
+    zh: '查看{name}的 LinkedIn 个人资料',
+    ar: 'عرض ملف {name} على LinkedIn',
+  },
+  'about.linkedinLabel': { en: 'LinkedIn', zh: 'LinkedIn', ar: 'لينكدين' },
   'home.hero.eyebrow': {
     en: 'China ↔ International Growth',
     zh: '中国 ↔ 国际增长',

@@ -1,14 +1,11 @@
-/* ══════════════════════════════════════════════════════════════
-   YALLA KAISHI — DESIGN TOKENS (v4 "China desk" brand)
-   Ink + paper + orange · thick rules · rounded cards · tri-script
-   All directional values are LOGICAL (inline/block) so RTL
-   (العربية) mirrors automatically with zero extra CSS.
-   ══════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════════════════
+   YALLA KAISHI — DESIGN TOKENS (v5 "Premium Marketing")
+   Brand: ink-navy #0A0F1E + cream #FAF7F2 + brand-orange #F97316
+   Tri-script typography · RTL-aware · Fluid clamp() scale · WCAG AA contrast
+   All directional values use LOGICAL properties (inline/block)
+   ═════════════════════════════════════════════════════════════════════════════ */
 
-/* ── Self-hosted variable fonts (Google Fonts, OFL) ──────────
-   No third-party font CDN: the site stays fast and reachable in
-   mainland China. Chinese and Arabic fall back to the reader's
-   own high-quality system faces.                                     */
+/* ── Self-hosted variable fonts (no CDN — works in mainland China) ────────── */
 @font-face {
   font-family: 'Outfit';
   font-style: normal;
@@ -26,51 +23,37 @@
 
 :root {
   /* ── Colour ─────────────────────────────────────────── */
-  --ink: #0b0f1a;
-  --body: #2a3040;
-  --muted: #4a5060;
-  --faint: #5a6272;
+  --ink: #0A0F1E;
+  --cream: #FAF7F2;
+  --brand-orange: #F97316;
+  --brand-orange-ink: #1A1205;
+  --line: rgba(10, 15, 30, 0.08);
 
-  --paper: #faf8f5;
   --surface: #ffffff;
   --surface-2: #f4efe6;
   --surface-3: #ece4d5;
 
-  --orange: #ff7a00;
-  --amber: #ffb000;
-  --navy: #161b2a;
-  --dm: #d5d8e2;
+  --muted: #64748b;
+  --faint: #94a3b8;
+  --body: #334155;
 
-  /* Legacy accent aliases: the whole UI is orange-led now, so both
-     old "gold" and "teal" accents resolve to the brand orange. */
-  --gold: var(--orange);
-  --gold-ink: #a84800; /* text-safe orange on paper/white (5.1:1) */
-  --gold-soft: #fff1de;
-  --gold-line: #ffb000;
-
-  --teal: var(--orange);
-  --teal-ink: var(--gold-ink);
-  --teal-soft: #fff1de;
-  --teal-line: #ffd0a0;
-
-  --line: #e3dacb;
-  --line-strong: #0b0f1a;
+  --orange-glow: rgba(249, 115, 22, 0.15);
+  --orange-soft: rgba(249, 115, 22, 0.08);
 
   --danger: #b3261e;
   --danger-soft: #fdecea;
   --success: #0a6b3d;
   --success-soft: #e6f4ec;
 
-  --focus: var(--orange);
+  --focus: #F97316;
 
-  /* Solid, print-like surfaces — no decorative gradients. */
-  --grad-gold: linear-gradient(180deg, #ff8a1f 0%, #ff7a00 100%);
-  --grad-hero: linear-gradient(180deg, #0b0f1a 0%, #161b2a 100%);
-  --grad-ink: linear-gradient(180deg, #0b0f1a 0%, #161b2a 100%);
-  --grad-card: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
-  --grad-rule: linear-gradient(90deg, var(--orange), var(--amber));
+  /* Gradients — orange only, no teal/green */
+  --grad-hero: linear-gradient(180deg, #0A0F1E 0%, #12192F 100%);
+  --grad-card: linear-gradient(180deg, #ffffff 0%, #fafafc 100%);
+  --grad-rule: linear-gradient(90deg, var(--brand-orange), #fb923c);
+  --grad-orange-mesh: radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.12) 0%, transparent 70%);
 
-  /* ── Typography ─────────────────────────────────────── */
+  /* ── Typography — Fluid clamp() scale only ──────────── */
   --font-display: 'Outfit', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
   --font-body: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
 
@@ -82,64 +65,81 @@
   --fs-lg: 1.1875rem;
   --fs-xl: clamp(1.35rem, 1.15rem + 0.7vw, 1.65rem);
 
-  --fs-h4: clamp(1.05rem, 0.98rem + 0.4vw, 1.25rem);
-  --fs-h3: clamp(1.25rem, 1.1rem + 0.75vw, 1.6rem);
-  --fs-h2: clamp(1.9rem, 1.5rem + 1.7vw, 2.9rem);
-  --fs-h1: clamp(2.6rem, 1.9rem + 3.2vw, 4.4rem);
+  /* Fluid headings — NEVER fixed px */
+  --fs-h4: clamp(1.1rem, 1rem + 0.4vw, 1.3rem);
+  --fs-h3: clamp(1.35rem, 1.2rem + 0.8vw, 1.8rem);
+  --fs-h2: clamp(1.9rem, 1.5rem + 2vw, 3.2rem);
+  --fs-h1: clamp(2.2rem, 1.2rem + 4.5vw, 4.5rem);
 
   --lh-tight: 1.05;
-  --lh-snug: 1.22;
-  --lh-body: 1.65;
+  --lh-snug: 1.15;
+  --lh-body: 1.6;
 
-  --tracking-tight: -0.025em;
-  --tracking-snug: -0.01em;
-  --tracking-wide: 0.06em;
-  --tracking-wider: 0.14em;
+  --tracking-tight: -0.02em;
+  --tracking-snug: -0.005em;
+  --tracking-wide: 0.05em;
+  --tracking-wider: 0.12em;
 
   --w-regular: 400;
   --w-medium: 500;
   --w-semi: 600;
   --w-bold: 700;
 
-  /* ── Space ──────────────────────────────────────────── */
-  --section-y: clamp(4.5rem, 3.5rem + 4.5vw, 7rem);
-  --gutter: clamp(1.25rem, 1rem + 1.8vw, 2.5rem);
+  /* ── Space scale — 4/8/12/16/24/32/48/64/96 ──────────── */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.5rem;    /* 24px */
+  --space-6: 2rem;      /* 32px */
+  --space-8: 3rem;      /* 48px */
+  --space-10: 4rem;     /* 64px */
+  --space-12: 6rem;     /* 96px */
+
+  --section-y: clamp(4rem, 3rem + 6vw, 8rem);
+  --gutter: clamp(1.25rem, 1rem + 2vw, 3rem);
+  --container-padding: clamp(1.25rem, 1rem + 2vw, 3rem);
 
   /* ── Radius ─────────────────────────────────────────── */
   --r-xs: 6px;
-  --r-sm: 12px;
-  --r: 16px;
-  --r-lg: 22px;
-  --r-xl: 36px;
+  --r-sm: 10px;
+  --r: 14px;
+  --r-lg: 20px;
+  --r-xl: 32px;
   --r-pill: 999px;
 
-  /* ── Shadow (ink-tinted, used sparingly) ────────────── */
-  --sh-xs: 0 1px 0 rgba(11, 15, 26, 0.04);
-  --sh-sm: 0 2px 0 rgba(11, 15, 26, 0.06);
-  --sh-md: 0 14px 32px -24px rgba(11, 15, 26, 0.45);
-  --sh-lg: 0 26px 54px -34px rgba(11, 15, 26, 0.5);
-  --sh-gold: 0 12px 26px -18px rgba(255, 122, 0, 0.65);
-  --sh-inset: inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  --ring: 0 0 0 3px rgba(255, 122, 0, 0.35);
+  /* ── Shadow ─────────────────────────────────────────── */
+  --sh-xs: 0 1px 3px 0 rgba(10, 15, 30, 0.08), 0 1px 2px -1px rgba(10, 15, 30, 0.04);
+  --sh-sm: 0 4px 6px -1px rgba(10, 15, 30, 0.08), 0 2px 4px -2px rgba(10, 15, 30, 0.04);
+  --sh-md: 0 10px 15px -3px rgba(10, 15, 30, 0.08), 0 4px 6px -4px rgba(10, 15, 30, 0.04);
+  --sh-lg: 0 20px 25px -5px rgba(10, 15, 30, 0.08), 0 8px 10px -6px rgba(10, 15, 30, 0.04);
+  --sh-orange: 0 12px 24px -8px rgba(249, 115, 22, 0.35);
+  --ring: 0 0 0 3px rgba(249, 115, 22, 0.35);
 
   /* ── Layout ─────────────────────────────────────────── */
   --container: 1200px;
   --container-narrow: 780px;
-  --nav-h: 84px;
+  --nav-h: 72px;
 
   /* ── Motion ─────────────────────────────────────────── */
-  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --t-fast: 0.16s var(--ease);
-  --t: 0.26s var(--ease);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-fast: 0.15s var(--ease);
+  --t: 0.3s var(--ease);
+  --t-slow: 0.5s var(--ease-in-out);
+  --t-stagger: 40ms;
 
   /* ── Layers ─────────────────────────────────────────── */
   --z-nav: 100;
   --z-sticky: 200;
   --z-progress: 300;
+  --z-modal: 400;
+  --z-drawer: 500;
 }
 
-/* ── Arabic: Arabic-first display + body stacks ────────── */
+/* ── Arabic — premium Arabic typography ──────────────────── */
 :root[lang='ar'] {
   --font-display: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
   --font-body: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
@@ -150,9 +150,71 @@
   --tracking-wider: 0.04em;
 }
 
-/* ── Chinese: Latin stays Inter/Outfit, CJK uses system faces ── */
+/* ── Chinese — Latin stays Inter/Outfit, CJK uses system ── */
 :root[lang^='zh'] {
   --font-body: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
   --lh-body: 1.75;
   --tracking-tight: -0.01em;
+}
+
+/* ── iOS safe-area + viewport utilities ─────────────────── */
+.safe-top {
+  padding-top: max(var(--space-4), env(safe-area-inset-top));
+}
+.safe-bottom {
+  padding-bottom: max(var(--space-4), env(safe-area-inset-bottom));
+}
+.safe-left {
+  padding-left: max(var(--space-4), env(safe-area-inset-left));
+}
+.safe-right {
+  padding-right: max(var(--space-4), env(safe-area-inset-right));
+}
+
+/* ── Container utilities ────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+.container--narrow {
+  max-width: var(--container-narrow);
+}
+
+.section {
+  padding-block: var(--section-y);
+  position: relative;
+}
+
+/* ── Skip link ─────────────────────────────────────────── */
+.skip-link {
+  position: fixed;
+  inset-block-start: var(--space-2);
+  inset-inline-start: var(--space-2);
+  z-index: var(--z-modal);
+  padding: var(--space-2) var(--space-4);
+  background: var(--ink);
+  color: #fff;
+  border-radius: var(--r-sm);
+  font-size: var(--fs-sm);
+  font-weight: var(--w-semi);
+  transform: translateY(-150%);
+  transition: transform var(--t);
+  text-decoration: none;
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* ── Reduced motion ────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

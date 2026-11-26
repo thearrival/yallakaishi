@@ -29,8 +29,9 @@ interface Submission {
   message: string;
   consent: boolean;
   locale: string;
-  /** Honeypot — real visitors leave this empty. */
   website?: string;
+  pageUrl: string;
+  utm: Record<string, string>;
   submittedAt: string;
 }
 
@@ -75,6 +76,11 @@ function parse(body: Record<string, unknown>): Submission | string {
         .filter(Boolean)
     : [];
 
+  const utmRaw = (body.utm && typeof body.utm === 'object') ? body.utm as Record<string, unknown> : {};
+  const utm: Record<string, string> = {};
+  ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach((k) => {
+    utm[k] = str(utmRaw[k], 120);
+  });
   return {
     name,
     email,
@@ -86,7 +92,9 @@ function parse(body: Record<string, unknown>): Submission | string {
     consent: body.consent === true,
     locale: str(body.locale, 8) || 'en',
     website: str(body.website, 200),
-    submittedAt: new Date().toISOString(),
+    pageUrl: str(body.pageUrl || body.source, 500),
+    utm,
+    submittedAt: str(body.timestamp, 40) || new Date().toISOString(),
   };
 }
 
@@ -110,33 +118,55 @@ async function rateLimited(env: Env, ip: string): Promise<boolean> {
 
 async function notify(env: Env, s: Submission, ref: string) {
   if (env.NOTIFY === 'false' || !env.MAIL_TO || !env.MAIL_FROM) return;
-
   const list = s.services.length ? s.services.join(', ') : '—';
+  const utmStr = Object.entries(s.utm || {}).filter(([,v]) => v).map(([k,v]) => `${k}=${v}`).join(', ') || '—';
   const row = (label: string, value: string) =>
-    `<tr><td style="padding:6px 12px;color:#666;font-size:13px">${escapeHtml(label)}</td>` +
+    `<tr><td style="padding:6px 12px;color:#666;font-size:13px;white-space:nowrap">${escapeHtml(label)}</td>` +
     `<td style="padding:6px 12px;font-size:14px">${escapeHtml(value).replace(/\n/g, '<br>')}</td></tr>`;
-
-  const html = `<!doctype html><html><body style="font-family:system-ui,sans-serif;color:#0a1020">
+  const html = `<!doctype html><html><body style="font-family:system-ui,sans-serif;color:#0a1020;max-width:680px">
     <h2 style="margin:0 0 4px;font-size:18px">New enquiry — ${escapeHtml(s.name)}</h2>
     <p style="margin:0 0 16px;color:#666;font-size:13px">Ref ${escapeHtml(ref)} · ${escapeHtml(s.submittedAt)}</p>
-    <table cellpadding="0" cellspacing="0" style="border-collapse:collapse">
-      ${row('Name', s.name)}${row('Email', s.email)}${row('Company', s.company)}
-      ${row('Country', s.country)}${row('Phone', s.phone)}${row('Services', list)}
-      ${row('Brief', s.message)}${row('Locale', s.locale)}
+    <table cellpadding="0" cellspacing="0" style="border-collapse:collapse;width:100%">
+      ${row('Reference ID', ref)}
+      ${row('Name', s.name)}
+      ${row('Work email', s.email)}
+      ${row('Company', s.company || '—')}
+      ${row('WhatsApp / phone', s.phone || '—')}
+      ${row('Country', s.country || '—')}
+      ${row('Preferred language', s.locale)}
+      ${row('Selected services', list)}
+      ${row('Message', s.message)}
+      ${row('Page URL', s.pageUrl || '—')}
+      ${row('UTM parameters', utmStr)}
+      ${row('Timestamp', s.submittedAt)}
     </table></body></html>`;
-
-  // Email Routing is the only dependency-free notification path; if the binding
-  // is not configured the enquiry is still safely stored in D1.
-  const sendEmail = (env as unknown as { SEND_EMAIL?: unknown }).SEND_EMAIL as
-    ((m: unknown) => Promise<unknown>) | undefined;
+  const sendEmail = (env as unknown as { SEND_EMAIL?: unknown }).SEND_EMAIL as ((m: unknown) => Promise<unknown>) | undefined;
   if (typeof sendEmail !== 'function') return;
-
   await sendEmail({
     from: env.MAIL_FROM,
     to: env.MAIL_TO,
     headers: { Subject: `Enquiry ${ref} — ${s.company || s.name} (${s.country || '—'})` },
     html,
   }).catch((err: unknown) => console.error('notify failed', err));
+}
+
+async function autoReply(env: Env, s: Submission, ref: string) {
+  if (env.NOTIFY === 'false' || !env.MAIL_FROM) return;
+  const sendEmail = (env as unknown as { SEND_EMAIL?: unknown }).SEND_EMAIL as ((m: unknown) => Promise<unknown>) | undefined;
+  if (typeof sendEmail !== 'function') return;
+  const html = `<!doctype html><html><body style="font-family:system-ui,sans-serif;color:#0a1020;max-width:600px">
+    <h2 style="margin:0 0 8px">We received your brief</h2>
+    <p>Hi ${escapeHtml(s.name)},</p>
+    <p>Thanks for reaching out to Yalla Kaishi. We reply within 24 hours.</p>
+    <p><strong>Your reference ID:</strong> ${escapeHtml(ref)}</p>
+    <p style="color:#666;font-size:13px">If you need to add anything, reply to this email or contact hello@yallakaishi.com.</p>
+  </body></html>`;
+  await sendEmail({
+    from: env.MAIL_FROM,
+    to: s.email,
+    headers: { Subject: `We received your brief — ${ref}` },
+    html,
+  }).catch((err: unknown) => console.error('autoReply failed', err));
 }
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
@@ -189,6 +219,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     .run();
 
   await notify(env, parsed, ref);
+  await autoReply(env, parsed, ref);
 
   return json({ ok: true, ref });
 };

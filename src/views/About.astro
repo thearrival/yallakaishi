@@ -58,21 +58,28 @@ const { locale, path } = Astro.props;
               width={200}
               height={260}
             />
-            <div class="founder-name">
-              <span>{pick(founder.name, locale)}</span>
-            </div>
           </div>
           <div class="founder-body">
-            <p class="eyebrow-founder">{t('about.eyebrowFounderThree', locale)}</p>
+            <div class="founder-name">
+              <strong>{pick(founder.name, locale)}</strong>
+              <span>{pick(founder.role, locale)}</span>
+            </div>
             <blockquote class="founder-quote">
               <Icon name="quote" size={26} />
               <p>{pick(founder.quote, locale)}</p>
             </blockquote>
-            <div class="founder-meta">
-              <strong>{pick(founder.name, locale)}</strong>
-              <span>{pick(founder.role, locale)}</span>
-            </div>
             <p class="founder-bio">{pick(founder.bio, locale)}</p>
+            <div class="founder-links">
+              <a
+                href="https://linkedin.com/in/ismail-ahmed-yk"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('about.linkedin', locale, { name: pick(founder.name, locale) })}
+              >
+                <Icon name="linkedin" size={18} />
+                <span>{t('about.linkedinLabel', locale)}</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -85,21 +92,28 @@ const { locale, path } = Astro.props;
               width={200}
               height={260}
             />
-            <div class="founder-name">
-              <span>{pick(founderTwo.name, locale)}</span>
-            </div>
           </div>
           <div class="founder-body">
-            <p class="eyebrow-founder">{t('about.eyebrowFounderTwo', locale)}</p>
+            <div class="founder-name">
+              <strong>{pick(founderTwo.name, locale)}</strong>
+              <span>{pick(founderTwo.role, locale)}</span>
+            </div>
             <blockquote class="founder-quote">
               <Icon name="quote" size={26} />
               <p>{pick(founderTwo.quote, locale)}</p>
             </blockquote>
-            <div class="founder-meta">
-              <strong>{pick(founderTwo.name, locale)}</strong>
-              <span>{pick(founderTwo.role, locale)}</span>
-            </div>
             <p class="founder-bio">{pick(founderTwo.bio, locale)}</p>
+            <div class="founder-links">
+              <a
+                href="https://linkedin.com/in/liu-li-yk"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('about.linkedin', locale, { name: pick(founderTwo.name, locale) })}
+              >
+                <Icon name="linkedin" size={18} />
+                <span>{t('about.linkedinLabel', locale)}</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>

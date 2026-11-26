@@ -16,7 +16,7 @@ export const coreServices: CoreService[] = [
   {
     slug: 'international-growth',
     icon: 'globe',
-    index: '02',
+    index: '01',
     title: {
       en: 'International growth for Chinese companies',
       zh: '中国企业国际增长',
@@ -52,7 +52,7 @@ export const coreServices: CoreService[] = [
   {
     slug: 'china-market-access',
     icon: 'building',
-    index: '03',
+    index: '02',
     title: {
       en: 'China market access for international companies',
       zh: '国际企业进入中国市场',
@@ -80,7 +80,7 @@ export const coreServices: CoreService[] = [
   {
     slug: 'supplier-partner-discovery',
     icon: 'search',
-    index: '04',
+    index: '03',
     title: {
       en: 'Supplier and partner discovery',
       zh: '供应商与合作伙伴发现',
@@ -108,7 +108,7 @@ export const coreServices: CoreService[] = [
   {
     slug: 'digital-demand-generation',
     icon: 'mail',
-    index: '05',
+    index: '04',
     title: {
       en: 'Digital demand generation and brand execution',
       zh: '数字需求生成与品牌执行',
@@ -136,7 +136,7 @@ export const coreServices: CoreService[] = [
   {
     slug: 'ai-enabled-operations',
     icon: 'chip',
-    index: '06',
+    index: '05',
     title: {
       en: 'AI-enabled business operations',
       zh: 'AI 赋能业务运营',
@@ -164,7 +164,7 @@ export const coreServices: CoreService[] = [
   {
     slug: 'partner-ecosystem',
     icon: 'globe',
-    index: '07',
+    index: '06',
     title: {
       en: 'Partner ecosystem and business matchmaking',
       zh: '合作伙伴生态系统与商业撮合',

@@ -50,26 +50,26 @@ const languageOptions = ['en', 'zh', 'ar'].map((c) => ({
  * across locales.
  */
 const countries: { en: string; zh: string; ar: string }[] = [
-  { en: 'Saudi Arabia', zh: '沙特阿拉伯', ar: 'السعودية' },
-  { en: 'United Arab Emirates', zh: '阿联酋', ar: 'الإمارات' },
-  { en: 'Qatar', zh: '卡塔尔', ar: 'قطر' },
-  { en: 'Kuwait', zh: '科威特', ar: 'الكويت' },
-  { en: 'Bahrain', zh: '巴林', ar: 'البحرين' },
-  { en: 'Oman', zh: '阿曼', ar: 'عُمان' },
-  { en: 'China', zh: '中国', ar: 'الصين' },
-  { en: 'Hong Kong SAR', zh: '中国香港', ar: 'هونغ كونغ' },
-  { en: 'Taiwan', zh: '中国台湾', ar: 'تايوان' },
-  { en: 'Singapore', zh: '新加坡', ar: 'سنغافورة' },
-  { en: 'Malaysia', zh: '马来西亚', ar: 'ماليزيا' },
-  { en: 'Egypt', zh: '埃及', ar: 'مصر' },
-  { en: 'Jordan', zh: '约旦', ar: 'الأردن' },
-  { en: 'United Kingdom', zh: '英国', ar: 'المملكة المتحدة' },
-  { en: 'United States', zh: '美国', ar: 'الولايات المتحدة' },
-  { en: 'Germany', zh: '德国', ar: 'ألمانيا' },
-  { en: 'France', zh: '法国', ar: 'فرنسا' },
-  { en: 'India', zh: '印度', ar: 'الهند' },
-  { en: 'Pakistan', zh: '巴基斯坦', ar: 'باكستان' },
-  { en: 'Other', zh: '其他', ar: 'أخرى' },
+  { en: 'China', zh: '??', ar: '?????' },
+  { en: 'Hong Kong SAR', zh: '????', ar: '???? ????' },
+  { en: 'Taiwan', zh: '????', ar: '??????' },
+  { en: 'Singapore', zh: '???', ar: '????????' },
+  { en: 'Malaysia', zh: '????', ar: '???????' },
+  { en: 'United Kingdom', zh: '??', ar: '??????? ???????' },
+  { en: 'United States', zh: '??', ar: '???????? ???????' },
+  { en: 'Germany', zh: '??', ar: '???????' },
+  { en: 'France', zh: '??', ar: '?????' },
+  { en: 'India', zh: '?????', ar: '?????' },
+  { en: 'Pakistan', zh: '???????', ar: '???????' },
+  { en: 'Saudi Arabia', zh: '?????', ar: '????????' },
+  { en: 'United Arab Emirates', zh: '???', ar: '????????' },
+  { en: 'Qatar', zh: '???', ar: '???' },
+  { en: 'Kuwait', zh: '??????', ar: '??????' },
+  { en: 'Bahrain', zh: '???????', ar: '???????' },
+  { en: 'Oman', zh: '?????', ar: '?????' },
+  { en: 'Egypt', zh: '???', ar: '???' },
+  { en: 'Jordan', zh: '??????', ar: '??????' },
+  { en: 'Other', zh: '??', ar: '????' },
 ];
 ---
 
@@ -293,10 +293,19 @@ const countries: { en: string; zh: string; ar: string }[] = [
     <p class="field field--check">
       <label>
         <input type="checkbox" name="consent" required aria-describedby="e-consent" />
-        <span>{t('form.agree', locale)}</span>
+        <span>{t('form.agree', locale)} I consent to processing under GDPR/PDPL.</span>
       </label>
       <span class="field-error" id="e-consent" role="alert"></span>
     </p>
+
+    <!-- Honeypot -->
+    <p class="field" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden" aria-hidden="true">
+      <label for="f-website">Website</label>
+      <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+    </p>
+
+    <!-- Cloudflare Turnstile -->
+    <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? ''} data-theme="light"></div>
 
     <p class="wizard-spam">{t('form.spamNote', locale)}</p>
 
@@ -526,7 +535,19 @@ const countries: { en: string; zh: string; ar: string }[] = [
       return 'YK-' + ymd + '-' + rand;
     }
 
+    function getUtms() {
+      var p = new URLSearchParams(location.search);
+      return {
+        utm_source: p.get('utm_source') || '',
+        utm_medium: p.get('utm_medium') || '',
+        utm_campaign: p.get('utm_campaign') || '',
+        utm_content: p.get('utm_content') || '',
+        utm_term: p.get('utm_term') || '',
+      };
+    }
+
     function payload() {
+      var utm = getUtms();
       return {
         ref: makeRef(),
         locale: form.dataset.locale,
@@ -539,7 +560,11 @@ const countries: { en: string; zh: string; ar: string }[] = [
         services: selectedServices(),
         message: value('message'),
         consent: true,
+        website: value('website'),
+        pageUrl: location.href,
         source: location.href,
+        timestamp: new Date().toISOString(),
+        utm: utm,
       };
     }
 

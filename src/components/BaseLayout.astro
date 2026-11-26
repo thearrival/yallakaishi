@@ -204,7 +204,7 @@ const contactHref = `${localUrl(locale, routes.contact)}#brief`;
             if (e.key === 'Escape') setDrawer(false);
           });
           window.addEventListener('resize', function () {
-            if (window.innerWidth > 1180) setDrawer(false);
+            if (window.innerWidth > 900) setDrawer(false);
           });
         }
 
@@ -298,7 +298,7 @@ const contactHref = `${localUrl(locale, routes.contact)}#brief`;
         // Magnetic hero CTAs.
         (function () {
           if (window.matchMedia('(pointer: coarse)').matches) return;
-          document.querySelectorAll('.magnetic').forEach(function (wrap) {
+          document.querySelectorAll('.magnetic, .hero-actions .btn-primary, .home-hero .btn-primary').forEach(function (wrap) {
             var btn = wrap.querySelector('.btn') || wrap;
             wrap.addEventListener('mousemove', function (e) {
               var r = wrap.getBoundingClientRect();
@@ -358,6 +358,25 @@ const contactHref = `${localUrl(locale, routes.contact)}#brief`;
             },
             { threshold: 0.3 },
           ).observe(line);
+        })();
+
+        // Word-by-word hero reveal (G4)
+        (function(){
+          if(reduce) { document.querySelectorAll('[data-word-reveal]').forEach(function(e){e.classList.add('is-in');}); return; }
+          document.querySelectorAll('[data-word-reveal]').forEach(function(el){
+            var text = el.textContent.trim().split(/(\s+)/);
+            el.textContent='';
+            var i=0;
+            text.forEach(function(tok){
+              if(/^\s+$/.test(tok)){ el.appendChild(document.createTextNode(' ')); return; }
+              var span=document.createElement('span');
+              span.className='wr-word';
+              span.style.setProperty('--i', i++);
+              span.textContent=tok;
+              el.appendChild(span);
+            });
+            requestAnimationFrame(function(){ el.classList.add('is-in'); });
+          });
         })();
 
         // Smooth in-page anchor scroll with header offset.

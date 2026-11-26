@@ -60,7 +60,7 @@ const orgLd = {
     <div class="hero-grid">
       <div class="hero-copy">
         <span class="chip">{t('home.hero.eyebrow', locale)}</span>
-        <h1>
+        <h1 data-word-reveal>
           <span class="hero-line">{t('home.hero.title1', locale)}</span>
           <span class="hero-line hero-line--accent">{t('home.hero.title2', locale)}</span>
         </h1>
@@ -85,7 +85,7 @@ const orgLd = {
             <Icon name="check" size={14} /> {t('common.response', locale)}
           </li>
           <li>
-            <Icon name="check" size={14} /> EN · 中文 · arabe
+            <Icon name="check" size={14} /> EN · 中文 · العربية
           </li>
         </ul>
 
@@ -107,11 +107,30 @@ const orgLd = {
         />
         <div class="logo-tags">
           <span class="rg">{t('meta.tagline', locale)}</span>
-          <span class="rg">EN · 中文 · arabe</span>
+          <span class="rg">EN · 中文 · العربية</span>
         </div>
       </div>
     </div>
+    <a href="#brief" class="scroll-cue" aria-label="Scroll to content">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      <span>Scroll</span>
+    </a>
   </section>
+
+  <!-- ══════════ TRUST BAR MARQUEE ══════════ -->
+  <div class="trust-marquee" aria-label="Trust highlights">
+    <div class="trust-marquee-track">
+      <span>24h first reply</span><span class="dot" aria-hidden="true">·</span>
+      <span>EN · 中文 · العربية</span><span class="dot" aria-hidden="true">·</span>
+      <span>Guangzhou HQ</span><span class="dot" aria-hidden="true">·</span>
+      <span>24h first reply</span><span class="dot" aria-hidden="true">·</span>
+      <span>EN · 中文 · العربية</span><span class="dot" aria-hidden="true">·</span>
+      <span>Guangzhou HQ</span><span class="dot" aria-hidden="true">·</span>
+      <span>24h first reply</span><span class="dot" aria-hidden="true">·</span>
+      <span>EN · 中文 · العربية</span><span class="dot" aria-hidden="true">·</span>
+      <span>Guangzhou HQ</span><span class="dot" aria-hidden="true">·</span>
+    </div>
+  </div>
 
   <!-- ══════════ THREE PLANS ══════════ -->
   <section class="section section--tint" id="brief">
@@ -177,7 +196,7 @@ const orgLd = {
           </li>
           <li>
             <Icon name="check" size={18} />
-            <span>EN · 中文 · arabe</span>
+            <span>EN · 中文 · العربية</span>
           </li>
         </ul>
 
