@@ -16,7 +16,6 @@ interface Props {
   path: string;
 }
 const { locale, path } = Astro.props;
-
 ---
 
 <BaseLayout
@@ -24,18 +23,20 @@ const { locale, path } = Astro.props;
   path={path}
   title={t('about.meta.title', locale)}
   description={t('about.meta.desc', locale)}
-  jsonLd={[{
-    '@context': 'https://schema.org',
-    '@type': 'AboutPage',
-    name: t('about.meta.title', locale),
-    mainEntity: {
-      '@type': 'Organization',
-      name: site.name,
-      foundingDate: String(site.founded),
-      email: site.email,
-      telephone: site.phoneIntl,
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      name: t('about.meta.title', locale),
+      mainEntity: {
+        '@type': 'Organization',
+        name: site.name,
+        foundingDate: String(site.founded),
+        email: site.email,
+        telephone: site.phoneIntl,
+      },
     },
-  }]}
+  ]}
 >
   <PageHero
     locale={locale}

@@ -1540,23 +1540,71 @@ html[dir='rtl'] .scroll-progress {
   }
 }
 
-
 /* ?? Trust marquee (G4) ??????????????????????????????????? */
-.trust-marquee{overflow:hidden;border-block:1px solid var(--line);background:var(--surface-2);padding:0.85rem 0}
-.trust-marquee-track{display:flex;gap:1.5rem;align-items:center;width:max-content;animation:marquee-scroll 28s linear infinite;font-size:var(--fs-sm);font-weight:var(--w-semi);color:var(--muted);letter-spacing:var(--tracking-wide);text-transform:uppercase}
-.trust-marquee:hover .trust-marquee-track{animation-play-state:paused}
-.trust-marquee .dot{color:var(--brand-orange)}
-@keyframes marquee-scroll{from{transform:translateX(0)}to{transform:translateX(-33.333%)}}
-@media (prefers-reduced-motion: reduce){.trust-marquee-track{animation:none}}
+.trust-marquee {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  background: var(--surface-2);
+  padding: 0.85rem 0;
+}
+.trust-marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+  font-size: var(--fs-sm);
+  font-weight: var(--w-semi);
+  color: var(--muted);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+.trust-marquee:hover .trust-marquee-track {
+  animation-play-state: paused;
+}
+.trust-marquee .dot {
+  color: var(--brand-orange);
+}
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.333%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .trust-marquee-track {
+    animation: none;
+  }
+}
 
 /* ?? Global focus-visible ring (G5/A11y) ?????????????????? */
-:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{outline:2px solid var(--brand-orange);outline-offset:3px}
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--brand-orange);
+  outline-offset: 3px;
+}
 
 /* ?? Card hover (G4) ?????????????????????????????????????? */
-.svc-card,.plan-card,.industry-tile,.case-card,.value-card,.founder-card,[data-card]{
-  transition:transform var(--t), box-shadow var(--t), border-color var(--t);
+.svc-card,
+.plan-card,
+.industry-tile,
+.case-card,
+.value-card,
+.founder-card,
+[data-card] {
+  transition:
+    transform var(--t),
+    box-shadow var(--t),
+    border-color var(--t);
 }
-.svc-card:hover,.plan-card:hover,.industry-tile:hover,.case-card:hover,.value-card:hover,.founder-card:hover,[data-card]:hover{
-  transform:translateY(-4px);
-  box-shadow:var(--sh-lg);
+.svc-card:hover,
+.plan-card:hover,
+.industry-tile:hover,
+.case-card:hover,
+.value-card:hover,
+.founder-card:hover,
+[data-card]:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-lg);
 }

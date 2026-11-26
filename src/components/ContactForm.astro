@@ -299,13 +299,21 @@ const countries: { en: string; zh: string; ar: string }[] = [
     </p>
 
     <!-- Honeypot -->
-    <p class="field" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden" aria-hidden="true">
+    <p
+      class="field"
+      style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"
+      aria-hidden="true"
+    >
       <label for="f-website">Website</label>
       <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
     </p>
 
     <!-- Cloudflare Turnstile -->
-    <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? ''} data-theme="light"></div>
+    <div
+      class="cf-turnstile"
+      data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? ''}
+      data-theme="light"
+    ></div>
 
     <p class="wizard-spam">{t('form.spamNote', locale)}</p>
 

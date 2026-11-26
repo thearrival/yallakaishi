@@ -2361,19 +2361,69 @@ html.js [data-reveal].is-in {
   }
 }
 
-
 /* ?? G1/G4 Hero protections & motion ????????????????????? */
-.home-hero{min-height:100svh;overflow:visible;position:relative}
-.home-hero .home-hero-copy h1,.home-hero .page-hero h1{overflow:visible}
-.scroll-cue{position:absolute;inset-block-end:1.5rem;inset-inline-start:50%;transform:translateX(-50%);display:inline-flex;flex-direction:column;align-items:center;gap:.25rem;color:rgba(255,255,255,.7);font-size:var(--fs-xs);text-decoration:none;animation:scroll-bounce 2.2s ease-in-out infinite}
-.scroll-cue svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2}
-@keyframes scroll-bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
-@media (prefers-reduced-motion: reduce){.scroll-cue{animation:none}}
+.home-hero {
+  min-height: 100svh;
+  overflow: visible;
+  position: relative;
+}
+.home-hero .home-hero-copy h1,
+.home-hero .page-hero h1 {
+  overflow: visible;
+}
+.scroll-cue {
+  position: absolute;
+  inset-block-end: 1.5rem;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--fs-xs);
+  text-decoration: none;
+  animation: scroll-bounce 2.2s ease-in-out infinite;
+}
+.scroll-cue svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+@keyframes scroll-bounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue {
+    animation: none;
+  }
+}
 
 /* ?? G1 Responsive grids ????????????????????????????????? */
-.plan-grid,.svc-grid,.value-grid,.industry-grid,.case-grid,.insight-grid,[class*="-grid"]{
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+.plan-grid,
+.svc-grid,
+.value-grid,
+.industry-grid,
+.case-grid,
+.insight-grid,
+[class*='-grid'] {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
-@media (max-width:480px){
-  .plan-grid,.svc-grid,.value-grid,.industry-grid,.case-grid,.insight-grid{grid-template-columns:1fr}
+@media (max-width: 480px) {
+  .plan-grid,
+  .svc-grid,
+  .value-grid,
+  .industry-grid,
+  .case-grid,
+  .insight-grid {
+    grid-template-columns: 1fr;
+  }
 }

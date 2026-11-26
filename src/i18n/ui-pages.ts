@@ -17,7 +17,7 @@ export const uiPages = {
   'about.founder.liuLi': { en: 'Liu Li', zh: '刘丽', ar: 'ليو لي' },
   'about.founder.ismailAhmed': { en: 'Ismail Ahmed', zh: '韦德', ar: 'اسماعيل أحمد' },
   'about.linkedin': {
-    en: 'View {name}\'s LinkedIn profile',
+    en: "View {name}'s LinkedIn profile",
     zh: '查看{name}的 LinkedIn 个人资料',
     ar: 'عرض ملف {name} على LinkedIn',
   },
@@ -538,6 +538,7 @@ export const uiPages = {
 
   /* ══════════ CONTACT ══════════ */
   'contact.meta.title': { en: 'Contact', zh: '联系我们', ar: 'اتصل بنا' },
+  'contact.hq': { en: 'Our locations', zh: '?????', ar: '???????' },
   'contact.meta.desc': {
     en: 'Tell us the market and the deadline. First reply within 24 hours, in English, Chinese or Arabic.',
     zh: '告诉我们要进入的市场与时间节点。24 小时内首次回复，支持中英阿三语。',

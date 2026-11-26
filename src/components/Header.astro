@@ -31,9 +31,6 @@ const navItems = navSpec.map(({ route, label }) => ({
   active: path === routes[route] || path.startsWith(`${routes[route]}/`),
 }));
 
-const others = locales
-  .filter((l) => l !== locale)
-  .map((l) => ({ l, href: localUrl(l, altLangPath) }));
 const contactHref = localUrl(locale, routes.contact);
 ---
 

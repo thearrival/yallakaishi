@@ -23,10 +23,10 @@
 
 :root {
   /* ── Colour ─────────────────────────────────────────── */
-  --ink: #0A0F1E;
-  --cream: #FAF7F2;
-  --brand-orange: #F97316;
-  --brand-orange-ink: #1A1205;
+  --ink: #0a0f1e;
+  --cream: #faf7f2;
+  --brand-orange: #f97316;
+  --brand-orange-ink: #1a1205;
   --line: rgba(10, 15, 30, 0.08);
 
   --surface: #ffffff;
@@ -45,13 +45,17 @@
   --success: #0a6b3d;
   --success-soft: #e6f4ec;
 
-  --focus: #F97316;
+  --focus: #f97316;
 
   /* Gradients — orange only, no teal/green */
-  --grad-hero: linear-gradient(180deg, #0A0F1E 0%, #12192F 100%);
+  --grad-hero: linear-gradient(180deg, #0a0f1e 0%, #12192f 100%);
   --grad-card: linear-gradient(180deg, #ffffff 0%, #fafafc 100%);
   --grad-rule: linear-gradient(90deg, var(--brand-orange), #fb923c);
-  --grad-orange-mesh: radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.12) 0%, transparent 70%);
+  --grad-orange-mesh: radial-gradient(
+    circle at 50% 50%,
+    rgba(249, 115, 22, 0.12) 0%,
+    transparent 70%
+  );
 
   /* ── Typography — Fluid clamp() scale only ──────────── */
   --font-display: 'Outfit', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
@@ -86,15 +90,15 @@
   --w-bold: 700;
 
   /* ── Space scale — 4/8/12/16/24/32/48/64/96 ──────────── */
-  --space-1: 0.25rem;   /* 4px */
-  --space-2: 0.5rem;    /* 8px */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px */
-  --space-5: 1.5rem;    /* 24px */
-  --space-6: 2rem;      /* 32px */
-  --space-8: 3rem;      /* 48px */
-  --space-10: 4rem;     /* 64px */
-  --space-12: 6rem;     /* 96px */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.5rem; /* 24px */
+  --space-6: 2rem; /* 32px */
+  --space-8: 3rem; /* 48px */
+  --space-10: 4rem; /* 64px */
+  --space-12: 6rem; /* 96px */
 
   --section-y: clamp(4rem, 3rem + 6vw, 8rem);
   --gutter: clamp(1.25rem, 1rem + 2vw, 3rem);

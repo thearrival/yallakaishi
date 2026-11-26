@@ -298,19 +298,21 @@ const contactHref = `${localUrl(locale, routes.contact)}#brief`;
         // Magnetic hero CTAs.
         (function () {
           if (window.matchMedia('(pointer: coarse)').matches) return;
-          document.querySelectorAll('.magnetic, .hero-actions .btn-primary, .home-hero .btn-primary').forEach(function (wrap) {
-            var btn = wrap.querySelector('.btn') || wrap;
-            wrap.addEventListener('mousemove', function (e) {
-              var r = wrap.getBoundingClientRect();
-              var x = e.clientX - r.left - r.width / 2;
-              var y = e.clientY - r.top - r.height / 2;
-              btn.style.transform =
-                'translate(' + (x * 0.22).toFixed(1) + 'px,' + (y * 0.22).toFixed(1) + 'px)';
+          document
+            .querySelectorAll('.magnetic, .hero-actions .btn-primary, .home-hero .btn-primary')
+            .forEach(function (wrap) {
+              var btn = wrap.querySelector('.btn') || wrap;
+              wrap.addEventListener('mousemove', function (e) {
+                var r = wrap.getBoundingClientRect();
+                var x = e.clientX - r.left - r.width / 2;
+                var y = e.clientY - r.top - r.height / 2;
+                btn.style.transform =
+                  'translate(' + (x * 0.22).toFixed(1) + 'px,' + (y * 0.22).toFixed(1) + 'px)';
+              });
+              wrap.addEventListener('mouseleave', function () {
+                btn.style.transform = '';
+              });
             });
-            wrap.addEventListener('mouseleave', function () {
-              btn.style.transform = '';
-            });
-          });
         })();
 
         // Animated counters.
@@ -361,21 +363,31 @@ const contactHref = `${localUrl(locale, routes.contact)}#brief`;
         })();
 
         // Word-by-word hero reveal (G4)
-        (function(){
-          if(reduce) { document.querySelectorAll('[data-word-reveal]').forEach(function(e){e.classList.add('is-in');}); return; }
-          document.querySelectorAll('[data-word-reveal]').forEach(function(el){
+        (function () {
+          if (reduce) {
+            document.querySelectorAll('[data-word-reveal]').forEach(function (e) {
+              e.classList.add('is-in');
+            });
+            return;
+          }
+          document.querySelectorAll('[data-word-reveal]').forEach(function (el) {
             var text = el.textContent.trim().split(/(\s+)/);
-            el.textContent='';
-            var i=0;
-            text.forEach(function(tok){
-              if(/^\s+$/.test(tok)){ el.appendChild(document.createTextNode(' ')); return; }
-              var span=document.createElement('span');
-              span.className='wr-word';
+            el.textContent = '';
+            var i = 0;
+            text.forEach(function (tok) {
+              if (/^\s+$/.test(tok)) {
+                el.appendChild(document.createTextNode(' '));
+                return;
+              }
+              var span = document.createElement('span');
+              span.className = 'wr-word';
               span.style.setProperty('--i', i++);
-              span.textContent=tok;
+              span.textContent = tok;
               el.appendChild(span);
             });
-            requestAnimationFrame(function(){ el.classList.add('is-in'); });
+            requestAnimationFrame(function () {
+              el.classList.add('is-in');
+            });
           });
         })();
 

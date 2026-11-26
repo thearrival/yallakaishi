@@ -76,9 +76,10 @@ function parse(body: Record<string, unknown>): Submission | string {
         .filter(Boolean)
     : [];
 
-  const utmRaw = (body.utm && typeof body.utm === 'object') ? body.utm as Record<string, unknown> : {};
+  const utmRaw =
+    body.utm && typeof body.utm === 'object' ? (body.utm as Record<string, unknown>) : {};
   const utm: Record<string, string> = {};
-  ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach((k) => {
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach((k) => {
     utm[k] = str(utmRaw[k], 120);
   });
   return {
@@ -119,7 +120,11 @@ async function rateLimited(env: Env, ip: string): Promise<boolean> {
 async function notify(env: Env, s: Submission, ref: string) {
   if (env.NOTIFY === 'false' || !env.MAIL_TO || !env.MAIL_FROM) return;
   const list = s.services.length ? s.services.join(', ') : '—';
-  const utmStr = Object.entries(s.utm || {}).filter(([,v]) => v).map(([k,v]) => `${k}=${v}`).join(', ') || '—';
+  const utmStr =
+    Object.entries(s.utm || {})
+      .filter(([, v]) => v)
+      .map(([k, v]) => `${k}=${v}`)
+      .join(', ') || '—';
   const row = (label: string, value: string) =>
     `<tr><td style="padding:6px 12px;color:#666;font-size:13px;white-space:nowrap">${escapeHtml(label)}</td>` +
     `<td style="padding:6px 12px;font-size:14px">${escapeHtml(value).replace(/\n/g, '<br>')}</td></tr>`;
@@ -140,7 +145,8 @@ async function notify(env: Env, s: Submission, ref: string) {
       ${row('UTM parameters', utmStr)}
       ${row('Timestamp', s.submittedAt)}
     </table></body></html>`;
-  const sendEmail = (env as unknown as { SEND_EMAIL?: unknown }).SEND_EMAIL as ((m: unknown) => Promise<unknown>) | undefined;
+  const sendEmail = (env as unknown as { SEND_EMAIL?: unknown }).SEND_EMAIL as
+    ((m: unknown) => Promise<unknown>) | undefined;
   if (typeof sendEmail !== 'function') return;
   await sendEmail({
     from: env.MAIL_FROM,
@@ -152,7 +158,8 @@ async function notify(env: Env, s: Submission, ref: string) {
 
 async function autoReply(env: Env, s: Submission, ref: string) {
   if (env.NOTIFY === 'false' || !env.MAIL_FROM) return;
-  const sendEmail = (env as unknown as { SEND_EMAIL?: unknown }).SEND_EMAIL as ((m: unknown) => Promise<unknown>) | undefined;
+  const sendEmail = (env as unknown as { SEND_EMAIL?: unknown }).SEND_EMAIL as
+    ((m: unknown) => Promise<unknown>) | undefined;
   if (typeof sendEmail !== 'function') return;
   const html = `<!doctype html><html><body style="font-family:system-ui,sans-serif;color:#0a1020;max-width:600px">
     <h2 style="margin:0 0 8px">We received your brief</h2>

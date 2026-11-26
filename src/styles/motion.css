@@ -9,9 +9,15 @@
   animation: hero-bg 12s ease infinite;
 }
 @keyframes hero-bg {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* -- Floating ambient shape -- */
@@ -29,8 +35,12 @@
   z-index: 0;
 }
 @keyframes float {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-20px, 20px) scale(1.1); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-20px, 20px) scale(1.1);
+  }
 }
 
 /* ── Card hover glow ────────────────────────────────────────── */
@@ -81,7 +91,10 @@
 .value-card,
 .svc-card,
 .plan-card {
-  transition: transform var(--t-slow), box-shadow var(--t-slow), border-color var(--t);
+  transition:
+    transform var(--t-slow),
+    box-shadow var(--t-slow),
+    border-color var(--t);
 }
 .founder-card:hover,
 .value-card:hover,
@@ -96,9 +109,15 @@
   animation: pulse 3s infinite;
 }
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
-  70% { box-shadow: 0 0 0 14px rgba(255, 107, 107, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(255, 107, 107, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
+  }
 }
 
 /* ── Scroll progress ───────────────────────────────────────── */
@@ -120,7 +139,9 @@
   animation: marquee 16s linear infinite;
 }
 @keyframes marquee {
-  to { transform: translateX(-50%); }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 /* ── Section reveals (staggered) ────────────────────────────── */
@@ -158,8 +179,13 @@ html.js [data-reveal].is-in {
 
 /* ── Floating animation for decorative elements ─────────────── */
 @keyframes float-up-down {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
 }
 .float-anim {
   animation: float-up-down 6s ease-in-out infinite;
@@ -167,8 +193,15 @@ html.js [data-reveal].is-in {
 
 /* ── Glow pulse ─────────────────────────────────────────────── */
 @keyframes glow-pulse {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.1); }
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
 }
 .glow-pulse {
   animation: glow-pulse 4s ease-in-out infinite;
@@ -229,8 +262,24 @@ html[dir='rtl'] {
   font-feature-settings: 'kern';
 }
 
-
 /* G4: word reveal */
-[data-word-reveal] .wr-word{display:inline-block;opacity:0;transform:translateY(1.1em);transition:opacity .6s cubic-bezier(.2,.8,.2,1),transform .6s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i,0)*40ms)}
-[data-word-reveal].is-in .wr-word{opacity:1;transform:none}
-@media (prefers-reduced-motion: reduce){[data-word-reveal] .wr-word{opacity:1;transform:none;transition:none}}
+[data-word-reveal] .wr-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(1.1em);
+  transition:
+    opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 40ms);
+}
+[data-word-reveal].is-in .wr-word {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-word-reveal] .wr-word {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
