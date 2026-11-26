@@ -1,268 +1,16 @@
-/* ═══════════════════════════════════════════════════════════════════════════════
-   MOTION LAYER — creative, interactive, animated
-   Premium scroll reveals, hover effects, floating elements
-   ══════════════════════════════════════════════════════════════════════════════ */
-
-/* ── Hero background gradient animation ────────────────────── */
-.home-hero {
-  background-size: 200% 200%;
-  animation: hero-bg 12s ease infinite;
-}
-@keyframes hero-bg {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* -- Floating ambient shape -- */
-.home-hero::before {
-  content: '';
-  position: absolute;
-  top: -10%;
-  right: -5%;
-  width: 40%;
-  height: 60%;
-  background: radial-gradient(circle, rgba(255, 107, 107, 0.15), transparent 70%);
-  filter: blur(60px);
-  animation: float 10s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 0;
-}
-@keyframes float {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    transform: translate(-20px, 20px) scale(1.1);
-  }
-}
-
-/* ── Card hover glow ────────────────────────────────────────── */
-.svc-card,
-.industry-tile,
-.plan-card,
-.founder-card,
-.value-card {
-  position: relative;
-  overflow: hidden;
-}
-.svc-card::before,
-.industry-tile::before,
-.plan-card::before,
-.founder-card::before,
-.value-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at var(--mx, 50%) var(--my, 50%),
-    rgba(255, 107, 107, 0.12),
-    transparent 60%
-  );
+/* motion.css - reveals & micro-motion */
+[data-reveal] {
   opacity: 0;
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
-  z-index: 0;
-}
-.svc-card:hover::before,
-.industry-tile:hover::before,
-.plan-card:hover::before,
-.founder-card:hover::before,
-.value-card:hover::before {
-  opacity: 1;
-}
-.svc-card > *,
-.industry-tile > *,
-.plan-card > *,
-.founder-card > *,
-.value-card > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* ── Card lift on hover ─────────────────────────────────────── */
-.founder-card,
-.value-card,
-.svc-card,
-.plan-card {
+  transform: translateY(20px);
   transition:
-    transform var(--t-slow),
-    box-shadow var(--t-slow),
-    border-color var(--t);
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
 }
-.founder-card:hover,
-.value-card:hover,
-.svc-card:hover,
-.plan-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--sh-lg);
-}
-
-/* ── Button pulse ───────────────────────────────────────────── */
-.btn-primary {
-  animation: pulse 3s infinite;
-}
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 14px rgba(255, 107, 107, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
-  }
-}
-
-/* ── Scroll progress ───────────────────────────────────────── */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, var(--coral), var(--gold), #00d4ff);
-  transform-origin: left;
-  transform: scaleX(0);
-  z-index: 9999;
-  transition: transform 0.1s linear;
-}
-
-/* ── Marquee ────────────────────────────────────────────────── */
-.marquee-track {
-  animation: marquee 16s linear infinite;
-}
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* ── Section reveals (staggered) ────────────────────────────── */
-html.js [data-reveal] {
-  opacity: 0;
-  transform: translateY(35px) scale(0.97);
-  filter: blur(6px);
-  transition:
-    opacity 0.8s var(--ease-out),
-    transform 0.8s var(--ease-out),
-    filter 0.8s var(--ease-out);
-}
-html.js [data-reveal].is-in {
+[data-reveal].is-in {
   opacity: 1;
   transform: none;
-  filter: blur(0);
 }
 
-/* Staggered children reveal */
-[data-reveal-stagger] > [data-reveal] {
-  transition-delay: var(--i, 0) * 0.12s;
-}
-
-/* ── Founder portrait hover effect ──────────────────────────── */
-.founder-portrait {
-  overflow: hidden;
-  border-radius: var(--r-xl);
-}
-.founder-portrait img {
-  transition: transform var(--t-slow);
-}
-.founder-card:hover .founder-portrait img {
-  transform: scale(1.05);
-}
-
-/* ── Floating animation for decorative elements ─────────────── */
-@keyframes float-up-down {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-}
-.float-anim {
-  animation: float-up-down 6s ease-in-out infinite;
-}
-
-/* ── Glow pulse ─────────────────────────────────────────────── */
-@keyframes glow-pulse {
-  0%,
-  100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.1);
-  }
-}
-.glow-pulse {
-  animation: glow-pulse 4s ease-in-out infinite;
-}
-
-/* ── Mobile ─────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .home-hero {
-    min-height: auto;
-    padding: 3rem 1.5rem;
-  }
-  .hero-actions {
-    flex-direction: column;
-  }
-  .hero-actions .btn {
-    width: 100%;
-  }
-  .founders-grid {
-    grid-template-columns: 1fr !important;
-    gap: 2rem !important;
-  }
-  .value-grid {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
-  }
-}
-
-/* ── Reduced motion ─────────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  .home-hero,
-  .home-hero::before,
-  .btn-primary,
-  .marquee-track,
-  .float-anim,
-  .glow-pulse,
-  html.js [data-reveal] {
-    animation: none !important;
-    transition: none !important;
-  }
-  html.js [data-reveal] {
-    opacity: 1;
-    transform: none;
-    filter: none;
-  }
-  html {
-    scroll-behavior: auto;
-  }
-}
-
-/* ── Cross-browser font smoothing ───────────────────────────── */
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* ── RTL-aware spacing ─────────────────────────────────────── */
-html[dir='rtl'] {
-  font-feature-settings: 'kern';
-}
-
-/* G4: word reveal */
 [data-word-reveal] .wr-word {
   display: inline-block;
   opacity: 0;
@@ -276,10 +24,31 @@ html[dir='rtl'] {
   opacity: 1;
   transform: none;
 }
-@media (prefers-reduced-motion: reduce) {
-  [data-word-reveal] .wr-word {
+
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 90, 31, 0.12), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+@media (hover: hover) and (pointer: fine) {
+  .cursor-glow {
     opacity: 1;
-    transform: none;
-    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-word-reveal] .wr-word {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
