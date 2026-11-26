@@ -47,6 +47,78 @@ const orgLd = {
   branded={false}
   jsonLd={[orgLd]}
 >
+  <!-- PLANS HERO -->
+  <section class="home-hero">
+    <svg class="hero-shape" aria-hidden="true" width="420" height="420" viewBox="0 0 100 100">
+      <path
+        d="M22 12 Q22 6 28 9 L88 44 Q94 50 88 56 L28 91 Q22 94 22 88 Z"
+        fill="#FF6A00"
+        transform="rotate(-18 50 50)"
+      ></path>
+    </svg>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="chip">{t('home.hero.eyebrow', locale)}</span>
+        <h1 data-word-reveal>
+          <span class="hero-line">{t('home.hero.title1', locale)}</span>
+          <span class="hero-line hero-line--accent">{t('home.hero.title2', locale)}</span>
+        </h1>
+        <p class="lede">{t('home.hero.sub', locale)}</p>
+
+        <div class="hero-actions">
+          <span class="magnetic">
+            <a class="btn btn-primary btn-lg" href="#brief">
+              {t('home.hero.cta1', locale)}
+              <Icon name="arrow" size={18} />
+            </a>
+          </span>
+          <span class="magnetic">
+            <a class="btn btn-outline btn-lg" href={localUrl(locale, routes.contact)}>
+              {t('home.hero.cta2', locale)}
+            </a>
+          </span>
+        </div>
+
+        <ul class="hero-badges">
+          <li>
+            <Icon name="check" size={14} /> {t('common.response', locale)}
+          </li>
+          <li>
+            <Icon name="check" size={14} /> EN · 中文 · العربية
+          </li>
+        </ul>
+
+        <p class="hero-trust">
+          <Icon name="pin" size={14} />
+          <span>
+            {t('home.panel.live', locale)} · {t('common.hoursValue', locale)}
+          </span>
+        </p>
+      </div>
+
+      <div class="logo-card" data-reveal>
+        <img
+          src="/logo.png"
+          alt={`${site.name} 开始`}
+          width="670"
+          height="438"
+          fetchpriority="high"
+        />
+        <div class="logo-tags">
+          <span class="rg">{t('meta.tagline', locale)}</span>
+          <span class="rg">EN · 中文 · العربية</span>
+        </div>
+      </div>
+    </div>
+    <a href="#brief" class="scroll-cue" aria-label="Scroll to content">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 9l6 6 6-6" />
+      </svg>
+      <span>Scroll</span>
+    </a>
+  </section>
+
   <!-- ══════════ THREE PLANS ══════════ -->
   <section class="section section--tint" id="brief">
     <div class="container">

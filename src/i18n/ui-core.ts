@@ -263,11 +263,6 @@ export const uiCore = {
     zh: '免责声明',
     ar: 'إخلاء المسؤولية',
   },
-  'foot.builtNote': {
-    en: 'Registered in Guangzhou, China · Serving clients worldwide',
-    zh: '注册于中国广州 · 服务全球客户',
-    ar: 'مسجّلة في غوانغتشو، الصين · نخدم عملاء العالم',
-  },
 
   /* ── 404 ───────────────────────────────────────────── */
   '404.code': { en: '404', zh: '404', ar: '404' },

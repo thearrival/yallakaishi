@@ -12,8 +12,6 @@ export const uiPages = {
     ar: 'عرض الكل',
   },
   /* ══════════ HOME ══════════ */
-  'about.eyebrowFounder': { en: 'Founder', zh: '创始人', ar: 'المؤسس' },
-  'about.eyebrowFounderTwo': { en: 'Co-founder', zh: '合伙人', ar: 'شريك التأسيس' },
   'about.founder.liuLi': { en: 'Liu Li', zh: '刘丽', ar: 'ليو لي' },
   'about.founder.ismailAhmed': { en: 'Ismail Ahmed', zh: '韦德', ar: 'اسماعيل أحمد' },
   'about.linkedin': {
@@ -561,7 +559,6 @@ export const uiPages = {
     zh: '直接联系方式',
     ar: 'قنوات مباشرة',
   },
-  'contact.offices': { en: 'Presence', zh: '据点', ar: 'الحضور' },
   'contact.nextSteps': {
     en: 'What happens next',
     zh: '接下来会发生什么',
