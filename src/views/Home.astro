@@ -97,17 +97,47 @@ const orgLd = {
         </p>
       </div>
 
-      <div class="logo-card" data-reveal>
-        <img
-          src="/logo.png"
-          alt={`${site.name} 开始`}
-          width="670"
-          height="438"
-          fetchpriority="high"
-        />
-        <div class="logo-tags">
-          <span class="rg">{t('meta.tagline', locale)}</span>
-          <span class="rg">EN · 中文 · العربية</span>
+      <div class="hero-panel" data-reveal>
+        <div class="hero-panel-brand">
+          <img
+            src="/logo.png"
+            alt={`${site.name} 开始`}
+            width="670"
+            height="438"
+            fetchpriority="high"
+          />
+        </div>
+        <p class="hero-panel-kicker">{t('meta.tagline', locale)}</p>
+        <div class="hero-panel-steps">
+          <div class="hero-panel-step">
+            <span class="step-n">01</span>
+            <div>
+              <strong>{t('contact.step1t', locale)}</strong>
+              <p>{t('contact.step1d', locale)}</p>
+            </div>
+          </div>
+          <div class="hero-panel-step">
+            <span class="step-n">02</span>
+            <div>
+              <strong>{t('contact.step2t', locale)}</strong>
+              <p>{t('contact.step2d', locale)}</p>
+            </div>
+          </div>
+          <div class="hero-panel-step">
+            <span class="step-n">03</span>
+            <div>
+              <strong>{t('contact.step3t', locale)}</strong>
+              <p>{t('contact.step3d', locale)}</p>
+            </div>
+          </div>
+        </div>
+        <div class="hero-panel-foot">
+          <span>
+            <Icon name="check" size={14} /> {t('common.response', locale)}
+          </span>
+          <span>
+            <Icon name="check" size={14} /> EN · 中文 · العربية
+          </span>
         </div>
       </div>
     </div>
@@ -117,6 +147,48 @@ const orgLd = {
       </svg>
       <span>Scroll</span>
     </a>
+  </section>
+
+  <!-- ══════════ TRUST STRIP ══════════ -->
+  <section class="trust-strip" aria-label="Key promises">
+    <div class="container trust-strip-grid">
+      <div class="trust-item" data-reveal>
+        <span class="trust-icon">
+          <Icon name="clock" size={20} />
+        </span>
+        <div>
+          <strong>{t('common.response', locale)}</strong>
+          <p>{t('contact.step2d', locale)}</p>
+        </div>
+      </div>
+      <div class="trust-item" data-reveal>
+        <span class="trust-icon">
+          <Icon name="translate" size={20} />
+        </span>
+        <div>
+          <strong>EN · 中文 · العربية</strong>
+          <p>{t('home.panel.foot', locale)}</p>
+        </div>
+      </div>
+      <div class="trust-item" data-reveal>
+        <span class="trust-icon">
+          <Icon name="pin" size={20} />
+        </span>
+        <div>
+          <strong>{t('home.panel.live', locale)}</strong>
+          <p>{t('common.hoursValue', locale)}</p>
+        </div>
+      </div>
+      <div class="trust-item" data-reveal>
+        <span class="trust-icon">
+          <Icon name="shield" size={20} />
+        </span>
+        <div>
+          <strong>{t('eng.fixedFee', locale)}</strong>
+          <p>{t('eng.capped', locale)}</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ══════════ THREE PLANS ══════════ -->
@@ -142,10 +214,8 @@ const orgLd = {
         <h3>{t('eng.compare', locale)}</h3>
         <div class="comparison-table">
           <div class="comparison-row">
-            <span>{t('eng.mostPopular', locale)}</span>
-            <span>{t('eng.capped', locale)}</span>
-            <span>{t('eng.fixedFee', locale)}</span>
-            <span>{t('common.viewAll', locale)}</span>
+            <span></span>
+            {plans.map((p) => <span>{p.name[locale]}</span>)}
           </div>
           {comparisonRows.map((row, i) => (
             <div class="comparison-row">
@@ -160,8 +230,37 @@ const orgLd = {
     </div>
   </section>
 
+  <!-- ══════════ HOW WE WORK ══════════ -->
+  <section class="section">
+    <div class="container">
+      <SectionHead
+        eyebrow={t('contact.nextSteps', locale)}
+        title={t('contact.nextSteps', locale)}
+        sub={t('contact.sub', locale)}
+        align="center"
+      />
+      <div class="how-grid">
+        <article class="how-card" data-reveal>
+          <span class="how-n">01</span>
+          <h3>{t('contact.step1t', locale)}</h3>
+          <p>{t('contact.step1d', locale)}</p>
+        </article>
+        <article class="how-card" data-reveal>
+          <span class="how-n">02</span>
+          <h3>{t('contact.step2t', locale)}</h3>
+          <p>{t('contact.step2d', locale)}</p>
+        </article>
+        <article class="how-card" data-reveal>
+          <span class="how-n">03</span>
+          <h3>{t('contact.step3t', locale)}</h3>
+          <p>{t('contact.step3d', locale)}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ══════════ CONTACT ══════════ -->
-  <section class="section home-contact">
+  <section class="section home-contact section--tint">
     <div class="container home-contact-grid">
       <div class="home-contact-copy" data-reveal>
         <p class="eyebrow">{t('contact.eyebrow', locale)}</p>

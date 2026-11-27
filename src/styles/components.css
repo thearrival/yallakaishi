@@ -87,6 +87,23 @@ html[dir='rtl'] .btn:hover svg {
 .btn-block {
   width: 100%;
 }
+.btn-light {
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.btn-light:hover {
+  background: #f3f0ea;
+}
+.btn-ghost-light {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+.btn-ghost-light:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.06);
+}
 
 /* Header */
 .site-header {
