@@ -53,7 +53,6 @@ export const uiCore = {
   /* ── Common actions & labels ───────────────────────── */
   'common.home': { en: 'Home', zh: '首页', ar: 'الرئيسية' },
   'common.more': { en: 'Learn more', zh: '了解更多', ar: 'اعرف المزيد' },
-  'common.viewAll': { en: 'View all', zh: '查看全部', ar: 'عرض الكل' },
   'common.backHome': {
     en: 'Back to homepage',
     zh: '返回首页',

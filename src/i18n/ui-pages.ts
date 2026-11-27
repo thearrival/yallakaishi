@@ -6,11 +6,6 @@ import type { Locale, Localized } from './index';
  * with the same `{ en, zh, ar }` shape.
  */
 export const uiPages = {
-  'common.viewAll': {
-    en: 'View all',
-    zh: '查看全部',
-    ar: 'عرض الكل',
-  },
   /* ══════════ HOME ══════════ */
   'about.founder.liuLi': { en: 'Liu Li', zh: '刘丽', ar: 'ليو لي' },
   'about.founder.ismailAhmed': { en: 'Ismail Ahmed', zh: '韦德', ar: 'اسماعيل أحمد' },
