@@ -72,7 +72,7 @@ for (const dir of readdirSync(contentDir)) {
   for (const file of readdirSync(join(contentDir, dir))) {
     articles++;
     const text = readFileSync(join(contentDir, dir, file), 'utf8');
-    const fm = text.match(/^---\n([\s\S]*?)\n---/);
+    const fm = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
     if (!fm) {
       contentErrors.push(`missing frontmatter: content/insights/${dir}/${file}`);
       continue;
