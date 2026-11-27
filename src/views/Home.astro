@@ -215,7 +215,9 @@ const orgLd = {
         <div class="comparison-table">
           <div class="comparison-row">
             <span></span>
-            {plans.map((p) => <span>{p.name[locale]}</span>)}
+            {plans.map((p) => (
+              <span>{p.name[locale]}</span>
+            ))}
           </div>
           {comparisonRows.map((row, i) => (
             <div class="comparison-row">
