@@ -49,13 +49,27 @@ const orgLd = {
 >
   <!-- PLANS HERO -->
   <section class="home-hero">
-    <svg class="hero-shape" aria-hidden="true" width="420" height="420" viewBox="0 0 100 100">
-      <path
-        d="M22 12 Q22 6 28 9 L88 44 Q94 50 88 56 L28 91 Q22 94 22 88 Z"
-        fill="#FF6A00"
-        transform="rotate(-18 50 50)"
-      ></path>
-    </svg>
+    <div class="hero-bg-shapes" aria-hidden="true">
+      <svg class="hero-shape hero-shape--main" width="420" height="420" viewBox="0 0 100 100">
+        <path
+          d="M22 12 Q22 6 28 9 L88 44 Q94 50 88 56 L28 91 Q22 94 22 88 Z"
+          fill="#FF6A00"
+          transform="rotate(-18 50 50)"
+        ></path>
+      </svg>
+      <svg class="hero-shape hero-shape--outline" width="240" height="240" viewBox="0 0 100 100">
+        <path
+          d="M22 12 Q22 6 28 9 L88 44 Q94 50 88 56 L28 91 Q22 94 22 88 Z"
+          fill="none"
+          stroke="rgba(255,122,69,.45)"
+          stroke-width="2.2"
+          transform="rotate(-18 50 50)"
+        ></path>
+      </svg>
+      <div class="hero-orb hero-orb--a"></div>
+      <div class="hero-orb hero-orb--b"></div>
+      <div class="hero-ring"></div>
+    </div>
 
     <div class="hero-grid">
       <div class="hero-copy">
@@ -304,4 +318,33 @@ const orgLd = {
       </div>
     </div>
   </section>
+  <script is:inline data-astro-rerun>
+    (function () {
+      var hero = document.querySelector('.home-hero');
+      if (
+        !hero ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+        window.matchMedia('(pointer: coarse)').matches
+      )
+        return;
+      var shapes = hero.querySelectorAll(
+        '.hero-shape--main, .hero-shape--outline, .hero-orb--a, .hero-orb--b, .hero-ring',
+      );
+      if (!shapes.length) return;
+      hero.addEventListener('mousemove', function (e) {
+        var r = hero.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        shapes.forEach(function (el, i) {
+          var d = (i + 1) * 6;
+          el.style.translate = x * d + 'px ' + y * d + 'px';
+        });
+      });
+      hero.addEventListener('mouseleave', function () {
+        shapes.forEach(function (el) {
+          el.style.translate = '';
+        });
+      });
+    })();
+  </script>
 </BaseLayout>

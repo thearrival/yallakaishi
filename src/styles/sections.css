@@ -21,14 +21,61 @@
   color: rgba(255, 255, 255, 0.84);
   box-shadow: 0 24px 80px rgba(22, 24, 29, 0.18);
 }
+.hero-bg-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
 .home-hero .hero-shape {
   position: absolute;
+  height: auto;
+  pointer-events: none;
+}
+.hero-shape--main {
   inset-block-start: -60px;
   inset-inline-end: -60px;
   width: clamp(200px, 26vw, 340px);
-  height: auto;
-  opacity: 0.8;
-  pointer-events: none;
+  opacity: 0.82;
+}
+.hero-shape--outline {
+  inset-block-start: 8%;
+  inset-inline-end: 18%;
+  width: clamp(120px, 14vw, 220px);
+  opacity: 0.55;
+}
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.55;
+}
+.hero-orb--a {
+  width: clamp(140px, 18vw, 260px);
+  height: clamp(140px, 18vw, 260px);
+  inset-block-end: 8%;
+  inset-inline-start: -4%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 122, 69, 0.35),
+    rgba(255, 90, 31, 0.05) 70%
+  );
+}
+.hero-orb--b {
+  width: clamp(90px, 10vw, 160px);
+  height: clamp(90px, 10vw, 160px);
+  inset-block-start: 18%;
+  inset-inline-start: 45%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12), transparent 70%);
+}
+.hero-ring {
+  position: absolute;
+  width: clamp(120px, 14vw, 200px);
+  height: clamp(120px, 14vw, 200px);
+  inset-block-end: 18%;
+  inset-inline-end: 32%;
+  border: 1px solid rgba(255, 122, 69, 0.25);
+  border-radius: 50%;
 }
 .hero-grid {
   position: relative;
