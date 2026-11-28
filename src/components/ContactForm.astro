@@ -556,6 +556,7 @@ const countries: { en: string; zh: string; ar: string }[] = [
 
     function payload() {
       var utm = getUtms();
+      var turnstileInput = form.querySelector('input[name="cf-turnstile-response"]');
       return {
         ref: makeRef(),
         locale: form.dataset.locale,
@@ -573,6 +574,7 @@ const countries: { en: string; zh: string; ar: string }[] = [
         source: location.href,
         timestamp: new Date().toISOString(),
         utm: utm,
+        turnstileToken: turnstileInput ? turnstileInput.value : '',
       };
     }
 

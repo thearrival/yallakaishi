@@ -17,6 +17,8 @@ export interface Env {
   MAIL_FROM?: string;
   /** Send an email on each submission. Disable while testing D1 storage. */
   NOTIFY?: string;
+  /** Cloudflare Turnstile secret. When set, submissions are verified server-side. */
+  TURNSTILE_SECRET?: string;
 }
 
 interface Submission {
@@ -33,6 +35,7 @@ interface Submission {
   pageUrl: string;
   utm: Record<string, string>;
   submittedAt: string;
+  turnstileToken: string;
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -96,6 +99,7 @@ function parse(body: Record<string, unknown>): Submission | string {
     pageUrl: str(body.pageUrl || body.source, 500),
     utm,
     submittedAt: str(body.timestamp, 40) || new Date().toISOString(),
+    turnstileToken: str(body.turnstileToken, 2048),
   };
 }
 
@@ -104,6 +108,22 @@ const escapeHtml = (s: string) =>
     /[&<>"']/g,
     (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c] as string,
   );
+
+async function verifyTurnstile(env: Env, token: string, ip: string): Promise<boolean> {
+  if (!env.TURNSTILE_SECRET) return true;
+  if (!token) return false;
+  try {
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ secret: env.TURNSTILE_SECRET, response: token, remoteip: ip }),
+    });
+    const data = (await res.json()) as { success?: boolean };
+    return data.success === true;
+  } catch {
+    return false;
+  }
+}
 
 /** Rate limit: at most 5 submissions per IP per hour, counted in D1. */
 async function rateLimited(env: Env, ip: string): Promise<boolean> {
@@ -195,6 +215,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   }
 
   const ip = request.headers.get('CF-Connecting-IP') ?? '0.0.0.0';
+  if (!(await verifyTurnstile(env, parsed.turnstileToken, ip))) {
+    return json({ ok: false, error: 'turnstile_failed' }, 400);
+  }
   if (await rateLimited(env, ip)) {
     return json({ ok: false, error: 'rate_limited' }, 429);
   }
