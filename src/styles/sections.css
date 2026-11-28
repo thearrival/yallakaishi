@@ -624,6 +624,8 @@
 /* ── Comparison ── */
 .plan-comparison {
   margin-top: 3rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .plan-comparison h3 {
   font-size: var(--fs-h4);
@@ -634,6 +636,7 @@
   border-radius: var(--r-lg);
   overflow: hidden;
   background: var(--surface);
+  min-width: 560px;
 }
 .comparison-row {
   display: grid;

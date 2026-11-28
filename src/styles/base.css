@@ -69,6 +69,11 @@ ol {
 p,
 li,
 dd {
+  overflow-wrap: break-word;
+}
+p,
+li,
+dd {
   text-wrap: pretty;
 }
 
@@ -116,6 +121,29 @@ b {
   border-radius: var(--r-xs);
 }
 
+:where(
+    .hero-grid,
+    .plan-grid,
+    .svc-grid,
+    .value-grid,
+    .industry-grid,
+    .case-grid,
+    .insight-grid,
+    .founders-grid,
+    .process-grid,
+    .contact-grid,
+    .trust-strip-grid,
+    .how-grid,
+    .home-contact-grid,
+    .contact-layout,
+    .footer-grid,
+    .post-grid,
+    .mini-grid,
+    .notice-grid
+  )
+  > * {
+  min-width: 0;
+}
 .container {
   width: 100%;
   max-width: var(--container);

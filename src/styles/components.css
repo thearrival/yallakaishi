@@ -731,6 +731,9 @@ textarea {
   .review-wide {
     grid-column: auto;
   }
+  .wizard-steps {
+    flex-direction: column;
+  }
 }
 
 /* Misc */
